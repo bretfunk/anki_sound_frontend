@@ -11,27 +11,26 @@ class App extends Component {
     this.getPhrases = this.getPhrases.bind(this)
   }
 
+
   getPhrases() {
      axios.get(url, { crossdomain: true })
       .then((response) => {
-        alert(response)
-        this.setState({phrasesReceieved: JSON.stringify(response)})
+        this.setState({phrasesReceived: JSON.stringify(response.data)})
       })
     .catch((error) => {
       console.error(error);
     });
   }
+
   render() {
     return (
       <div className="App">
       <button
       onClick={this.getPhrases}
-      style={{marginTop: '25vh'}}
       >
       Get Phrases
       </button>
       <p>{this.state.phrasesReceived}</p>
-      <p>Fake Text</p>
       </div>
     );
   }
