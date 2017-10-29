@@ -4,6 +4,7 @@ import axios from 'axios';
 import Navbar from './components/navbar';
 import Form from './components/form';
 import Body from './components/body';
+import Login from './components/login';
 
 const url = "https://protected-thicket-11517.herokuapp.com/api/phrases"
 
@@ -31,6 +32,7 @@ class App extends Component {
       <Navbar />
       </div>
       <div className="App">
+      <Login />
       <Form />
       <Body />
       <button
