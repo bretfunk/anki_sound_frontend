@@ -54,6 +54,7 @@ class Form extends Component {
     let language = this.state.languageHash[this.state.language]
     axios.get('https://api.voicerss.org/?key=' + this.state.api + '&hl=' + language + '&src=' + this.state.text)
       .then((data) => {
+        alert('it works!')
         debugger
       })
       .catch((error) => {
@@ -68,8 +69,8 @@ class Form extends Component {
       <form onSubmit={this.handleSubmit}>
       <label>
       Phrase:
-      <textarea value={this.state.phrase} onChange={this.handleChange}/>
       </label>
+      <textarea value={this.state.phrase} onChange={this.handleChange}/>
       <label>
       Language:
       </label>

@@ -5,6 +5,7 @@ import Navbar from './components/navbar';
 import Form from './components/form';
 import Body from './components/body';
 import Login from './components/login';
+import Profile from './components/profile';
 
 const url = "https://protected-thicket-11517.herokuapp.com/api/phrases"
 
@@ -35,6 +36,7 @@ class App extends Component {
       <Login />
       <Form />
       <Body />
+      <Profile />
       <button
       onClick={this.getPhrases}
       >
