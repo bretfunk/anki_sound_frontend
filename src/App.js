@@ -1,18 +1,44 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import axios from 'axios';
+import Navbar from './components/navbar';
+import Form from './components/form';
+import Body from './components/body';
+
+const url = "https://protected-thicket-11517.herokuapp.com/api/phrases"
 
 class App extends Component {
+  constructor(props) {
+    super(props)
+    this.getPhrases = this.getPhrases.bind(this)
+  }
+
+
+  getPhrases() {
+     axios.get(url, { crossdomain: true })
+      .then((response) => {
+        this.setState({phrasesReceived: JSON.stringify(response.data)})
+      })
+    .catch((error) => {
+      console.error(error);
+    });
+  }
+
   render() {
     return (
+      <div>
+      <div className="App-header">
+      <Navbar />
+      </div>
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+      <Form />
+      <Body />
+      <button
+      onClick={this.getPhrases}
+      >
+      Get Phrases
+      </button>
+      </div>
       </div>
     );
   }
