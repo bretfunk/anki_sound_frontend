@@ -27,7 +27,6 @@ class Profile extends Component {
       {this.getSavedPhrases()}
       <h1>Profile</h1>
       <ul>{this.savedPhrases(this.state.saved)}</ul>
-      <p>{this.state.saved}</p>
       </div>
     );
   }
