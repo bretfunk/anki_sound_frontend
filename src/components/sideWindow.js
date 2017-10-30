@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Login from './login'
-import Profile from './profile'
+import Login from './Login'
+import Profile from './Profile'
 
 class SideWindow extends Component {
   render() {

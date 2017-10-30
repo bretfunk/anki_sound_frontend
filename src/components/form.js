@@ -66,6 +66,7 @@ class Form extends Component {
   render() {
     return (
       <div>
+      <h1>Form</h1>
       <form onSubmit={this.handleSubmit}>
       <label>
       Phrase:

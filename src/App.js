@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import './App.css';
 import axios from 'axios';
-import Navbar from './components/navbar';
-import MainWindow from './components/mainWindow';
-import SideWindow from './components/sideWindow';
+import Navbar from './components/Navbar';
+import MainWindow from './components/MainWindow';
+import SideWindow from './components/SideWindow';
 
 const url = "https://protected-thicket-11517.herokuapp.com/api/phrases"
 
@@ -26,17 +26,17 @@ class App extends Component {
   render() {
     return (
       <div>
-      <div className="App-header">
+      <div className="App-Navbar">
       <Navbar />
       </div>
-      <div className="App">
+      <div>
       <table width="100%">
       <tbody>
       <tr>
-      <td>
+      <td width="70%" className="App-MainWindow">
       <MainWindow />
       </td>
-      <td width="30%">
+      <td width="30%" className="App-SideWindow">
       <SideWindow />
       <button
       onClick={this.getPhrases}

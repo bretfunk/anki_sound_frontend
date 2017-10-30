@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Form from './form'
-import Body from './body'
+import Form from './Form'
+import Body from './Body'
 
 class MainWindow extends Component {
   render() {

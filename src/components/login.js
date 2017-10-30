@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-//import axios from 'axios'
+import axios from 'axios'
 
 class Login extends Component {
   constructor(props) {
@@ -7,6 +7,7 @@ class Login extends Component {
     this.state = {
       email: 'Enter email',
       password: 'Enter password',
+      jwt: ""
     }
     this.handleEmailChange = this.handleEmailChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
@@ -32,45 +33,17 @@ class Login extends Component {
   login() {
     const email = this.state.email
     const password = this.state.password
-    return fetch('https://protected-thicket-11517.herokuapp.com/api/user_token', {
-        method: 'POST',
-      //this works in postman but not here
-      //the mode below allows the request to go through but doesn't come with correct data
-        //mode: 'no-cors',
-        headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json',
-            },
-        body: {
-          "auth": {
-              "email": email,
-              "password": password
-          }
-        }
-    })
+    //axios.post("https://protected-thicket-11517.herokuapp.com/api/user_token",
+    axios.post('http://localhost:4000/api/user_token',
+        {"auth": {"email": email, "password": password}}
+    )
       .then((data) => {
-        debugger
-        alert(data.jwt)
-        this.setState("jwt", data.jwt);
+        this.setState('jwt', data.data.jwt);
       })
       .catch((error) => {
         alert(error)
       })
     }
-    //axios.post("https://protected-thicket-11517.herokuapp.com/api/user_token",
-      //{ headers:
-        //{"auth": {"email": email, "password": password}}
-    //})
-      //.then((data) => {
-        //alert('it works!')
-        //alert(data.jwt);
-        //this.setState("jwt", data.jwt);
-      //})
-      //.catch((error) => {
-        //alert(error);
-        //console.log(error);
-      //});
-  //}
 
   render() {
     return (
