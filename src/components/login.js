@@ -38,7 +38,7 @@ class Login extends Component {
         {"auth": {"email": email, "password": password}}
     )
       .then((data) => {
-        this.setState('jwt', data.data.jwt);
+        this.setState({jwt: data.data.jwt});
       })
       .catch((error) => {
         alert(error)
