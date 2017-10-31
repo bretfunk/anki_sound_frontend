@@ -62,6 +62,7 @@ class Form extends Component {
       })
   }
 
+  //probably want to remove this from getFile so the user only saves the files they want, not all files
   createPhrase() {
     const phrase = this.state.phrase
     const language = this.state.language
