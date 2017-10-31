@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import axios from 'axios'
-
+import fileDownload from 'react-file-download'
+//var fileDownload = require('react-file-download');
 class Form extends Component {
   constructor(props) {
     super(props);
     this.state = {
       phrase: 'Please enter text to covert to audio',
       language: 'Choose Language',
-      api: "",
+      api: "6cb15da6cea04e2b85024d5b5351046c",
       languageHash: {
         Catalan: "ca-es",
         Chinese: "zh-cn",
@@ -49,16 +50,22 @@ class Form extends Component {
     this.getFile()
   }
 
-
+//data.split is not a function
   getFile() {
     let language = this.state.languageHash[this.state.language]
-    axios.get('https://api.voicerss.org/?key=' + this.state.api + '&hl=' + language + '&src=' + this.state.text)
+    console.log(language)
+    console.log(this.state.api)
+    console.log(this.state.phrase)
+    //axios.get('https://api.voicerss.org/?key=' + this.state.api + '&c=MP3&hl=' + language + '&src=' + this.state.phrase)
+    axios.get('http://api.voicerss.org/?key=6cb15da6cea04e2b85024d5b5351046c&b64=true&hl=en-us&src=Hello, world!')
       .then((data) => {
-        alert('it works!')
-        this.createPhrase()
+        debugger
+        alert(data.split(",")[1])
+        fileDownload(data, 'filename.mp3');
+        //this.createPhrase()
       })
       .catch((error) => {
-        alert('it doesnt work!')
+        alert(error)
       })
   }
 
