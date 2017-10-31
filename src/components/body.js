@@ -8,9 +8,8 @@ class Body extends Component {
     }
     this.getPhrase = this.getPhrase.bind(this);
   }
-
   getPhrase() {
-  }
+    }
 
   render() {
     return (

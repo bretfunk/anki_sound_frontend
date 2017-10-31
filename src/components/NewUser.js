@@ -7,12 +7,11 @@ class Login extends Component {
     this.state = {
       email: 'Enter email',
       password: 'Enter password',
-      jwt: ""
     }
     this.handleEmailChange = this.handleEmailChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.login = this.login.bind(this);
+    this.createuser = this.createUser.bind(this);
   }
 
   handleEmailChange(event) {
@@ -26,20 +25,20 @@ class Login extends Component {
   handleSubmit(event) {
     event.preventDefault();
     alert("\"" + this.state.email + "\" was submitted with " + this.state.password);
-    this.login()
+    this.createUser()
   }
 
-
-  login() {
+  //user is created but get weird server 500 error
+  createUser() {
     const email = this.state.email
     const password = this.state.password
+    let data = { email: email, password_digest: password }
     //axios.post("https://protected-thicket-11517.herokuapp.com/api/user_token",
-    axios.post('http://localhost:4000/api/user_token',
-        {"auth": {"email": email, "password": password}}
+    axios.post('http://localhost:4000/api/users',
+      data
     )
-      .then((data) => {
-        debugger
-        this.setState({jwt: data.data.jwt});
+      .then((response) => {
+        alert('user created!')
       })
       .catch((error) => {
         alert(error)
@@ -50,7 +49,7 @@ class Login extends Component {
     return (
       <div>
       <h1>
-      Login:
+      Create User:
       </h1>
       <form onSubmit={this.handleSubmit}>
       <label>

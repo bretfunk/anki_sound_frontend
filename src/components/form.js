@@ -55,12 +55,30 @@ class Form extends Component {
     axios.get('https://api.voicerss.org/?key=' + this.state.api + '&hl=' + language + '&src=' + this.state.text)
       .then((data) => {
         alert('it works!')
-        debugger
+        this.createPhrase()
       })
       .catch((error) => {
         alert('it doesnt work!')
       })
   }
+
+  createPhrase() {
+    const phrase = this.state.phrase
+    const language = this.state.language
+    //need to figure out user_id
+    //gives 500 error code but still adds to database
+    let data = { phrase: phrase, language: language, user_id: 1 }
+    //axios.post("https://protected-thicket-11517.herokuapp.com/api/user_token",
+    axios.post('http://localhost:4000/api/phrases',
+      data
+    )
+      .then((response) => {
+        alert('phrase created!')
+      })
+      .catch((error) => {
+        alert(error)
+      })
+    }
 
 
   render() {
