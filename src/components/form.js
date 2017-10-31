@@ -54,22 +54,43 @@ class Form extends Component {
     let language = this.state.languageHash[this.state.language]
     axios.get('https://api.voicerss.org/?key=' + this.state.api + '&hl=' + language + '&src=' + this.state.text)
       .then((data) => {
-        debugger
+        alert('it works!')
+        this.createPhrase()
       })
       .catch((error) => {
         alert('it doesnt work!')
       })
   }
 
+  //probably want to remove this from getFile so the user only saves the files they want, not all files
+  createPhrase() {
+    const phrase = this.state.phrase
+    const language = this.state.language
+    //need to figure out user_id
+    //gives 500 error code but still adds to database
+    let data = { phrase: phrase, language: language, user_id: 1 }
+    //axios.post("https://protected-thicket-11517.herokuapp.com/api/user_token",
+    axios.post('http://localhost:4000/api/phrases',
+      data
+    )
+      .then((response) => {
+        alert('phrase created!')
+      })
+      .catch((error) => {
+        alert(error)
+      })
+    }
+
 
   render() {
     return (
       <div>
+      <h1>Form</h1>
       <form onSubmit={this.handleSubmit}>
       <label>
       Phrase:
-      <textarea value={this.state.phrase} onChange={this.handleChange}/>
       </label>
+      <textarea value={this.state.phrase} onChange={this.handleChange}/>
       <label>
       Language:
       </label>

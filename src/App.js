@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import './App.css';
 import axios from 'axios';
-import Navbar from './components/navbar';
-import Form from './components/form';
-import Body from './components/body';
+import Navbar from './components/Navbar';
+import MainWindow from './components/MainWindow';
+import SideWindow from './components/SideWindow';
 
 const url = "https://protected-thicket-11517.herokuapp.com/api/phrases"
 
@@ -12,7 +12,6 @@ class App extends Component {
     super(props)
     this.getPhrases = this.getPhrases.bind(this)
   }
-
 
   getPhrases() {
      axios.get(url, { crossdomain: true })
@@ -27,17 +26,27 @@ class App extends Component {
   render() {
     return (
       <div>
-      <div className="App-header">
+      <div className="App-Navbar">
       <Navbar />
       </div>
-      <div className="App">
-      <Form />
-      <Body />
+      <div>
+      <table width="100%">
+      <tbody>
+      <tr>
+      <td width="70%" className="App-MainWindow">
+      <MainWindow />
+      </td>
+      <td width="30%" className="App-SideWindow">
+      <SideWindow />
       <button
       onClick={this.getPhrases}
       >
       Get Phrases
       </button>
+      </td>
+      </tr>
+      </tbody>
+      </table>
       </div>
       </div>
     );
