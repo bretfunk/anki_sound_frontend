@@ -9,6 +9,7 @@ class Form extends Component {
     }
   }
 
+  //<a href="http://soundoftext.com/static/sounds/en/test.mp3" target="_blank">Test</a>
   handlePhraseChange = (event) => {
     this.setState({
       phrase: event.target.value
@@ -28,20 +29,20 @@ class Form extends Component {
     })
   }
 
-    render() {
-      return(
-        <form onSubmit={this.handleSubmit}>
-        <select value={this.state.language} onChange={this.handleLanguageChange}>
-        <option value="English">English</option>
-        <option value="Spanish">Spanish</option>
-        <option value="Italian">Italian</option>
-        <option value="Chinese">Chinese</option>
-        </select>
-        <input type='text' onChange={this.handlePhraseChange} value={this.state.phrase}/>
-        <button type='submit' onSubmit={this.handleSubmit} value={this.state}>Submit</button>
-        </form>
-      )
-    }
+  render() {
+    return(
+      <form onSubmit={this.handleSubmit}>
+      <select value={this.state.language} onChange={this.handleLanguageChange}>
+      <option value="English">English</option>
+      <option value="Spanish">Spanish</option>
+      <option value="Italian">Italian</option>
+      <option value="Chinese">Chinese</option>
+      </select>
+      <input type='text' onChange={this.handlePhraseChange} value={this.state.phrase}/>
+      <button type='submit' onSubmit={this.handleSubmit} value={this.state}>Submit</button>
+      </form>
+    )
+  }
 }
 
 export default Form;

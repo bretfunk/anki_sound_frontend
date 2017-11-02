@@ -52,14 +52,10 @@ class Login extends Component {
       Create User:
       </h1>
       <form onSubmit={this.handleSubmit}>
-      <label>
       Email:
-      </label>
       <input type="email" value={this.state.email} onChange={this.handleEmailChange}/>
       <br />
-      <label>
       Password:
-      </label>
       <input type="password" value={this.state.password} onChange={this.handlePasswordChange}/>
       <br />
       <input className="btn btn-primary" type="submit" value="Submit" />
