@@ -1,19 +1,25 @@
 import React, { Component } from 'react';
 
 class Navbar extends Component {
+  constructor(props) {
+    super(props)
+    this.log = this.log.bind(this)
+  }
+
+  log=(event)=>{
+    event.preventDefault()
+    debugger
+    this.props.loggingIn()
+  }
+
   render() {
+
     return (
-      <div>
-      <table width="100%">
-      <tbody>
-      <tr>
-      <td><h1>AnkiSound</h1></td>
-      <td><h3>Login</h3></td>
-      </tr>
-      </tbody>
-      </table>
-      </div>
-    );
+      <nav className="navbar navbar-inverse bg-inverse">
+        <a className="navbar-brand" href="#">AnkiSound</a>
+            <button className="btn btn-primary" onClick={this.log}>Login</button>
+      </nav>
+    )
   }
 }
 

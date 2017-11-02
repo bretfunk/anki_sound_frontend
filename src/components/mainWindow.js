@@ -4,10 +4,11 @@ import Body from './Body'
 
 class MainWindow extends Component {
   render() {
+    this.state = {
+    }
     return (
     <div>
-      <Form />
-      <Body />
+      <Body loggedIn={this.props.loggedIn}/>
       </div>
     )
   }

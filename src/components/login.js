@@ -53,17 +53,13 @@ class Login extends Component {
       Login:
       </h1>
       <form onSubmit={this.handleSubmit}>
-      <label>
       Email:
-      </label>
       <input type="email" value={this.state.email} onChange={this.handleEmailChange}/>
       <br />
-      <label>
       Password:
-      </label>
       <input type="password" value={this.state.password} onChange={this.handlePasswordChange}/>
       <br />
-      <input type="submit" value="Submit" />
+      <input className="btn btn-primary" type="submit" value="Submit" />
       </form>
       </div>
     )

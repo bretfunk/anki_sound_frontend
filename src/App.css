@@ -2,17 +2,27 @@
   text-align: center;
 }
 
-.App-Navbar {
-  background-color: #222;
-  height: 30;
-  color: white;
+.navbar {
+  background-color: black;
+  padding: 5, 0, 5, 0;
 }
 
 .App-MainWindow {
-  background-color: lightgrey;
+  background-color: white;
 }
 
 .App-SideWindow {
-  background-color: salmon;
+  background-color: lightblue;
 }
 
+/*.button {*/
+  /*display: block;*/
+  /*width: 115px;*/
+  /*height: 25px;*/
+  /*background: #4E9CAF;*/
+  /*padding: 10px;*/
+  /*text-align: center;*/
+  /*border-radius: 5px;*/
+  /*color: white;*/
+  /*font-weight: bold;*/
+/*}*/
