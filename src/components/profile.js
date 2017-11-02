@@ -6,7 +6,7 @@ class Profile extends Component {
     super(props);
     this.state = {
       response: [],
-      fakeJWT: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1MDk0OTcyODksInN1YiI6NX0.IEF43BK1dsH6U3CCNOY0DgWeg11KXzrZ6E4cv5zSScM"
+      fakeJWT: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1MDk1OTEyMjMsInN1YiI6Mn0.O4N_865AQCXiyigEmBPCRtOKAJCHJfRMP6fdcnR2pTc"
     }
     this.getSavedPhrases = this.getSavedPhrases.bind(this);
     this.savedPhrases = this.savedPhrases.bind(this);
@@ -23,12 +23,9 @@ class Profile extends Component {
     )
       .then((response) => {
         this.setState({response: response.data})
-        debugger
+        //debugger
       })
-      .catch((error) => {
-        alert(error)
-      })
-    }
+  }
 
     savedPhrases(array) {
       return array.map((phrase, i) =>
@@ -41,8 +38,8 @@ class Profile extends Component {
   render() {
     return (
       <div>
-      <h1>Profile</h1>
-      <ul>{this.savedPhrases(this.state.response)}</ul>
+      <h1>Saved Phrases:</h1>
+      <ul><h4>{this.savedPhrases(this.state.response)}</h4></ul>
       </div>
     );
   }

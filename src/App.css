@@ -2,17 +2,15 @@
   text-align: center;
 }
 
-.App-Navbar {
-  background-color: #222;
-  height: 30;
-  color: white;
+.navbar {
+  background-color: black;
 }
 
 .App-MainWindow {
-  background-color: lightgrey;
+  background-color: white;
 }
 
 .App-SideWindow {
-  background-color: salmon;
+  background-color: lightblue;
 }
 
