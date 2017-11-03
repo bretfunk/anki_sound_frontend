@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 //import 'bootstrap';
 import './App.css';
 //import axios from 'axios';
-import Navbar from './components/Navbar';
+import Header from './components/Header';
 import MainWindow from './components/MainWindow';
 import SideWindow from './components/SideWindow';
 import API from './api';
@@ -60,7 +60,7 @@ class App extends Component {
 
     return (
       <div className="container-fluid">
-      <Navbar loggingIn={this.loggingIn} creatingUser={this.creatingUser}/>
+      <Header loggingIn={this.loggingIn} creatingUser={this.creatingUser}/>
       {logging}
       {createUser}
       {orientation}

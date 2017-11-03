@@ -2,11 +2,6 @@
   text-align: center;
 }
 
-.navbar {
-  background-color: black;
-  padding: 5, 0, 5, 0;
-}
-
 .App-MainWindow {
   background-color: white;
 }
@@ -15,18 +10,8 @@
   background-color: lightblue;
 }
 
-/*.form {*/
-  /*padding-left: ($spacer-x * 1.5) !important;*/
-/*}*/
+.customNavbar {
+      padding: 5px;
+      border: 5px solid black;
+}
 
-/*.button {*/
-  /*display: block;*/
-  /*width: 115px;*/
-  /*height: 25px;*/
-  /*background: #4E9CAF;*/
-  /*padding: 10px;*/
-  /*text-align: center;*/
-  /*border-radius: 5px;*/
-  /*color: white;*/
-  /*font-weight: bold;*/
-/*}*/
