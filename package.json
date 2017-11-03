@@ -2,6 +2,7 @@
   "name": "anki_sound_frontend",
   "version": "0.1.0",
   "private": true,
+   "homepage": "https://bretfunk.github.io/anki_sound_frontend/",
   "dependencies": {
     "axios": "^0.17.0",
     "cors-anywhere": "^0.4.0",
@@ -21,7 +22,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "proxy": {
     "/api": {
