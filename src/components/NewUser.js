@@ -49,13 +49,13 @@ class Login extends Component {
     return (
       <div className="mx-auto">
       <form onSubmit={this.handleSubmit}>
-      <h4>
+      <h5>
       Email:
       <input type="email" value={this.state.email} onChange={this.handleEmailChange}/>
       Password:
       <input type="password" value={this.state.password} onChange={this.handlePasswordChange}/>
       <input className="btn btn-primary" type="submit" value="Create Account" />
-      </h4>
+      </h5>
       </form>
       </div>
     )

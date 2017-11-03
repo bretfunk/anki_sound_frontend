@@ -6,8 +6,7 @@ class Login extends Component {
     super(props);
     this.state = {
       email: '',
-      password: '',
-      jwt: ""
+      password: ''
     }
     this.handleEmailChange = this.handleEmailChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
@@ -29,7 +28,6 @@ class Login extends Component {
     this.login()
   }
 
-
   login() {
     const email = this.state.email
     const password = this.state.password
@@ -38,7 +36,6 @@ class Login extends Component {
         {"auth": {"email": email, "password": password}}
     )
       .then((data) => {
-        debugger
         this.setState({jwt: data.data.jwt});
       })
       .catch((error) => {
@@ -50,13 +47,13 @@ class Login extends Component {
     return (
       <div className="mx-auto">
       <form onSubmit={this.handleSubmit}>
-      <h4>
+      <h5>
       Email:
       <input type="email" value={this.state.email} onChange={this.handleEmailChange}/>
       Password:
       <input type="password" value={this.state.password} onChange={this.handlePasswordChange}/>
       <input className="btn btn-primary" type="submit" value="Login" />
-      </h4>
+      </h5>
       </form>
       </div>
     )

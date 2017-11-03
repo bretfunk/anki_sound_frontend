@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { NavDropdown, MenuItem, Navbar, Nav, NavItem, Glyphicon } from 'react-bootstrap';
 
 class Header extends Component {
   constructor(props) {
@@ -20,10 +19,10 @@ class Header extends Component {
 
   render() {
     return (
-      <div className="container-fluid customNavbar rounded">
+      <div className="container-fluid customNavbar rounded bg-dark">
         <div className="inline row">
           <div className="col-9">
-      <text className="col-sm navbar-brand">AnkiSound</text>
+      <text className="col-sm navbar-brand text-white">AnkiSound</text>
           </div>
           <div className="col-2">
       <button className="col-sm btn btn-primary margin-right" onClick={this.new}>Create User</button>
