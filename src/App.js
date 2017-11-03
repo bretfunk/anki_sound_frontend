@@ -20,37 +20,49 @@ class App extends Component {
     super(props)
     this.state = {
       tryingToLogin: false,
+      tryingToCreateUser: false,
       loggedIn: false,
       jwt: ''
     }
     this.loggingIn = this.loggingIn.bind(this)
+    this.creatingUser = this.creatingUser.bind(this)
   }
 
   loggingIn() {
     this.setState({tryingToLogin: true})
-    alert('logging in!')
   }
 
+  creatingUser() {
+    this.setState({tryingToCreateUser: true})
+  }
 
   render() {
   let orientation;
   if (this.state.loggedIn) {
       orientation = <div className="row text-center"> <div className="col-8 App-MainWindow"> <MainWindow loggedIn={this.state.loggedIn}/> </div> <div className="col-4 App-SideWindow"> <SideWindow /> </div> </div>
   } else {
-      orientation = <div className="col12 App-MainWindow"><MainWindow loggedIn={this.state.loggedIn}/> </div>
+      orientation = <div className="col-12 App-MainWindow"><MainWindow loggedIn={this.state.loggedIn}/> </div>
   }
 
   let logging;
     if (this.state.tryingToLogin) {
-      logging = <div className="row"> <Login /> <NewUser /></div>
+      logging = <div className="row"> <Login /> </div>
     }  else {
       logging = ""
     }
 
+  let createUser;
+    if (this.state.tryingToCreateUser) {
+      createUser = <div className="row"><NewUser /></div>
+     } else {
+       createUser = ""
+     }
+
     return (
       <div className="container-fluid">
-      <Navbar loggingIn={this.loggingIn}/>
+      <Navbar loggingIn={this.loggingIn} creatingUser={this.creatingUser}/>
       {logging}
+      {createUser}
       {orientation}
       </div>
     )

@@ -7,8 +7,6 @@ class SideWindow extends Component {
   render() {
     return (
       <div>
-      <NewUser />
-      <Login />
       <Profile />
       </div>
     )

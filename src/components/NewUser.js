@@ -5,8 +5,8 @@ class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: 'Enter email',
-      password: 'Enter password',
+      email: '',
+      password: '',
     }
     this.handleEmailChange = this.handleEmailChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
@@ -47,18 +47,15 @@ class Login extends Component {
 
   render() {
     return (
-      <div>
-      <h1>
-      Create User:
-      </h1>
+      <div className="mx-auto">
       <form onSubmit={this.handleSubmit}>
+      <h4>
       Email:
       <input type="email" value={this.state.email} onChange={this.handleEmailChange}/>
-      <br />
       Password:
       <input type="password" value={this.state.password} onChange={this.handlePasswordChange}/>
-      <br />
-      <input className="btn btn-primary" type="submit" value="Submit" />
+      <input className="btn btn-primary" type="submit" value="Create Account" />
+      </h4>
       </form>
       </div>
     )
