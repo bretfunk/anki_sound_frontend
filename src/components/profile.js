@@ -38,8 +38,9 @@ class Profile extends Component {
   render() {
     return (
       <div>
+      <br />
       {this.getSavedPhrases()}
-      <h1>Saved Phrases:</h1>
+      <h1 className="bg-primary text-white rounded heading">Saved Phrases</h1>
       <ul><h4>{this.savedPhrases(this.state.response)}</h4></ul>
       </div>
     );

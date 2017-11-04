@@ -6,7 +6,8 @@ class Login extends Component {
     super(props);
     this.state = {
       email: '',
-      password: ''
+      password: '',
+      jwt: ''
     }
     this.handleEmailChange = this.handleEmailChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
@@ -36,7 +37,10 @@ class Login extends Component {
         {"auth": {"email": email, "password": password}}
     )
       .then((data) => {
+        //send jwt to App.js
+        this.props.changeLoggedIn()
         this.setState({jwt: data.data.jwt});
+        this.props.loggingIn()
       })
       .catch((error) => {
         alert(error)

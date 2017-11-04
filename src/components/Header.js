@@ -28,7 +28,7 @@ class Header extends Component {
       <button className="col-sm btn btn-primary margin-right" onClick={this.new}>Create User</button>
           </div>
           <div className="col-1">
-      <button className="col-sm btn btn-primary text-right" onClick={this.log}>Login</button>
+      <button className="col-sm btn btn-primary text-right"  onClick={this.log}>Login</button>
         </div>
         </div>
       </div>

@@ -8,7 +8,6 @@ import NewUser from './components/NewUser';
 import axios from 'axios'
 
 //const url = "https://protected-thicket-11517.herokuapp.com/api/phrases"
-//
 
 class App extends Component {
   constructor(props) {
@@ -16,22 +15,35 @@ class App extends Component {
     this.state = {
       tryingToLogin: false,
       tryingToCreateUser: false,
-      loggedIn: true,
+      loggedIn: false,
       jwt: '',
       userId: '',
     }
 
     this.loggingIn = this.loggingIn.bind(this)
     this.creatingUser = this.creatingUser.bind(this)
+    this.changeLoggedIn = this.changeLoggedIn.bind(this)
   }
 
 
   loggingIn() {
-    this.setState({tryingToLogin: true})
+    let change;
+    (this.state.tryingToLogin) ? change = false : change = true
+    this.setState({ tryingToLogin: change })
   }
 
+//need to make it change both ways
   creatingUser() {
-    this.setState({tryingToCreateUser: true})
+    let change;
+    (this.state.tryingToCreateUser) ? change = false : change = true
+    this.setState({ tryingToCreateUser: change })
+  }
+
+  changeLoggedIn() {
+    alert('changeLoggedIn!')
+    let change;
+    (this.state.loggedIn) ? change = false : change = true
+    this.setState({ loggedIn: change })
   }
 
   getUserId() {
@@ -45,7 +57,7 @@ class App extends Component {
     )
       .then((response) => {
         debugger
-        this.setState({id: response.data.id})
+        this.setState({ id: response.data.id })
         alert(this.state.id)
         //debugger
       })
@@ -63,7 +75,7 @@ class App extends Component {
 
   let logging;
     if (this.state.tryingToLogin) {
-      logging = <div className="row"><br /><br /><Login /></div>
+      logging = <div className="row"><br /><br /><Login loggingIn={this.loggingIn} changeLoggedIn={this.changeLoggedIn} /></div>
     }  else {
       logging = ""
     }
