@@ -28,12 +28,11 @@ class Profile extends Component {
     savedPhrases(array) {
       return array.map((phrase, i) =>
       <li key={'phrase_' + i}><span className="btn-sm bg-danger text-white btn text-left">
-        {phrase.language}:</span> {phrase.phrase}</li>
+        {phrase.language}:</span> {phrase.phrase}<a className="btn btn-primary"
+        href={this.props.format(phrase)} className="btn btn-primary btn-sm text-right">Download</a></li>
       )
     }
 
-  //to show phrases add the below to render, however the server will run nonstop as it keeps rendering over and over
-      //{this.getSavedPhrases()}
   render() {
       {this.getSavedPhrases()}
     return (

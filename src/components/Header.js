@@ -19,7 +19,7 @@ class Header extends Component {
 
   render() {
     return (
-      <div className="container-fluid customNavbar rounded bg-dark">
+      <div className="container-fluid customNavbar rounded navbarColor">
         <div className="inline row">
           <div className="col-9">
       <text className="col-sm navbar-brand text-white">AnkiSound</text>

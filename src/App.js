@@ -10,6 +10,48 @@ import API from './api';
 
 //const url = "https://anki-sound-backend.herokuapp.com/"
 
+const languageHash = {
+  Afrikaans: "af",
+  Albanian: "sq",
+  Arabic: "ar",
+  Armenian: "hy",
+  Bosnian: "bs",
+  Catalan: "ca",
+  Chinese: "zh-CN",
+  Croatian: "hr",
+  Czech: "cs",
+  Danish: "da",
+  Dutch: "nl",
+  English: "en",
+  Esperanto: "eo",
+  Finnish: "fi",
+  French: "fr",
+  German: "de",
+  Greek: "el",
+  Hindi: "hi",
+  Hungarian: "hu",
+  Icelandic: "is",
+  Indonesian: "id",
+  Italian: "it",
+  Japanese: "ja",
+  Korean: "ko",
+  Latin: "la",
+  Norwegian: "no",
+  Polish: "pl",
+  Portugese: "pt",
+  Romanian: "ro",
+  Russian: "ru",
+  Serbian: "sr",
+  Slovak: "sk",
+  Spanish: "es",
+  Swahili: "sw",
+  Swedish: "sv",
+  Tamil: "ta",
+  Thai: "th",
+  Turkish: "tr",
+  Vietnamese: "vi",
+}
+
 class App extends Component {
   constructor(props) {
     super(props)
@@ -28,6 +70,7 @@ class App extends Component {
     this.getUserId      = this.getUserId.bind(this)
     this.addToDb        = this.addToDb.bind(this)
     this.createPhrase   = this.createPhrase.bind(this)
+    this.format         = this.format.bind(this)
   }
 
 
@@ -91,14 +134,22 @@ class App extends Component {
       })
     }
 
+  format(phrase) {
+    let language = languageHash[phrase.language]
+    let newPhrase = phrase.phrase.toString().trim().split(' ').join('_')
+    let link = `http://soundoftext.com/static/sounds/${language}/${newPhrase}.mp3`
+    return link
+    }
+
   render() {
   let orientation;
   if (this.state.loggedIn) {
       orientation = <div className="row text-center"> <div className="col-7">
-      <MainWindow addToDb={this.addToDb} loggedIn={this.state.loggedIn}/> </div> <div className="col-5">
-      <SideWindow jwt={this.state.jwt}/> </div> </div>
+      <MainWindow format={this.format} addToDb={this.addToDb} loggedIn={this.state.loggedIn}/> </div> <div className="col-5">
+      <SideWindow format={this.format} jwt={this.state.jwt}/> </div> </div>
   } else {
-      orientation = <div className="text-center col-12"><MainWindow loggedIn={this.state.loggedIn}/> </div>
+      orientation = <div className="text-center col-12"><MainWindow format={this.format}
+    loggedIn={this.state.loggedIn}/> </div>
   }
 
   let logging;

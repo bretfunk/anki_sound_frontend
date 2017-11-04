@@ -9,7 +9,6 @@ class Form extends Component {
     }
   }
 
-  //<a href="http://soundoftext.com/static/sounds/en/test.mp3" target="_blank">Test</a>
   handlePhraseChange = (event) => {
     this.setState({
       phrase: event.target.value

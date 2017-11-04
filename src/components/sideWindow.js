@@ -5,7 +5,7 @@ class SideWindow extends Component {
   render() {
     return (
       <div>
-      <Profile jwt={this.props.jwt} />
+      <Profile format={this.props.format} jwt={this.props.jwt} />
       </div>
     )
   }
