@@ -30,8 +30,7 @@ class Form extends Component {
   }
 
   render() {
-    return(
-      <form onSubmit={this.handleSubmit}>
+    let options =
       <select value={this.state.language} onChange={this.handleLanguageChange}>
       <option value="Afrikaans">Afrikaans</option>
       <option value="Albanian">Albanian</option>
@@ -72,8 +71,13 @@ class Form extends Component {
       <option value="Turkish">Turkish</option>
       <option value="Vietnamese">Vietnamese</option>
       </select>
+
+    return(
+      <form onSubmit={this.handleSubmit}>
+      {options}
       <input type='text' onChange={this.handlePhraseChange} value={this.state.phrase}/>
-      <button className="btn btn-primary btn-sm"type='submit' onSubmit={this.handleSubmit} value={this.state}>Submit</button>
+      <button className="btn btn-primary btn-sm"type='submit' onSubmit={this.handleSubmit}
+      value={this.state}>Submit</button>
       </form>
     )
   }

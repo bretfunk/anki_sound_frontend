@@ -7,7 +7,7 @@ class MainWindow extends Component {
     }
     return (
     <div>
-      <Body loggedIn={this.props.loggedIn}/>
+      <Body addToDb={this.props.addToDb} loggedIn={this.props.loggedIn}/>
       </div>
     )
   }

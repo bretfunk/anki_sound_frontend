@@ -56,7 +56,7 @@ class Body extends Component {
 
 
   savePhrase = (phrase) => {
-    alert('save phrase')
+    this.props.addToDb(phrase)
   }
 
   format(phrase) {
@@ -82,9 +82,10 @@ class Body extends Component {
       button = ""
     }
 
-    let list = this.state.collection.map(phrase => <li><h4>{phrase.language}:
-    "{phrase.phrase}"&nbsp;&nbsp;<a className="btn btn-primary
-    " href={this.format(phrase)} className="btn btn-primary btn-sm">Download
+    let list = this.state.collection.map((phrase, i ) => <li key={phrase.phrase + i}><h4><span className=
+      "btn-sm bg-danger text-white btn text-left">{phrase.language}:
+    </span>&nbsp;&nbsp;{phrase.phrase}&nbsp;&nbsp;<a className="btn btn-primary
+    " href={this.format(phrase)} className="btn btn-primary btn-sm text-right">Download
       </a>&nbsp;&nbsp;{button}</h4></li>)
 
     return (

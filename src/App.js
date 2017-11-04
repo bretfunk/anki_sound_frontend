@@ -5,9 +5,10 @@ import MainWindow from './components/MainWindow';
 import SideWindow from './components/SideWindow';
 import Login from './components/Login';
 import NewUser from './components/NewUser';
-import axios from 'axios'
+import axios from 'axios';
+import API from './api';
 
-//const url = "https://protected-thicket-11517.herokuapp.com/api/phrases"
+//const url = "https://anki-sound-backend.herokuapp.com/"
 
 class App extends Component {
   constructor(props) {
@@ -17,12 +18,16 @@ class App extends Component {
       tryingToCreateUser: false,
       loggedIn: false,
       jwt: '',
-      userId: '',
+      userId: ''
     }
 
-    this.loggingIn = this.loggingIn.bind(this)
-    this.creatingUser = this.creatingUser.bind(this)
+    this.loggingIn      = this.loggingIn.bind(this)
+    this.creatingUser   = this.creatingUser.bind(this)
     this.changeLoggedIn = this.changeLoggedIn.bind(this)
+    this.changeJwt      = this.changeJwt.bind(this)
+    this.getUserId      = this.getUserId.bind(this)
+    this.addToDb        = this.addToDb.bind(this)
+    this.createPhrase   = this.createPhrase.bind(this)
   }
 
 
@@ -32,7 +37,6 @@ class App extends Component {
     this.setState({ tryingToLogin: change })
   }
 
-//need to make it change both ways
   creatingUser() {
     let change;
     (this.state.tryingToCreateUser) ? change = false : change = true
@@ -40,42 +44,67 @@ class App extends Component {
   }
 
   changeLoggedIn() {
-    alert('changeLoggedIn!')
     let change;
     (this.state.loggedIn) ? change = false : change = true
     this.setState({ loggedIn: change })
   }
 
-  getUserId() {
+  changeJwt(jwt) {
+    this.setState({jwt: jwt})
+    this.getUserId(jwt)
+  }
+
+  getUserId(jwt) {
     let config = {
       headers: {
-        'Authorization': 'Bearer ' + this.state.fakeJWT
+        'Authorization': 'Bearer ' + jwt
       }
     }
     axios.get('http://localhost:4000/api/user',
       config
     )
       .then((response) => {
-        debugger
-        this.setState({ id: response.data.id })
-        alert(this.state.id)
-        //debugger
+        this.setState({ userId: response.data.id })
       })
   }
+
+  addToDb(data) {
+    let parsed = data.currentTarget.parentElement.innerText.replace('Download', '')
+    let newParsed = parsed.replace('Save to Profile', '').split(':')
+    let language = newParsed[0]
+    let phrase = newParsed[1].trim()
+    this.createPhrase(phrase, language)
+
+  }
+
+  createPhrase(phrase, language) {
+    let data = { phrase: phrase, language: language, user_id: this.state.userId }
+    //axios.post("https://protected-thicket-11517.herokuapp.com/api/user_token",
+    axios.post('http://localhost:4000/api/phrases',
+      data
+    )
+      .then((response) => {
+        console.log(response + ' created')
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+    }
 
   render() {
   let orientation;
   if (this.state.loggedIn) {
       orientation = <div className="row text-center"> <div className="col-7">
-      <MainWindow loggedIn={this.state.loggedIn}/> </div> <div className="col-5">
-      <SideWindow /> </div> </div>
+      <MainWindow addToDb={this.addToDb} loggedIn={this.state.loggedIn}/> </div> <div className="col-5">
+      <SideWindow jwt={this.state.jwt}/> </div> </div>
   } else {
       orientation = <div className="text-center col-12"><MainWindow loggedIn={this.state.loggedIn}/> </div>
   }
 
   let logging;
     if (this.state.tryingToLogin) {
-      logging = <div className="row"><br /><br /><Login loggingIn={this.loggingIn} changeLoggedIn={this.changeLoggedIn} /></div>
+      logging = <div className="row"><br /><br /><Login changeJwt={this.changeJwt}
+      loggingIn={this.loggingIn} changeLoggedIn={this.changeLoggedIn} /></div>
     }  else {
       logging = ""
     }
@@ -89,7 +118,7 @@ class App extends Component {
 
     return (
       <div className="container-fluid">
-      <Header loggingIn={this.loggingIn} creatingUser={this.creatingUser}/>
+      <Header loggedIn={this.state.loggedIn} loggingIn={this.loggingIn} creatingUser={this.creatingUser}/>
       {logging}
       {createUser}
       {orientation}
