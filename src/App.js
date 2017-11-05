@@ -71,6 +71,7 @@ class App extends Component {
     this.addToDb        = this.addToDb.bind(this)
     this.createPhrase   = this.createPhrase.bind(this)
     this.format         = this.format.bind(this)
+    this.logOut         = this.logOut.bind(this)
   }
 
 
@@ -90,6 +91,12 @@ class App extends Component {
     let change;
     (this.state.loggedIn) ? change = false : change = true
     this.setState({ loggedIn: change })
+  }
+
+  logOut() {
+    this.setState({loggedIn: false})
+    this.setState({jwt: ''})
+    this.setState({userId: ''})
   }
 
   changeJwt(jwt) {
@@ -169,7 +176,7 @@ class App extends Component {
 
     return (
       <div className="mainWindowColor container-fluid">
-      <Header loggedIn={this.state.loggedIn} loggingIn={this.loggingIn} creatingUser={this.creatingUser}/>
+      <Header logOut={this.logOut} loggedIn={this.state.loggedIn} loggingIn={this.loggingIn} creatingUser={this.creatingUser}/>
       {logging}
       {createUser}
       {orientation}

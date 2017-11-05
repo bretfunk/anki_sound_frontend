@@ -12,24 +12,40 @@ class Header extends Component {
     this.props.loggingIn()
   }
 
+  logOut=(event)=>{
+    event.preventDefault()
+    this.props.logOut()
+  }
+
   new=(event)=>{
     event.preventDefault()
     this.props.creatingUser()
   }
 
   render() {
+    let loginOrLogout;
+    if (this.props.loggedIn) {
+      loginOrLogout =
+          <div className="col-2">
+      <button className="col-sm btn secondaryButtonColor"  onClick={this.logOut}>Logout</button>
+        </div>
+  } else {
+    loginOrLogout =
+          <div className="col-2">
+      <button className="col-sm btn secondaryButtonColor"  onClick={this.log}>Login</button>
+        </div>
+  }
+
     return (
       <div className="container-fluid customNavbar rounded navbarColor">
         <div className="inline row">
-          <div className="col-9">
+          <div className="col-8">
       <h1 className="col-sm navbar-brand text-white">AnkiSound</h1>
           </div>
           <div className="col-2">
-      <button className="col-sm btn secondaryButtonColor margin-right" onClick={this.new}>Create User</button>
+      <button className="col-sm btn secondaryButtonColor" onClick={this.new}>Create User</button>
           </div>
-          <div className="col-1">
-      <button className="col-sm btn secondaryButtonColor text-right"  onClick={this.log}>Login</button>
-        </div>
+      {loginOrLogout}
         </div>
       </div>
     )
