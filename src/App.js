@@ -168,7 +168,7 @@ class App extends Component {
      }
 
     return (
-      <div className="container-fluid">
+      <div className="mainWindowColor container-fluid">
       <Header loggedIn={this.state.loggedIn} loggingIn={this.loggingIn} creatingUser={this.creatingUser}/>
       {logging}
       {createUser}

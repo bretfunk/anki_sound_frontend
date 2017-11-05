@@ -75,7 +75,7 @@ class Form extends Component {
       <form onSubmit={this.handleSubmit}>
       {options}
       <input type='text' onChange={this.handlePhraseChange} value={this.state.phrase}/>
-      <button className="btn btn-primary btn-sm"type='submit' onSubmit={this.handleSubmit}
+      <button className="btn secondaryButtonColor btn-sm"type='submit' onSubmit={this.handleSubmit}
       value={this.state}>Submit</button>
       </form>
     )

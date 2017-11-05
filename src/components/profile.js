@@ -27,9 +27,9 @@ class Profile extends Component {
 
     savedPhrases(array) {
       return array.map((phrase, i) =>
-      <li key={'phrase_' + i}><span className="btn-sm bg-danger text-white btn text-left">
-        {phrase.language}:</span> {phrase.phrase}<a className="btn btn-primary"
-        href={this.props.format(phrase)} className="btn btn-primary btn-sm text-right">Download</a></li>
+      <li key={'phrase_' + i}><span className="btn-sm languageButtonColor text-dark btn text-left">
+        {phrase.language}:&nbsp;&nbsp;</span> {phrase.phrase}&nbsp;&nbsp;<a className="btn text-dark"
+        href={this.props.format(phrase)} className="btn mainButtonColor btn-sm text-dark text-right">Download</a></li>
       )
     }
 
@@ -38,7 +38,7 @@ class Profile extends Component {
     return (
       <div>
       <br />
-      <h1 className="bg-primary text-white rounded heading">Saved Phrases</h1>
+      <h1 className="bannerColor text-white rounded heading">Saved Phrases</h1>
       <ul><h4>{this.savedPhrases(this.state.response)}</h4></ul>
       </div>
     );
