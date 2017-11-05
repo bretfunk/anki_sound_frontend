@@ -32,7 +32,7 @@ class Login extends Component {
     const email = this.state.email
     const password = this.state.password
     let data = { email: email, password_digest: password }
-    axios.post(URL() + '/api/users',
+    axios.post(URL() + 'api/users',
       data
     )
       .then((response) => {

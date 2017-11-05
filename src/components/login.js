@@ -31,7 +31,7 @@ class Login extends Component {
   login() {
     const email = this.state.email
     const password = this.state.password
-    axios.post(URL() + '/api/user_token',
+    axios.post(URL() + 'api/user_token',
         {"auth": {"email": email, "password": password}}
     )
       .then((data) => {

@@ -108,7 +108,7 @@ class App extends Component {
         'Authorization': 'Bearer ' + jwt
       }
     }
-    axios.get(URL() + '/api/user',
+    axios.get(URL() + 'api/user',
       config
     )
       .then((response) => {
@@ -127,7 +127,7 @@ class App extends Component {
 
   createPhrase(phrase, language) {
     let data = { phrase: phrase, language: language, user_id: this.state.userId }
-    axios.post(URL() + '/api/phrases',
+    axios.post(URL() + 'api/phrases',
       data
     )
       .then((response) => {

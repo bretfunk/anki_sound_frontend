@@ -18,7 +18,7 @@ class Profile extends Component {
         'Authorization': 'Bearer ' + this.props.jwt
       }
     }
-    axios.get(URL() + '/api/phrases',
+    axios.get(URL() + 'api/phrases',
       config
     )
       .then((response) => {
