@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import axios from 'axios'
+import URL from '../url'
 
 class Login extends Component {
   constructor(props) {
@@ -24,20 +25,18 @@ class Login extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    alert("\"" + this.state.email + "\" was submitted with " + this.state.password);
     this.createUser()
   }
 
-  //user is created but get weird server 500 error
   createUser() {
     const email = this.state.email
     const password = this.state.password
     let data = { email: email, password_digest: password }
-    //axios.post("https://protected-thicket-11517.herokuapp.com/api/user_token",
-    axios.post('http://localhost:4000/api/users',
+    axios.post(URL() + '/api/users',
       data
     )
       .then((response) => {
+        this.props.creatingUser()
         alert('user created!')
       })
       .catch((error) => {

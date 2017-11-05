@@ -1,5 +1,6 @@
-import React, {Component} from 'react'
-import axios from 'axios'
+import React, {Component} from 'react';
+import axios from 'axios';
+import URL from '../url';
 
 class Login extends Component {
   constructor(props) {
@@ -30,8 +31,7 @@ class Login extends Component {
   login() {
     const email = this.state.email
     const password = this.state.password
-    //axios.post("https://protected-thicket-11517.herokuapp.com/api/user_token",
-    axios.post('http://localhost:4000/api/user_token',
+    axios.post(URL() + '/api/user_token',
         {"auth": {"email": email, "password": password}}
     )
       .then((data) => {
