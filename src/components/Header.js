@@ -23,6 +23,18 @@ class Header extends Component {
   }
 
   render() {
+    let createUser;
+    if (this.props.loggedIn) {
+      createUser =
+        <div className="col-2">
+        </div>
+    } else {
+      createUser =
+          <div className="col-2">
+      <button className="col-sm btn secondaryButtonColor" onClick={this.new}>Create User</button>
+          </div>
+      }
+
     let loginOrLogout;
     if (this.props.loggedIn) {
       loginOrLogout =
@@ -42,9 +54,7 @@ class Header extends Component {
           <div className="col-8">
       <h1 className="col-sm navbar-brand text-white">AnkiSound</h1>
           </div>
-          <div className="col-2">
-      <button className="col-sm btn secondaryButtonColor" onClick={this.new}>Create User</button>
-          </div>
+      {createUser}
       {loginOrLogout}
         </div>
       </div>

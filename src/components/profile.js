@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios'
+import URL from '../url'
 
 class Profile extends Component {
   constructor(props) {
@@ -17,7 +18,7 @@ class Profile extends Component {
         'Authorization': 'Bearer ' + this.props.jwt
       }
     }
-    axios.get('http://localhost:4000/api/phrases',
+    axios.get(URL() + '/api/phrases',
       config
     )
       .then((response) => {

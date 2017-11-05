@@ -6,9 +6,7 @@ import SideWindow from './components/SideWindow';
 import Login from './components/Login';
 import NewUser from './components/NewUser';
 import axios from 'axios';
-import API from './api';
-
-//const url = "https://anki-sound-backend.herokuapp.com/"
+import URL from './url';
 
 const languageHash = {
   Afrikaans: "af",
@@ -110,7 +108,7 @@ class App extends Component {
         'Authorization': 'Bearer ' + jwt
       }
     }
-    axios.get('http://localhost:4000/api/user',
+    axios.get(URL() + '/api/user',
       config
     )
       .then((response) => {
@@ -129,8 +127,7 @@ class App extends Component {
 
   createPhrase(phrase, language) {
     let data = { phrase: phrase, language: language, user_id: this.state.userId }
-    //axios.post("https://protected-thicket-11517.herokuapp.com/api/user_token",
-    axios.post('http://localhost:4000/api/phrases',
+    axios.post(URL() + '/api/phrases',
       data
     )
       .then((response) => {
@@ -152,7 +149,8 @@ class App extends Component {
   let orientation;
   if (this.state.loggedIn) {
       orientation = <div className="row text-center"> <div className="col-7">
-      <MainWindow format={this.format} addToDb={this.addToDb} loggedIn={this.state.loggedIn}/> </div> <div className="col-5">
+      <MainWindow format={this.format} addToDb={this.addToDb} loggedIn={this.state.loggedIn}/>
+      </div> <div className="col-5">
       <SideWindow format={this.format} jwt={this.state.jwt}/> </div> </div>
   } else {
       orientation = <div className="text-center col-12"><MainWindow format={this.format}
@@ -169,14 +167,15 @@ class App extends Component {
 
   let createUser;
     if (this.state.tryingToCreateUser) {
-      createUser = <div className="row"><br /><br /><NewUser /></div>
+      createUser = <div className="row"><br /><br /><NewUser creatingUser={this.creatingUser} /></div>
      } else {
        createUser = ""
      }
 
     return (
       <div className="mainWindowColor container-fluid">
-      <Header logOut={this.logOut} loggedIn={this.state.loggedIn} loggingIn={this.loggingIn} creatingUser={this.creatingUser}/>
+      <Header logOut={this.logOut} loggedIn={this.state.loggedIn} loggingIn={this.loggingIn}
+      creatingUser={this.creatingUser}/>
       {logging}
       {createUser}
       {orientation}
