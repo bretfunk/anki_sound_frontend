@@ -6,8 +6,8 @@ class MainWindow extends Component {
     this.state = {
     }
     return (
-    <div>
-      <Body loggedIn={this.props.loggedIn}/>
+    <div className="mainWindowColor">
+      <Body format={this.props.format} addToDb={this.props.addToDb} loggedIn={this.props.loggedIn}/>
       </div>
     )
   }

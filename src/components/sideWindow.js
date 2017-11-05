@@ -4,8 +4,8 @@ import Profile from './Profile'
 class SideWindow extends Component {
   render() {
     return (
-      <div>
-      <Profile />
+      <div className="sideWindowColor">
+      <Profile format={this.props.format} jwt={this.props.jwt} />
       </div>
     )
   }

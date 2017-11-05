@@ -1,24 +1,44 @@
-.App {
-  text-align: center;
-}
-
-.App-MainWindow {
-  background-color: white;
-}
-
-.App-SideWindow {
-  background-color: lightblue;
-}
-
 .customNavbar {
       padding: 5px;
       border: 5px solid black;
-      /*background-color: red;*/
-      /*background-color: .bg-danger*/
 }
 
 .btn {
   border: 3px solid black;
+}
+
+.heading {
+  padding: 5px;
+  border: 5px solid black;
+}
+
+.navbarColor {
+  background-color: #1A535C;
+}
+
+.mainWindowColor {
+  background-color: #F7FFF7;
+}
+
+.sideWindowColor {
+  background-color: #F7FFF7;
+}
+
+.bannerColor {
+  background-color: #1A535C;
+}
+
+.mainButtonColor {
+  background-color: #FF6B6B;
+}
+
+.secondaryButtonColor {
+  background-color: #FFE66D;
+
+}
+
+.languageButtonColor {
+  background-color: #4ECDC4;
 }
 
 
