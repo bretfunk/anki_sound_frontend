@@ -37,7 +37,6 @@ class Login extends Component {
     )
       .then((response) => {
         this.props.creatingUser()
-        alert('user created!')
       })
       .catch((error) => {
         alert(error)
