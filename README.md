@@ -2,7 +2,7 @@
 - This app is the frontend and user interface for anki_sound_backend (https://github.com/bretfunk/anki_sound_backend).  AnkiSound allows users to download audio files in one of 20+ languages to use in Space Repetition Systems (SRS) like Anki. The frontend works by itself to download audio files.  To save phrases to a user profile, the backend applciation is needed.  The frontend is written in React.js and Javascript and the backend is written in Ruby and Rails.  Stying is done with bootstrap. 
 - You can see a live version of this program at: https://bretfunk.github.io/anki_sound_frontend/
 
-![Alt text](/../<master>/public/github?raw=true "Optional Title")
+![Screenshot](/../<master>/public/github?raw=true)
 
 ## React version
 * anki_sound_frontend uses the latest version of create-react-app (https://github.com/facebookincubator/create-react-app)
