@@ -31,7 +31,7 @@ class Login extends Component {
   createUser() {
     const email = this.state.email
     const password = this.state.password
-    let data = { email: email, password_digest: password }
+    let data = { email: email, password: password }
     axios.post(URL() + 'api/users',
       data
     )
