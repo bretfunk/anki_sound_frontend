@@ -2,7 +2,7 @@
   "name": "anki_sound_frontend",
   "version": "0.1.0",
   "private": true,
-   "homepage": "https://bretfunk.github.io/anki_sound_frontend/",
+  "homepage": "https://bretfunk.github.io/anki_sound_frontend/",
   "dependencies": {
     "axios": "^0.17.0",
     "cors-anywhere": "^0.4.0",
