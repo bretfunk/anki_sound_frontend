@@ -117,12 +117,11 @@ class App extends Component {
   }
 
   addToDb(data) {
-    let parsed = data.currentTarget.parentElement.innerText.replace('Download', '')
+    let parsed = data.currentTarget.parentElement.parentElement.parentElement.innerText.replace('Download', '')
     let newParsed = parsed.replace('Save to Profile', '').split(':')
     let language = newParsed[0]
     let phrase = newParsed[1].trim()
     this.createPhrase(phrase, language)
-
   }
 
   createPhrase(phrase, language) {
