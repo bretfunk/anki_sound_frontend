@@ -70,6 +70,17 @@ class App extends Component {
     this.createPhrase   = this.createPhrase.bind(this)
     this.format         = this.format.bind(this)
     this.logOut         = this.logOut.bind(this)
+    this.tts            = this.tts.bind(this)
+  }
+
+  tts() {
+    axios.get(URL() + 'tts',
+    )
+      .then((response) => {
+        debugger
+      })
+  }
+
   }
 
 
@@ -177,6 +188,7 @@ class App extends Component {
       creatingUser={this.creatingUser}/>
       {logging}
       {createUser}
+      <button onClick={this.tts}>TTS</button>
       {orientation}
       </div>
     )
