@@ -71,18 +71,20 @@ class App extends Component {
     this.format         = this.format.bind(this)
     this.logOut         = this.logOut.bind(this)
     this.tts            = this.tts.bind(this)
+    this.play           = this.play.bind(this)
+  }
+
+  play = () => {
+    this.audio.play();
   }
 
   tts() {
-    axios.get(URL() + 'tts',
+    axios.get(URL() + 'api/tts',
     )
       .then((response) => {
         debugger
       })
   }
-
-  }
-
 
   loggingIn() {
     let change;
@@ -189,6 +191,9 @@ class App extends Component {
       {logging}
       {createUser}
       <button onClick={this.tts}>TTS</button>
+      <a href="http://localhost:4000/weather.mp3" download>Download</a>
+      <audio ref={(audio) => { this.audio = audio; }} src="http://localhost:4000/weather.mp3" type="audio/mp3"> </audio>
+      <button onClick={this.play}>Play</button>
       {orientation}
       </div>
     )
