@@ -36,6 +36,7 @@ class Body extends Component {
       <td><h4>{phrase.phrase}</h4></td>
       <td><a className="btn secondaryButtonColor" href={this.props.format(phrase)}
       className="btn mainButtonColor text-dark btn-sm text-right">Download </a></td>
+      <td><button>New Button</button></td>
         {button}
       </tr>)
 

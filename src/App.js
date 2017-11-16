@@ -78,8 +78,9 @@ class App extends Component {
     this.audio.play();
   }
 
-  tts() {
-    axios.get(URL() + 'api/tts',
+  tts(phrase, language, file_name) {
+    axios.get(URL() + `audio?phrase=${phrase}&language=${language}&file_name=${file_name}`
+    //axios.get(URL() + 'audio?phrase=I love you&language=en&file_name=test',
     )
       .then((response) => {
         debugger
@@ -152,6 +153,9 @@ class App extends Component {
 
   format(phrase) {
     let language = languageHash[phrase.language]
+    //have newPhrase become file_name and have a newPhrase without the fluff become the phrase
+    //change the link to the new filename and include the language in the backend file structure
+    //run everything through App.js
     let newPhrase = phrase.phrase.toString().trim().split(' ').join('_')
     let link = `http://soundoftext.com/static/sounds/${language}/${newPhrase}.mp3`
     return link
@@ -192,7 +196,7 @@ class App extends Component {
       {createUser}
       <button onClick={this.tts}>TTS</button>
       <a href="http://localhost:4000/weather.mp3" download>Download</a>
-      <audio ref={(audio) => { this.audio = audio; }} src="http://localhost:4000/weather.mp3" type="audio/mp3"> </audio>
+      <audio ref={(audio) => { this.audio = audio; }} src="http://localhost:4000/test.mp3" type="audio/mp3"> </audio>
       <button onClick={this.play}>Play</button>
       {orientation}
       </div>
