@@ -7,7 +7,8 @@ class MainWindow extends Component {
     }
     return (
     <div className="mainWindowColor">
-      <Body format={this.props.format} addToDb={this.props.addToDb} loggedIn={this.props.loggedIn}/>
+      <Body play={this.props.play} createFile={this.props.createFile} format={this.props.format}
+      audio={this.props.audio} addToDb={this.props.addToDb} loggedIn={this.props.loggedIn}/>
       </div>
     )
   }

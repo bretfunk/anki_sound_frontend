@@ -70,6 +70,28 @@ class App extends Component {
     this.createPhrase   = this.createPhrase.bind(this)
     this.format         = this.format.bind(this)
     this.logOut         = this.logOut.bind(this)
+    this.createFile     = this.createFile.bind(this)
+    this.play           = this.play.bind(this)
+    this.formatFileName = this.formatFileName.bind(this)
+  }
+
+  play = () => {
+    this.audio.play();
+  }
+
+  createFile(rawPhrase) {
+    let phrase = rawPhrase.phrase
+    let language = languageHash[rawPhrase.language]
+    let fileName = this.formatFileName(phrase)
+    axios.get(URL() + `audio?phrase=${phrase}&language=${language}&file_name=${fileName}`
+    )
+      .then((response) => {
+        debugger
+      })
+  }
+
+  formatFileName(phrase) {
+    return phrase.toString().trim().split(' ').join('_')
   }
 
 
@@ -139,8 +161,8 @@ class App extends Component {
 
   format(phrase) {
     let language = languageHash[phrase.language]
-    let newPhrase = phrase.phrase.toString().trim().split(' ').join('_')
-    let link = `http://soundoftext.com/static/sounds/${language}/${newPhrase}.mp3`
+    let fileName = this.formatFileName(phrase.phrase)
+    let link = URL() + `${language}/${fileName}.mp3`
     return link
     }
 
@@ -148,12 +170,12 @@ class App extends Component {
   let orientation;
   if (this.state.loggedIn) {
       orientation = <div className="row text-center"> <div className="col-7">
-      <MainWindow format={this.format} addToDb={this.addToDb} loggedIn={this.state.loggedIn}/>
+      <MainWindow play={this.play} createFile={this.createFile} format={this.format} addToDb={this.addToDb} loggedIn={this.state.loggedIn} audio={this.audio} />
       </div> <div className="col-5">
       <SideWindow format={this.format} jwt={this.state.jwt}/> </div> </div>
   } else {
       orientation = <div className="text-center col-12"><MainWindow format={this.format}
-    loggedIn={this.state.loggedIn}/> </div>
+    audio={this.audio} loggedIn={this.state.loggedIn} createFile={this.createFile} play={this.play} /> </div>
   }
 
   let logging;
