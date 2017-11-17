@@ -31,7 +31,7 @@ class Profile extends Component {
       <tr><td className="btn-sm languageButtonColor text-dark btn text-left">
         {phrase.language}:</td><td><h4>{phrase.phrase}</h4></td>
         <td><a className="btn text-dark" href={this.props.format(phrase)}
-        className="btn mainButtonColor btn-sm text-dark text-right">Download</a></td></tr>
+        className="btn mainButtonColor btn-sm text-dark text-right" download>Download</a></td></tr>
       )
     }
 

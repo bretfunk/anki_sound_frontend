@@ -10,6 +10,10 @@ class Body extends Component {
     this.savePhrase = this.savePhrase.bind(this);
   }
 
+  play = () => {
+    this.audio.play();
+  }
+
   savePhrase = (phrase) => {
     this.props.addToDb(phrase)
   }
@@ -18,6 +22,7 @@ class Body extends Component {
     this.setState({
       collection: [...this.state.collection, {language: phrase.language, phrase: phrase.phrase}]
     })
+    this.props.createFile(phrase)
   }
 
   render() {
@@ -30,13 +35,14 @@ class Body extends Component {
       button = ""
     }
 
-    let list = this.state.collection.map((phrase) =>
-      <tr>
+    let list = this.state.collection.map((phrase, index) =>
+      <tr key={index}>
       <td className= "btn-sm languageButtonColor text-dark btn text-left">{phrase.language}:</td>
       <td><h4>{phrase.phrase}</h4></td>
       <td><a className="btn secondaryButtonColor" href={this.props.format(phrase)}
-      className="btn mainButtonColor text-dark btn-sm text-right">Download </a></td>
-      <td><button>New Button</button></td>
+      className="btn mainButtonColor text-dark btn-sm text-right" download>Download </a></td>
+      <td><audio ref={(audio) => { this.audio = audio; }} src={this.props.format(phrase)} type="audio/mp3"> </audio></td>
+      <td><button onClick={this.play}>Play</button></td>
         {button}
       </tr>)
 
