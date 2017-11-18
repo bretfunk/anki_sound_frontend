@@ -42,10 +42,11 @@ class Body extends Component {
       <td><a className="btn secondaryButtonColor" href={this.props.format(phrase)}
       className="btn mainButtonColor text-dark btn-sm text-right" download>Download </a></td>
       <td><audio ref={(audio) => { this.audio = audio; }} src={this.props.format(phrase)} type="audio/mp3"> </audio></td>
-      <td><button onClick={this.play}>Play</button></td>
         {button}
       </tr>)
 
+      //this is the play button but it only works when one word is present
+      //<td><button onClick={this.play}>Play</button></td>
     return (
       <div className="mainWindowColor">
       <br />

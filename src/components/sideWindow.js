@@ -5,7 +5,7 @@ class SideWindow extends Component {
   render() {
     return (
       <div className="mainWindowColor">
-      <Profile format={this.props.format} jwt={this.props.jwt} />
+      <Profile deletePhrase={this.props.deletePhrase} format={this.props.format} jwt={this.props.jwt} />
       </div>
     )
   }

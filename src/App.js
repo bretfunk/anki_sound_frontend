@@ -73,6 +73,7 @@ class App extends Component {
     this.createFile     = this.createFile.bind(this)
     this.play           = this.play.bind(this)
     this.formatFileName = this.formatFileName.bind(this)
+    this.deletePhrase   = this.deletePhrase.bind(this)
   }
 
   play = () => {
@@ -146,6 +147,17 @@ class App extends Component {
     this.createPhrase(phrase, language)
   }
 
+  //this works except phrase doesn't come through...so it doesn't work
+  deletePhrase(phrase) {
+    axios.delete(URL() + `api/phrases?phrase=${phrase.phrase}&user_id=${this.state.userId}`)
+      .then((response) => {
+        console.log(response + ' deleted')
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+    }
+
   createPhrase(phrase, language) {
     let data = { phrase: phrase, language: language, user_id: this.state.userId }
     axios.post(URL() + 'api/phrases',
@@ -172,7 +184,7 @@ class App extends Component {
       orientation = <div className="row text-center"> <div className="col-7">
       <MainWindow play={this.play} createFile={this.createFile} format={this.format} addToDb={this.addToDb} loggedIn={this.state.loggedIn} audio={this.audio} />
       </div> <div className="col-5">
-      <SideWindow format={this.format} jwt={this.state.jwt}/> </div> </div>
+      <SideWindow deletePhrase={this.deletePhrase} format={this.format} jwt={this.state.jwt}/> </div> </div>
   } else {
       orientation = <div className="text-center col-12"><MainWindow format={this.format}
     audio={this.audio} loggedIn={this.state.loggedIn} createFile={this.createFile} play={this.play} /> </div>
