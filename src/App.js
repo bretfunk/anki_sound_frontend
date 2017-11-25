@@ -99,6 +99,7 @@ class App extends Component {
   }
 
   addToState(phrase) {
+    debugger
     this.setState({
       dbPhrases: [...this.state.dbPhrases, {language: phrase.language, phrase: phrase.phrase}]
     })
@@ -106,7 +107,7 @@ class App extends Component {
 
 
   savePhrase = (phrase) => {
-    this.props.addToDb(phrase)
+    this.addToDb(phrase)
   }
 
   submitPhrase = (phrase) => {
@@ -131,7 +132,6 @@ class App extends Component {
     axios.get(URL() + `audio?phrase=${phrase}&language=${language}&file_name=${fileName}`
     )
       .then((response) => {
-        debugger
       })
   }
 
@@ -188,7 +188,9 @@ class App extends Component {
     let newParsed = parsed.replace('Save to Profile', '').split(':')
     let language = newParsed[0]
     let phrase = newParsed[1].trim()
+    let fullPhrase = {phrase: phrase, language: language}
     this.createPhrase(phrase, language)
+    this.addToState(fullPhrase)
   }
 
   //this works except phrase doesn't come through...so it doesn't work
