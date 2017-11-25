@@ -63,22 +63,24 @@ class App extends Component {
       dbPhrases: []
     }
 
-    this.loggingIn      = this.loggingIn.bind(this)
-    this.creatingUser   = this.creatingUser.bind(this)
-    this.changeLoggedIn = this.changeLoggedIn.bind(this)
-    this.changeJwt      = this.changeJwt.bind(this)
-    this.getUserId      = this.getUserId.bind(this)
-    this.addToDb        = this.addToDb.bind(this)
-    this.createPhrase   = this.createPhrase.bind(this)
-    this.format         = this.format.bind(this)
-    this.logOut         = this.logOut.bind(this)
-    this.createFile     = this.createFile.bind(this)
-    this.play           = this.play.bind(this)
-    this.formatFileName = this.formatFileName.bind(this)
-    this.deletePhrase   = this.deletePhrase.bind(this)
-    this.savePhrase     = this.savePhrase.bind(this)
+    this.loggingIn       = this.loggingIn.bind(this)
+    this.creatingUser    = this.creatingUser.bind(this)
+    this.changeLoggedIn  = this.changeLoggedIn.bind(this)
+    this.changeJwt       = this.changeJwt.bind(this)
+    this.getUserId       = this.getUserId.bind(this)
+    this.addToDb         = this.addToDb.bind(this)
+    this.createPhrase    = this.createPhrase.bind(this)
+    this.format          = this.format.bind(this)
+    this.logOut          = this.logOut.bind(this)
+    this.createFile      = this.createFile.bind(this)
+    this.play            = this.play.bind(this)
+    this.formatFileName  = this.formatFileName.bind(this)
+    this.deletePhrase    = this.deletePhrase.bind(this)
+    this.savePhrase      = this.savePhrase.bind(this)
     this.getSavedPhrases = this.getSavedPhrases.bind(this);
     this.addToState      = this.addToState.bind(this);
+    this.removeFromState = this.removeFromState.bind(this);
+    this.removeFromDb    = this.removeFromDb.bind(this);
   }
 
   //remove the prop of jwt now that I can call it directly
@@ -99,12 +101,17 @@ class App extends Component {
   }
 
   addToState(phrase) {
-    debugger
     this.setState({
       dbPhrases: [...this.state.dbPhrases, {language: phrase.language, phrase: phrase.phrase}]
     })
   }
 
+  removeFromState(phrase) {
+    //doesnt know what phrase is
+    this.setState({dbPhrases: this.state.dbPhrases.filter(function(deletedPhrase) {
+      return phrase !== deletedPhrase
+    })}
+    )}
 
   savePhrase = (phrase) => {
     this.addToDb(phrase)
@@ -193,6 +200,12 @@ class App extends Component {
     this.addToState(fullPhrase)
   }
 
+  removeFromDb(language, phrase) {
+    debugger
+    this.deletePhrase
+    this.removeFromState
+  }
+
   //this works except phrase doesn't come through...so it doesn't work
   deletePhrase(phrase) {
     axios.delete(URL() + `api/phrases?phrase=${phrase.phrase}&user_id=${this.state.userId}`)
@@ -231,7 +244,7 @@ class App extends Component {
       orientation = <div className="row text-center"> <div className="col-7">
       <MainWindow savePhrase={this.savePhrase} savedPhrases={this.state.savedPhrases} submitPhrase={this.submitPhrase} play={this.play} createFile={this.createFile} format={this.format} addToDb={this.addToDb} loggedIn={this.state.loggedIn} audio={this.audio} />
       </div> <div className="col-5">
-      <SideWindow dbPhrases={this.state.dbPhrases} getSavedPhrases={this.getSavedPhrases} deletePhrase={this.deletePhrase} format={this.format} jwt={this.state.jwt}/> </div> </div>
+      <SideWindow removeFromDb={this.removeFromDb} dbPhrases={this.state.dbPhrases} getSavedPhrases={this.getSavedPhrases} format={this.format} jwt={this.state.jwt}/> </div> </div>
   } else {
       orientation = <div className="text-center col-12"><MainWindow format={this.format}
     audio={this.audio} loggedIn={this.state.loggedIn} savedPhrases={this.state.savedPhrases} submitPhrase={this.submitPhrase} createFile={this.createFile} play={this.play} /> </div>
