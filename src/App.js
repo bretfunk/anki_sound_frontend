@@ -164,6 +164,7 @@ class App extends Component {
   changeLoggedIn() {
     let change;
     (this.state.loggedIn) ? change = false : change = true
+    this.setState({ dbPhrases: [] })
     this.setState({ loggedIn: change })
   }
 
