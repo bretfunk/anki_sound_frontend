@@ -48,13 +48,9 @@ class Profile extends Component {
   handleDelete = (event) => {
     let data = event.target.parentElement.parentElement.innerText.replace('Download', '')
     let newData = data.replace('Delete', '').split(':')
-    language = newData[0]
-    phrase = newData[1].trim()
-    //it doesn't know what phrase is
-  //if I don't make it an arrow function it works fine but then it auto runs and deletes everything
+    let language = newData[0]
+    let phrase = newData[1].trim()
     this.props.removeFromDb(language, phrase)
-    //this.props.deletePhrase(phrase.phrase)
-    //this.props.removeFromState(phrase)
   }
 
   render() {

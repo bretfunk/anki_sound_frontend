@@ -107,7 +107,6 @@ class App extends Component {
   }
 
   removeFromState(phrase) {
-    //doesnt know what phrase is
     this.setState({dbPhrases: this.state.dbPhrases.filter(function(deletedPhrase) {
       return phrase !== deletedPhrase
     })}
@@ -202,11 +201,12 @@ class App extends Component {
 
   removeFromDb(language, phrase) {
     debugger
-    this.deletePhrase
-    this.removeFromState
+    let fullPhrase = {phrase: phrase, language: language}
+    this.deletePhrase(fullPhrase)
+    //doesnt work
+    this.removeFromState(fullPhrase)
   }
 
-  //this works except phrase doesn't come through...so it doesn't work
   deletePhrase(phrase) {
     axios.delete(URL() + `api/phrases?phrase=${phrase.phrase}&user_id=${this.state.userId}`)
       .then((response) => {
