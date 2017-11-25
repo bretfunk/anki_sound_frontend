@@ -46,6 +46,7 @@ class Profile extends Component {
     })}
     )}
 
+
   //this isn't passing phrase along and I have no idea why. WHYYYYYYYYYY
   //if I don't make it an arrow function it works fine but then it auto runs and deletes everything
   handleDelete = (phrase) => {
