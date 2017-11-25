@@ -58,7 +58,8 @@ class App extends Component {
       tryingToCreateUser: false,
       loggedIn: false,
       jwt: '',
-      userId: ''
+      userId: '',
+      savedPhrases: []
     }
 
     this.loggingIn      = this.loggingIn.bind(this)
@@ -74,6 +75,18 @@ class App extends Component {
     this.play           = this.play.bind(this)
     this.formatFileName = this.formatFileName.bind(this)
     this.deletePhrase   = this.deletePhrase.bind(this)
+  }
+
+
+  savePhrase = (phrase) => {
+    this.props.addToDb(phrase)
+  }
+
+  submitPhrase = (phrase) => {
+    this.setState({
+      savedPhrases: [...this.state.savedPhrases, {language: phrase.language, phrase: phrase.phrase}]
+    })
+    this.createFile(phrase)
   }
 
   play = () => {
@@ -182,12 +195,12 @@ class App extends Component {
   let orientation;
   if (this.state.loggedIn) {
       orientation = <div className="row text-center"> <div className="col-7">
-      <MainWindow play={this.play} createFile={this.createFile} format={this.format} addToDb={this.addToDb} loggedIn={this.state.loggedIn} audio={this.audio} />
+      <MainWindow savedPhrases={this.state.savedPhases} submitPhrase={this.submitPhrase} play={this.play} createFile={this.createFile} format={this.format} addToDb={this.addToDb} loggedIn={this.state.loggedIn} audio={this.audio} />
       </div> <div className="col-5">
       <SideWindow deletePhrase={this.deletePhrase} format={this.format} jwt={this.state.jwt}/> </div> </div>
   } else {
       orientation = <div className="text-center col-12"><MainWindow format={this.format}
-    audio={this.audio} loggedIn={this.state.loggedIn} createFile={this.createFile} play={this.play} /> </div>
+    audio={this.audio} loggedIn={this.state.loggedIn} savedPhrases={this.state.savedPhrases} submitPhrase={this.submitPhrase} createFile={this.createFile} play={this.play} /> </div>
   }
 
   let logging;

@@ -5,7 +5,7 @@ class Body extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      collection: []
+      //collection: []
     }
     this.savePhrase = this.savePhrase.bind(this);
   }
@@ -18,12 +18,12 @@ class Body extends Component {
     this.props.addToDb(phrase)
   }
 
-  handleSubmit = (phrase) => {
-    this.setState({
-      collection: [...this.state.collection, {language: phrase.language, phrase: phrase.phrase}]
-    })
-    this.props.createFile(phrase)
-  }
+  //submitPhrase = (phrase) => {
+    //this.setState({
+      //collection: [...this.state.collection, {language: phrase.language, phrase: phrase.phrase}]
+    //})
+    //this.props.createFile(phrase)
+  //}
 
   render() {
 
@@ -35,7 +35,7 @@ class Body extends Component {
       button = ""
     }
 
-    let list = this.state.collection.map((phrase, index) =>
+    let list = this.props.savedPhrases.map((phrase, index) =>
       <tr key={index}>
       <td className= "btn-sm languageButtonColor text-dark btn text-left">{phrase.language}:</td>
       <td><h4>{phrase.phrase}</h4></td>
@@ -51,7 +51,7 @@ class Body extends Component {
       <div className="mainWindowColor">
       <br />
       <h1 className="bannerColor text-white rounded heading">Phrase to Convert</h1>
-      <h5><Form onSubmit={this.handleSubmit}/></h5>
+      <h5><Form onSubmit={this.props.submitPhrase}/></h5>
       <br />
       <h1 className="bannerColor text-white rounded heading">Submitted Phrases</h1>
       <table width="100%">
