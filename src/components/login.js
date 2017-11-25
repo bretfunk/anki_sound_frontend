@@ -16,10 +16,12 @@ class Login extends Component {
   }
 
   handleEmailChange(event) {
+    event.preventDefault();
     this.setState({email: event.target.value});
   }
 
   handlePasswordChange(event) {
+    event.preventDefault();
     this.setState({password: event.target.value});
   }
 

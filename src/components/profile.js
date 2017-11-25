@@ -50,7 +50,8 @@ class Profile extends Component {
     let newData = data.replace('Delete', '').split(':')
     let language = newData[0]
     let phrase = newData[1].replace(language, '').trim()
-    this.props.removeFromDb(language, phrase)
+    let fullPhrase = {language: language, phrase: phrase}
+    this.props.removeFromDb(fullPhrase)
   }
 
   render() {

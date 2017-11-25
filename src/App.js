@@ -108,9 +108,9 @@ class App extends Component {
 
   removeFromState(deletedPhrase) {
     this.setState({dbPhrases: this.state.dbPhrases.filter(function(phrase) {
-      debugger
       return phrase.phrase !== deletedPhrase.phrase
-      //return phrase !== deletedPhrase
+      //return !Object.is(phrase, deletedPhrase)
+      //return ((phrase.phrase !== deletedPhrase.phrase) && (phrase.language !== deletedPhrase.language))
     })}
     )}
 
@@ -137,6 +137,7 @@ class App extends Component {
     let phrase = rawPhrase.phrase
     let language = languageHash[rawPhrase.language]
     let fileName = this.formatFileName(phrase)
+    debugger
     axios.get(URL() + `audio?phrase=${phrase}&language=${language}&file_name=${fileName}`
     )
       .then((response) => {
@@ -193,7 +194,6 @@ class App extends Component {
 
   addToDb(data) {
     let parsed = data.currentTarget.parentElement.parentElement.innerText
-    debugger
     let newParsed = parsed.replace('Download', '').replace('Save to Profile', '').split(':')
     let language = newParsed[0]
     let phrase = newParsed[1].replace(language, '').trim()
@@ -202,11 +202,8 @@ class App extends Component {
     this.addToState(fullPhrase)
   }
 
-  removeFromDb(language, phrase) {
-    //make this just one param and only send through fullPhrase, make addToDb match
-    let fullPhrase = {language: language, phrase: phrase}
+  removeFromDb(fullPhrase) {
     this.deletePhrase(fullPhrase)
-    //doesnt work
     this.removeFromState(fullPhrase)
   }
 
