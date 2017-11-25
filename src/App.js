@@ -59,7 +59,8 @@ class App extends Component {
       loggedIn: false,
       jwt: '',
       userId: '',
-      savedPhrases: []
+      savedPhrases: [],
+      dbPhrases: []
     }
 
     this.loggingIn      = this.loggingIn.bind(this)
@@ -76,6 +77,31 @@ class App extends Component {
     this.formatFileName = this.formatFileName.bind(this)
     this.deletePhrase   = this.deletePhrase.bind(this)
     this.savePhrase     = this.savePhrase.bind(this)
+    this.getSavedPhrases = this.getSavedPhrases.bind(this);
+    this.addToState      = this.addToState.bind(this);
+  }
+
+  //remove the prop of jwt now that I can call it directly
+  getSavedPhrases() {
+    let config = {
+      headers: {
+        'Authorization': 'Bearer ' + this.state.jwt
+      }
+    }
+    axios.get(URL() + 'api/phrases',
+      config
+    )
+      .then((response) => {
+        response.data.map((phrase) =>
+          this.addToState(phrase)
+        )
+      })
+  }
+
+  addToState(phrase) {
+    this.setState({
+      dbPhrases: [...this.state.dbPhrases, {language: phrase.language, phrase: phrase.phrase}]
+    })
   }
 
 
@@ -196,13 +222,14 @@ class App extends Component {
     return link
     }
 
+  //clean up this mess
   render() {
   let orientation;
   if (this.state.loggedIn) {
       orientation = <div className="row text-center"> <div className="col-7">
       <MainWindow savePhrase={this.savePhrase} savedPhrases={this.state.savedPhrases} submitPhrase={this.submitPhrase} play={this.play} createFile={this.createFile} format={this.format} addToDb={this.addToDb} loggedIn={this.state.loggedIn} audio={this.audio} />
       </div> <div className="col-5">
-      <SideWindow deletePhrase={this.deletePhrase} format={this.format} jwt={this.state.jwt}/> </div> </div>
+      <SideWindow dbPhrases={this.state.dbPhrases} getSavedPhrases={this.getSavedPhrases} deletePhrase={this.deletePhrase} format={this.format} jwt={this.state.jwt}/> </div> </div>
   } else {
       orientation = <div className="text-center col-12"><MainWindow format={this.format}
     audio={this.audio} loggedIn={this.state.loggedIn} savedPhrases={this.state.savedPhrases} submitPhrase={this.submitPhrase} createFile={this.createFile} play={this.play} /> </div>

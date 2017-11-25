@@ -6,41 +6,42 @@ class Profile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      collection: []
+      //dbPhrases: []
     }
-    this.getSavedPhrases = this.getSavedPhrases.bind(this);
-    this.addToState      = this.addToState.bind(this);
+    //this.getSavedPhrases = this.getSavedPhrases.bind(this);
+    //this.addToState      = this.addToState.bind(this);
     this.removeFromState = this.removeFromState.bind(this);
     this.handleDelete    = this.handleDelete.bind(this);
   }
+
   componentDidMount() {
-    this.getSavedPhrases()
+    this.props.getSavedPhrases()
   }
 
-  getSavedPhrases() {
-    let config = {
-      headers: {
-        'Authorization': 'Bearer ' + this.props.jwt
-      }
-    }
-    axios.get(URL() + 'api/phrases',
-      config
-    )
-      .then((response) => {
-        response.data.map((phrase) =>
-          this.addToState(phrase)
-        )
-      })
-  }
+  //getSavedPhrases() {
+    //let config = {
+      //headers: {
+        //'Authorization': 'Bearer ' + this.props.jwt
+      //}
+    //}
+    //axios.get(URL() + 'api/phrases',
+      //config
+    //)
+      //.then((response) => {
+        //response.data.map((phrase) =>
+          //this.addToState(phrase)
+        //)
+      //})
+  //}
 
-  addToState(phrase) {
-    this.setState({
-      collection: [...this.state.collection, {language: phrase.language, phrase: phrase.phrase}]
-    })
-  }
+  //addToState(phrase) {
+    //this.setState({
+      //dbPhrases: [...this.state.dbPhrases, {language: phrase.language, phrase: phrase.phrase}]
+    //})
+  //}
 
   removeFromState(phrase) {
-    this.setState({collection: this.state.collection.filter(function(deletedPhrase) {
+    this.setState({dbPhrases: this.state.dbPhrases.filter(function(deletedPhrase) {
       return phrase !== deletedPhrase
     })}
     )}
@@ -54,7 +55,7 @@ class Profile extends Component {
   }
 
   render() {
-    let list = this.state.collection.map((phrase, index) =>
+    let list = this.props.dbPhrases.map((phrase, index) =>
       <tr key={index}><td className="btn-sm languageButtonColor text-dark btn text-left">
       {phrase.language}:</td><td><h4>{phrase.phrase}</h4></td>
       <td><a className="btn text-dark" href={this.props.format(phrase)}
