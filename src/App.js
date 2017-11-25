@@ -106,9 +106,11 @@ class App extends Component {
     })
   }
 
-  removeFromState(phrase) {
-    this.setState({dbPhrases: this.state.dbPhrases.filter(function(deletedPhrase) {
-      return phrase !== deletedPhrase
+  removeFromState(deletedPhrase) {
+    this.setState({dbPhrases: this.state.dbPhrases.filter(function(phrase) {
+      debugger
+      return phrase.phrase !== deletedPhrase.phrase
+      //return phrase !== deletedPhrase
     })}
     )}
 
@@ -190,18 +192,19 @@ class App extends Component {
   }
 
   addToDb(data) {
-    let parsed = data.currentTarget.parentElement.parentElement.parentElement.innerText.replace('Download', '')
-    let newParsed = parsed.replace('Save to Profile', '').split(':')
+    let parsed = data.currentTarget.parentElement.parentElement.innerText
+    debugger
+    let newParsed = parsed.replace('Download', '').replace('Save to Profile', '').split(':')
     let language = newParsed[0]
-    let phrase = newParsed[1].trim()
+    let phrase = newParsed[1].replace(language, '').trim()
     let fullPhrase = {phrase: phrase, language: language}
     this.createPhrase(phrase, language)
     this.addToState(fullPhrase)
   }
 
   removeFromDb(language, phrase) {
-    debugger
-    let fullPhrase = {phrase: phrase, language: language}
+    //make this just one param and only send through fullPhrase, make addToDb match
+    let fullPhrase = {language: language, phrase: phrase}
     this.deletePhrase(fullPhrase)
     //doesnt work
     this.removeFromState(fullPhrase)
