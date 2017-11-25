@@ -105,6 +105,7 @@ class App extends Component {
     this.setState({
       dbPhrases: [...this.state.dbPhrases, {language: phrase.language, phrase: phrase.phrase}]
     })
+    this.createFile(phrase)
   }
 
   //removes a saved phrase from the collection in state after being removed from db
@@ -138,7 +139,6 @@ class App extends Component {
     let phrase = rawPhrase.phrase
     let language = languageHash[rawPhrase.language]
     let fileName = this.formatFileName(phrase)
-    debugger
     axios.get(URL() + `audio?phrase=${phrase}&language=${language}&file_name=${fileName}`
     )
       .then((response) => {
