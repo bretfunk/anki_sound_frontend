@@ -7,16 +7,16 @@ class Body extends Component {
     this.state = {
       //collection: []
     }
-    this.savePhrase = this.savePhrase.bind(this);
+    //this.savePhrase = this.savePhrase.bind(this);
   }
 
   play = () => {
     this.audio.play();
   }
 
-  savePhrase = (phrase) => {
-    this.props.addToDb(phrase)
-  }
+  //savePhrase = (phrase) => {
+    //this.props.addToDb(phrase)
+  //}
 
   //submitPhrase = (phrase) => {
     //this.setState({
@@ -30,7 +30,7 @@ class Body extends Component {
   let button;
     if (this.props.loggedIn) {
       button = <td><button className="btn secondaryButtonColor btn-sm text-dark"
-      onClick={this.savePhrase}>Save to Profile</button></td>
+      onClick={this.props.savePhrase}>Save to Profile</button></td>
     }  else {
       button = ""
     }
