@@ -83,7 +83,7 @@ class App extends Component {
     this.removeFromDb    = this.removeFromDb.bind(this);
   }
 
-  //remove the prop of jwt now that I can call it directly
+  //get saved phrases, runs after logging in
   getSavedPhrases() {
     let config = {
       headers: {
@@ -100,24 +100,27 @@ class App extends Component {
       })
   }
 
+  //adds a new saved phrase going to the db to also go to the collection in state
   addToState(phrase) {
     this.setState({
       dbPhrases: [...this.state.dbPhrases, {language: phrase.language, phrase: phrase.phrase}]
     })
   }
 
+  //removes a saved phrase from the collection in state after being removed from db
+  //currently cannot compare 'objects' against each other, just using the phrase but not ideal
   removeFromState(deletedPhrase) {
     this.setState({dbPhrases: this.state.dbPhrases.filter(function(phrase) {
       return phrase.phrase !== deletedPhrase.phrase
-      //return !Object.is(phrase, deletedPhrase)
-      //return ((phrase.phrase !== deletedPhrase.phrase) && (phrase.language !== deletedPhrase.language))
     })}
     )}
 
+  //goes to addToDb for formatting and insertion into the db
   savePhrase = (phrase) => {
     this.addToDb(phrase)
   }
 
+  //this adds a phrase to the collection after being submitted (not saved)
   submitPhrase = (phrase) => {
     this.setState({
       savedPhrases: [...this.state.savedPhrases, {language: phrase.language, phrase: phrase.phrase}]
@@ -125,14 +128,12 @@ class App extends Component {
     this.createFile(phrase)
   }
 
-  savePhrase = (phrase) => {
-    this.addToDb(phrase)
-  }
-
+  //this is to play files, not just download them, a work in progress, also in the componet
   play = () => {
     this.audio.play();
   }
 
+  //creates file in the backend upon submittal, there it remains
   createFile(rawPhrase) {
     let phrase = rawPhrase.phrase
     let language = languageHash[rawPhrase.language]
@@ -144,41 +145,49 @@ class App extends Component {
       })
   }
 
+  //need to format file names to save and retrieve them, probably need to downcase to save space
   formatFileName(phrase) {
     return phrase.toString().trim().split(' ').join('_')
   }
 
 
+  //everytime a user clicks the login button it changes the state
   loggingIn() {
     let change;
     (this.state.tryingToLogin) ? change = false : change = true
     this.setState({ tryingToLogin: change })
   }
 
+  //everytime a user clicks the create user button it changes the state
   creatingUser() {
     let change;
     (this.state.tryingToCreateUser) ? change = false : change = true
     this.setState({ tryingToCreateUser: change })
   }
 
+  //if a user is logged in or not
   changeLoggedIn() {
     let change;
     (this.state.loggedIn) ? change = false : change = true
-    this.setState({ dbPhrases: [] })
     this.setState({ loggedIn: change })
   }
 
+  //log out the user, also wipes data
   logOut() {
     this.setState({loggedIn: false})
     this.setState({jwt: ''})
     this.setState({userId: ''})
+    this.setState({ savedPhrases: [] })
+    this.setState({ dbPhrases: [] })
   }
 
+  //changes the JSON web token, this is how the frontend and backend talk to each other
   changeJwt(jwt) {
     this.setState({jwt: jwt})
     this.getUserId(jwt)
   }
 
+  //gets the user id so the backend can save the phrase to the correct user
   getUserId(jwt) {
     let config = {
       headers: {
@@ -193,21 +202,26 @@ class App extends Component {
       })
   }
 
+  //this formats the phrase and adds it to the react collection and the backend db
+  //this is done differently than the remove from db method, wasnt sure best react practices
   addToDb(data) {
     let parsed = data.currentTarget.parentElement.parentElement.innerText
     let newParsed = parsed.replace('Download', '').replace('Save to Profile', '').split(':')
     let language = newParsed[0]
     let phrase = newParsed[1].replace(language, '').trim()
     let fullPhrase = {phrase: phrase, language: language}
-    this.createPhrase(phrase, language)
+    this.createPhrase(fullPhrase)
     this.addToState(fullPhrase)
   }
 
+  //as mentioned above, the formatting is done in the component upon removal, did both ways
+  //but not sure which is react best practice
   removeFromDb(fullPhrase) {
     this.deletePhrase(fullPhrase)
     this.removeFromState(fullPhrase)
   }
 
+  //deletes the phrase from the backend db
   deletePhrase(phrase) {
     axios.delete(URL() + `api/phrases?phrase=${phrase.phrase}&user_id=${this.state.userId}`)
       .then((response) => {
@@ -218,8 +232,9 @@ class App extends Component {
       })
     }
 
-  createPhrase(phrase, language) {
-    let data = { phrase: phrase, language: language, user_id: this.state.userId }
+  //creates the phrase in the db under the correct user
+  createPhrase(phrase) {
+    let data = { phrase: phrase.phrase, language: phrase.language, user_id: this.state.userId }
     axios.post(URL() + 'api/phrases',
       data
     )
@@ -231,6 +246,7 @@ class App extends Component {
       })
     }
 
+  //formats the phrase to be saved in the backend db
   format(phrase) {
     let language = languageHash[phrase.language]
     let fileName = this.formatFileName(phrase.phrase)
@@ -238,17 +254,22 @@ class App extends Component {
     return link
     }
 
-  //clean up this mess
+  //the render section is messy but I couldnt break it up (like the buttons) without getting errors
+  //I also think there is a better way to pass down props without it being so messy
   render() {
   let orientation;
   if (this.state.loggedIn) {
       orientation = <div className="row text-center"> <div className="col-7">
-      <MainWindow savePhrase={this.savePhrase} savedPhrases={this.state.savedPhrases} submitPhrase={this.submitPhrase} play={this.play} createFile={this.createFile} format={this.format} addToDb={this.addToDb} loggedIn={this.state.loggedIn} audio={this.audio} />
+      <MainWindow savePhrase={this.savePhrase} savedPhrases={this.state.savedPhrases}
+    submitPhrase={this.submitPhrase} play={this.play} format={this.format}
+    addToDb={this.addToDb} loggedIn={this.state.loggedIn} audio={this.audio} />
       </div> <div className="col-5">
-      <SideWindow removeFromDb={this.removeFromDb} dbPhrases={this.state.dbPhrases} getSavedPhrases={this.getSavedPhrases} format={this.format} jwt={this.state.jwt}/> </div> </div>
+      <SideWindow removeFromDb={this.removeFromDb} dbPhrases={this.state.dbPhrases}
+    getSavedPhrases={this.getSavedPhrases} format={this.format} /> </div> </div>
   } else {
       orientation = <div className="text-center col-12"><MainWindow format={this.format}
-    audio={this.audio} loggedIn={this.state.loggedIn} savedPhrases={this.state.savedPhrases} submitPhrase={this.submitPhrase} createFile={this.createFile} play={this.play} /> </div>
+    audio={this.audio} loggedIn={this.state.loggedIn} savedPhrases={this.state.savedPhrases}
+    submitPhrase={this.submitPhrase} createFile={this.createFile} play={this.play} /> </div>
   }
 
   let logging;

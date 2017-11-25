@@ -4,26 +4,11 @@ import Form from './Form'
 class Body extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      //collection: []
-    }
-    //this.savePhrase = this.savePhrase.bind(this);
   }
 
   play = () => {
     this.audio.play();
   }
-
-  //savePhrase = (phrase) => {
-    //this.props.addToDb(phrase)
-  //}
-
-  //submitPhrase = (phrase) => {
-    //this.setState({
-      //collection: [...this.state.collection, {language: phrase.language, phrase: phrase.phrase}]
-    //})
-    //this.props.createFile(phrase)
-  //}
 
   render() {
 
