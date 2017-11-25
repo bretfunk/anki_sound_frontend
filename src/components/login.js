@@ -16,10 +16,12 @@ class Login extends Component {
   }
 
   handleEmailChange(event) {
+    event.preventDefault();
     this.setState({email: event.target.value});
   }
 
   handlePasswordChange(event) {
+    event.preventDefault();
     this.setState({password: event.target.value});
   }
 
@@ -53,7 +55,7 @@ class Login extends Component {
       <input type="email" value={this.state.email} onChange={this.handleEmailChange}/>
       Password:
       <input type="password" value={this.state.password} onChange={this.handlePasswordChange}/>
-      <input className="btn mainButtonColor" type="submit" value="Login" />
+      <input className="btn btn-sm mainButtonColor" type="submit" value="Login" />
       </h5>
       </form>
       </div>

@@ -7,8 +7,10 @@ class MainWindow extends Component {
     }
     return (
     <div className="mainWindowColor">
-      <Body play={this.props.play} createFile={this.props.createFile} format={this.props.format}
-      savePhrase={this.props.savePhrase} savedPhrases={this.props.savedPhrases} submitPhrase={this.props.submitPhrase} audio={this.props.audio} addToDb={this.props.addToDb} loggedIn={this.props.loggedIn}/>
+      <Body play={this.props.play} format={this.props.format}
+      savePhrase={this.props.savePhrase} savedPhrases={this.props.savedPhrases}
+      submitPhrase={this.props.submitPhrase} audio={this.props.audio}
+      addToDb={this.props.addToDb} loggedIn={this.props.loggedIn}/>
       </div>
     )
   }
