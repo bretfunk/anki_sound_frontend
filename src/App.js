@@ -177,7 +177,7 @@ class App extends Component {
     this.setState({loggedIn: false})
     this.setState({jwt: ''})
     this.setState({userId: ''})
-    this.setState({ savedPhrases: [] })
+    //this.setState({ savedPhrases: [] })
     this.setState({ dbPhrases: [] })
   }
 
