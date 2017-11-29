@@ -205,6 +205,7 @@ class App extends Component {
   //this formats the phrase and adds it to the react collection and the backend db
   //this is done differently than the remove from db method, wasnt sure best react practices
   addToDb(data) {
+    debugger
     let parsed = data.currentTarget.parentElement.parentElement.innerText
     let newParsed = parsed.replace('Download', '').replace('Save to Profile', '').split(':')
     let language = newParsed[0]
