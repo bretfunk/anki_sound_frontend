@@ -7,6 +7,7 @@ import Login from './components/Login';
 import NewUser from './components/NewUser';
 import axios from 'axios';
 import URL from './url';
+import StorageURL from './storageUrl';
 
 const languageHash = {
   Afrikaans: "af",
@@ -247,10 +248,11 @@ class App extends Component {
     }
 
   //formats the phrase to be saved in the backend db
+  //changed to AmazonAWS
   format(phrase) {
     let language = languageHash[phrase.language]
     let fileName = this.formatFileName(phrase.phrase)
-    let link = URL() + `${language}/${fileName}.mp3`
+    let link = StorageURL() + `${language}/${fileName}.mp3`
     return link
     }
 
