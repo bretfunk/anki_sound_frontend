@@ -8,6 +8,7 @@ import NewUser from './components/NewUser';
 import axios from 'axios';
 import URL from './url';
 import StorageURL from './storageUrl';
+import LambdaURL from './lambdaUrl';
 
 const languageHash = {
   Afrikaans: "af",
@@ -140,7 +141,8 @@ class App extends Component {
     let phrase = rawPhrase.phrase
     let language = languageHash[rawPhrase.language]
     let fileName = this.formatFileName(phrase)
-    axios.get(URL() + `audio?phrase=${phrase}&language=${language}&file_name=${fileName}`
+    axios.get(LambdaURL() + `?phrase=${phrase}&language=${language}&file_name=${fileName}`
+    //axios.get(URL() + `audio?phrase=${phrase}&language=${language}&file_name=${fileName}`
     )
       .then((response) => {
       })
