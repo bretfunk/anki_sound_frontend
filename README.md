@@ -1,6 +1,7 @@
 # README
 - This app is the frontend and user interface for anki_sound_backend (https://github.com/bretfunk/anki_sound_backend).  AnkiSound allows users to covert text to audio files and download them in one of 20+ languages.  A user can then use these files in Space Repetition Systems (SRS) like Anki. The frontend works by itself to download audio files without accessing the backend.  To save phrases to a user profile, the backend applciation is needed.
 - The frontend is written in React.js and Javascript and the backend is written in Ruby and Rails.  Stying is done with bootstrap.
+- This app uses AWS API Gateway, Lambda, and S3.  The lambda code can be found here: https://github.com/bretfunk/anki_sound_lambda
 - You can see a live version of this program at: https://bretfunk.github.io/anki_sound_frontend/
 - A basic walkthrough can be found here: https://youtu.be/3ly823FDBK0
 
