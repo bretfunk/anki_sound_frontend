@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Form from './Form'
+import { connect } from 'react-redux';
 
 class Body extends Component {
   constructor(props) {
@@ -49,6 +50,21 @@ class Body extends Component {
   }
 }
 
-export default Body;
+function mapStateToProps(state) {
+  return {
+    loggedIn: state.heading.loggedIn
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    changeLoggedIn: () => dispatch({ type: 'CHANGE_LOGGED_IN' })
+  }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps) (Body);
+
+//export default Body;
 
 

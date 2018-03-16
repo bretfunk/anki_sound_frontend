@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import URL from '../url';
+import { connect } from 'react-redux';
 
 class Login extends Component {
   constructor(props) {
@@ -63,4 +64,19 @@ class Login extends Component {
   }
 }
 
-export default Login;
+function mapStateToProps(state) {
+  return {
+    loggedIn: state.heading.loggedIn
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    changeLoggedIn: () => dispatch({ type: 'CHANGE_LOGGED_IN' })
+  }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps) (Login);
+
+//export default Login;

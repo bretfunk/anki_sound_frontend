@@ -264,11 +264,11 @@ class App extends Component {
   //I also think there is a better way to pass down props without it being so messy
   render() {
     let orientation;
-    if (this.state.loggedIn) {
+    if (this.props.loggedIn) {
       orientation = <div className="row text-center"> <div className="col-7">
           <MainWindow savePhrase={this.savePhrase} savedPhrases={this.state.savedPhrases}
             submitPhrase={this.submitPhrase} play={this.play} format={this.format}
-            addToDb={this.addToDb} loggedIn={this.state.loggedIn} audio={this.audio} />
+            addToDb={this.addToDb} audio={this.audio} />
           </div> <div className="col-5">
           <SideWindow removeFromDb={this.removeFromDb} dbPhrases={this.state.dbPhrases}
             getSavedPhrases={this.getSavedPhrases} format={this.format} /> </div> </div>
