@@ -9,6 +9,7 @@ import axios from 'axios';
 import URL from './url';
 import StorageURL from './storageUrl';
 import LambdaURL from './lambdaUrl';
+import { connect } from 'react-redux';
 
 const languageHash = {
   Afrikaans: "af",
@@ -51,6 +52,7 @@ const languageHash = {
   Turkish: "tr",
   Vietnamese: "vi",
 }
+
 
 class App extends Component {
   constructor(props) {
@@ -142,7 +144,7 @@ class App extends Component {
     let language = languageHash[rawPhrase.language]
     let fileName = this.formatFileName(phrase)
     axios.get(LambdaURL() + `?phrase=${phrase}&language=${language}&file_name=${fileName}`
-    //axios.get(URL() + `audio?phrase=${phrase}&language=${language}&file_name=${fileName}`
+      //axios.get(URL() + `audio?phrase=${phrase}&language=${language}&file_name=${fileName}`
     )
       .then((response) => {
       })
@@ -233,7 +235,7 @@ class App extends Component {
       .catch((error) => {
         console.log(error)
       })
-    }
+  }
 
   //creates the phrase in the db under the correct user
   createPhrase(phrase) {
@@ -247,7 +249,7 @@ class App extends Component {
       .catch((error) => {
         console.log(error)
       })
-    }
+  }
 
   //formats the phrase to be saved in the backend db
   //changed to AmazonAWS
@@ -256,51 +258,65 @@ class App extends Component {
     let fileName = this.formatFileName(phrase.phrase)
     let link = StorageURL() + `${language}/${fileName}.mp3`
     return link
-    }
+  }
 
   //the render section is messy but I couldnt break it up (like the buttons) without getting errors
   //I also think there is a better way to pass down props without it being so messy
   render() {
-  let orientation;
-  if (this.state.loggedIn) {
+    let orientation;
+    if (this.state.loggedIn) {
       orientation = <div className="row text-center"> <div className="col-7">
-      <MainWindow savePhrase={this.savePhrase} savedPhrases={this.state.savedPhrases}
-    submitPhrase={this.submitPhrase} play={this.play} format={this.format}
-    addToDb={this.addToDb} loggedIn={this.state.loggedIn} audio={this.audio} />
-      </div> <div className="col-5">
-      <SideWindow removeFromDb={this.removeFromDb} dbPhrases={this.state.dbPhrases}
-    getSavedPhrases={this.getSavedPhrases} format={this.format} /> </div> </div>
-  } else {
+          <MainWindow savePhrase={this.savePhrase} savedPhrases={this.state.savedPhrases}
+            submitPhrase={this.submitPhrase} play={this.play} format={this.format}
+            addToDb={this.addToDb} loggedIn={this.state.loggedIn} audio={this.audio} />
+          </div> <div className="col-5">
+          <SideWindow removeFromDb={this.removeFromDb} dbPhrases={this.state.dbPhrases}
+            getSavedPhrases={this.getSavedPhrases} format={this.format} /> </div> </div>
+    } else {
       orientation = <div className="text-center col-12"><MainWindow format={this.format}
-    audio={this.audio} loggedIn={this.state.loggedIn} savedPhrases={this.state.savedPhrases}
-    submitPhrase={this.submitPhrase} createFile={this.createFile} play={this.play} /> </div>
-  }
+          audio={this.audio} loggedIn={this.state.loggedIn} savedPhrases={this.state.savedPhrases}
+          submitPhrase={this.submitPhrase} createFile={this.createFile} play={this.play} /> </div>
+    }
 
-  let logging;
+    let logging;
     if (this.state.tryingToLogin) {
       logging = <div className="row"><br /><br /><Login changeJwt={this.changeJwt}
-      loggingIn={this.loggingIn} changeLoggedIn={this.changeLoggedIn} /></div>
+          loggingIn={this.loggingIn} changeLoggedIn={this.changeLoggedIn} /></div>
     }  else {
       logging = ""
     }
 
-  let createUser;
+    let createUser;
     if (this.state.tryingToCreateUser) {
       createUser = <div className="row"><br /><br /><NewUser creatingUser={this.creatingUser} /></div>
-     } else {
-       createUser = ""
-     }
+    } else {
+      createUser = ""
+    }
 
     return (
       <div className="mainWindowColor container-fluid">
-      <Header logOut={this.logOut} loggedIn={this.state.loggedIn} loggingIn={this.loggingIn}
-      creatingUser={this.creatingUser}/>
-      {logging}
-      {createUser}
-      {orientation}
+        <Header logOut={this.logOut} loggedIn={this.state.loggedIn} loggingIn={this.loggingIn}
+          creatingUser={this.creatingUser}/>
+        {logging}
+        {createUser}
+        {orientation}
       </div>
     )
   }
 }
 
-export default App;
+function mapStateToProps(state) {
+  return {
+    loggedIn: state.heading.loggedIn
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    changeLoggedIn: () => dispatch({ type: 'CHANGE_LOGGED_IN' })
+  }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps) (App);
+//export default App;
