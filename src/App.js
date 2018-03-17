@@ -103,7 +103,6 @@ class App extends Component {
 
   //get saved phrases, runs after logging in
   getSavedPhrases() {
-    alert(this.props.jwt)
     let config = {
       headers: {
         'Authorization': 'Bearer ' + this.props.jwt

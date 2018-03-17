@@ -92,9 +92,7 @@ class Login extends Component {
       config
     )
       .then((response) => {
-        //alert(response.data.id)
-        this.props.setId({ userId: response.data.id })
-        //alert(this.props.userId)
+        this.props.setId(response.data.id)
         //this.setState({ userId: response.data.id })
       })
   }
@@ -144,7 +142,7 @@ function mapDispatchToProps(dispatch) {
     changeLoggedIn: () => dispatch({ type: CHANGE_LOGGED_IN }),
     loggingIn: () => dispatch({ type: CHANGE_TRYING_TO_LOGIN }),
     creatingUser: () => dispatch({ type: CHANGE_TRYING_TO_CREATE_USER }),
-    setJwt: (jwt) => dispatch({ type: SET_JWT, jwt: jwt}),
+    setJwt: (jwt) => dispatch({ type: SET_JWT, jwt}),
     resetJwt: () => dispatch({ type: RESET_JWT }),
     setId: (userId) => dispatch({ type: SET_ID, userId }),
     resetId: () => dispatch({ type: RESET_ID })
