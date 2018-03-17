@@ -11,47 +11,47 @@ import StorageURL from './storageUrl';
 import LambdaURL from './lambdaUrl';
 import { connect } from 'react-redux';
 
-const languageHash = {
-  Afrikaans: "af",
-  Albanian: "sq",
-  Arabic: "ar",
-  Armenian: "hy",
-  Bosnian: "bs",
-  Catalan: "ca",
-  Chinese: "zh-CN",
-  Croatian: "hr",
-  Czech: "cs",
-  Danish: "da",
-  Dutch: "nl",
-  English: "en",
-  Esperanto: "eo",
-  Finnish: "fi",
-  French: "fr",
-  German: "de",
-  Greek: "el",
-  Hindi: "hi",
-  Hungarian: "hu",
-  Icelandic: "is",
-  Indonesian: "id",
-  Italian: "it",
-  Japanese: "ja",
-  Korean: "ko",
-  Latin: "la",
-  Norwegian: "no",
-  Polish: "pl",
-  Portugese: "pt",
-  Romanian: "ro",
-  Russian: "ru",
-  Serbian: "sr",
-  Slovak: "sk",
-  Spanish: "es",
-  Swahili: "sw",
-  Swedish: "sv",
-  Tamil: "ta",
-  Thai: "th",
-  Turkish: "tr",
-  Vietnamese: "vi",
-}
+//const languageHash = {
+  //Afrikaans: "af",
+  //Albanian: "sq",
+  //Arabic: "ar",
+  //Armenian: "hy",
+  //Bosnian: "bs",
+  //Catalan: "ca",
+  //Chinese: "zh-CN",
+  //Croatian: "hr",
+  //Czech: "cs",
+  //Danish: "da",
+  //Dutch: "nl",
+  //English: "en",
+  //Esperanto: "eo",
+  //Finnish: "fi",
+  //French: "fr",
+  //German: "de",
+  //Greek: "el",
+  //Hindi: "hi",
+  //Hungarian: "hu",
+  //Icelandic: "is",
+  //Indonesian: "id",
+  //Italian: "it",
+  //Japanese: "ja",
+  //Korean: "ko",
+  //Latin: "la",
+  //Norwegian: "no",
+  //Polish: "pl",
+  //Portugese: "pt",
+  //Romanian: "ro",
+  //Russian: "ru",
+  //Serbian: "sr",
+  //Slovak: "sk",
+  //Spanish: "es",
+  //Swahili: "sw",
+  //Swedish: "sv",
+  //Tamil: "ta",
+  //Thai: "th",
+  //Turkish: "tr",
+  //Vietnamese: "vi",
+//}
 
 
 class App extends Component {
@@ -141,7 +141,7 @@ class App extends Component {
   //creates file in the backend upon submittal, there it remains
   createFile(rawPhrase) {
     let phrase = rawPhrase.phrase
-    let language = languageHash[rawPhrase.language]
+    let language = this.props.languageHash[rawPhrase.language]
     let fileName = this.formatFileName(phrase)
     axios.get(LambdaURL() + `?phrase=${phrase}&language=${language}&file_name=${fileName}`
       //axios.get(URL() + `audio?phrase=${phrase}&language=${language}&file_name=${fileName}`
@@ -257,7 +257,7 @@ class App extends Component {
   //formats the phrase to be saved in the backend db
   //changed to AmazonAWS
   format(phrase) {
-    let language = languageHash[phrase.language]
+    let language = this.props.languageHash[phrase.language]
     let fileName = this.formatFileName(phrase.phrase)
     let link = StorageURL() + `${language}/${fileName}.mp3`
     return link
@@ -325,7 +325,8 @@ function mapStateToProps(state) {
   return {
     loggedIn: state.heading.loggedIn,
     tryingToLogin: state.heading.tryingToLogin,
-    tryingToCreateUser: state.heading.tryingToCreateUser
+    tryingToCreateUser: state.heading.tryingToCreateUser,
+    languageHash: state.languageHash
   }
 }
 
