@@ -11,10 +11,15 @@ import StorageURL from './storageUrl';
 import LambdaURL from './lambdaUrl';
 import { connect } from 'react-redux';
 import {
-  CHANGE_LOGGED_IN,
-  CHANGE_TRYING_TO_LOGIN,
-  CHANGE_TRYING_TO_CREATE_USER
+  CHANGE_LOGGED_IN
+  //CHANGE_TRYING_TO_LOGIN,
+  //CHANGE_TRYING_TO_CREATE_USER
 } from './store/constants/action-types';
+import {
+  changeLoggedIn
+  //loggingIn,
+  //creatingUser
+} from './store/actions/index';
 
 //const languageHash = {
   //Afrikaans: "af",
@@ -339,8 +344,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     changeLoggedIn: () => dispatch({ type: CHANGE_LOGGED_IN }),
-    loggingIn: () => dispatch({ type: CHANGE_TRYING_TO_LOGIN }),
-    creatingUser: () => dispatch({ type: CHANGE_TRYING_TO_CREATE_USER })
+    //loggingIn: () => dispatch({ type: CHANGE_TRYING_TO_LOGIN }),
+    //creatingUser: () => dispatch({ type: CHANGE_TRYING_TO_CREATE_USER })
   }
 }
 

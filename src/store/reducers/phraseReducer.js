@@ -1,3 +1,9 @@
+export function phraseReducer(state = {}, action) {
+  switch(action.type) {
+    default:
+      return state;
+  }
+}
 //import {
   //CHANGE_LOGGED_IN,
   //CHANGE_TRYING_TO_LOGIN,

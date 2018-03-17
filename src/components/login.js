@@ -2,6 +2,16 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import URL from '../url';
 import { connect } from 'react-redux';
+import {
+  CHANGE_LOGGED_IN,
+  CHANGE_TRYING_TO_LOGIN,
+  CHANGE_TRYING_TO_CREATE_USER
+} from '../store/constants/action-types';
+import {
+  changeLoggedIn,
+  loggingIn,
+  creatingUser
+} from '../store/actions/index';
 
 class Login extends Component {
   constructor(props) {
@@ -98,9 +108,9 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    changeLoggedIn: () => dispatch({ type: 'CHANGE_LOGGED_IN' }),
-    loggingIn: () => dispatch({ type: 'CHANGE_TRYING_TO_LOGIN' }),
-    creatingUser: () => dispatch({ type: 'CHANGE_TRYING_TO_CREATE_USER' })
+    changeLoggedIn: () => dispatch({ type: CHANGE_LOGGED_IN }),
+    loggingIn: () => dispatch({ type: CHANGE_TRYING_TO_LOGIN }),
+    creatingUser: () => dispatch({ type: CHANGE_TRYING_TO_CREATE_USER })
   }
 }
 
