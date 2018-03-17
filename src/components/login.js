@@ -14,6 +14,7 @@ class Login extends Component {
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.login = this.login.bind(this);
+    this.loginFunctionCalls = this.loginFunctionCalls.bind(this);
   }
 
   handleEmailChange(event) {
@@ -31,13 +32,24 @@ class Login extends Component {
     this.login()
   }
 
+  //this function is because the dispatches can't be called from inside the promise
+  //still not working tho
+  //loginFunctionCalls(data) {
+    //this.props.changeJwt(data.data.jwt)
+    //this.props.changeLoggedIn()
+    //this.props.loggingIn()
+  //}
+
   login() {
     const email = this.state.email
     const password = this.state.password
     axios.post(URL() + 'api/user_token',
-        {"auth": {"email": email, "password": password}}
+      {"auth": {"email": email, "password": password}}
     )
       .then((data) => {
+        //this.loginFunctionCalls(data)
+        debugger
+        //these work fine with onclick buttons, don't work inside login for some reason
         this.props.changeJwt(data.data.jwt)
         this.props.changeLoggedIn()
         this.props.loggingIn()
@@ -45,20 +57,20 @@ class Login extends Component {
       .catch((error) => {
         alert(error)
       })
-    }
+  }
 
   render() {
     return (
       <div className="mx-auto">
-      <form onSubmit={this.handleSubmit}>
-      <h5>
-      Email:
-      <input type="email" value={this.state.email} onChange={this.handleEmailChange}/>
-      Password:
-      <input type="password" value={this.state.password} onChange={this.handlePasswordChange}/>
-      <input className="btn btn-sm mainButtonColor" type="submit" value="Login" />
-      </h5>
-      </form>
+        <form onSubmit={this.handleSubmit}>
+          <h5>
+            Email:
+            <input type="email" value={this.state.email} onChange={this.handleEmailChange}/>
+            Password:
+            <input type="password" value={this.state.password} onChange={this.handlePasswordChange}/>
+            <input className="btn btn-sm mainButtonColor" type="submit" value="Login" />
+          </h5>
+        </form>
       </div>
     )
   }
@@ -66,13 +78,17 @@ class Login extends Component {
 
 function mapStateToProps(state) {
   return {
-    loggedIn: state.heading.loggedIn
+    loggedIn: state.heading.loggedIn,
+    tryingToLogin: state.heading.tryingToLogin,
+    tryingToCreateUser: state.heading.tryingToCreateUser
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    changeLoggedIn: () => dispatch({ type: 'CHANGE_LOGGED_IN' })
+    changeLoggedIn: () => dispatch({ type: 'CHANGE_LOGGED_IN' }),
+    loggingIn: () => dispatch({ type: 'CHANGE_TRYING_TO_LOGIN' }),
+    creatingUser: () => dispatch({ type: 'CHANGE_TRYING_TO_CREATE_USER' })
   }
 }
 

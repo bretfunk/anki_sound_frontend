@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 class Header extends Component {
   constructor(props) {
@@ -62,6 +63,24 @@ class Header extends Component {
   }
 }
 
-export default Header;
+function mapStateToProps(state) {
+  return {
+    loggedIn: state.heading.loggedIn,
+    tryingToLogin: state.heading.tryingToLogin,
+    tryingToCreateUser: state.heading.tryingToCreateUser
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    changeLoggedIn: () => dispatch({ type: 'CHANGE_LOGGED_IN' }),
+    loggingIn: () => dispatch({ type: 'CHANGE_TRYING_TO_LOGIN' }),
+    creatingUser: () => dispatch({ type: 'CHANGE_TRYING_TO_CREATE_USER' })
+  }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps) (Header);
+//export default Header;
 
 

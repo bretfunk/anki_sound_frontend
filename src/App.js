@@ -58,18 +58,18 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      tryingToLogin: false,
-      tryingToCreateUser: false,
-      loggedIn: false,
+      //tryingToLogin: false,
+      //tryingToCreateUser: false,
+      //loggedIn: false,
       jwt: '',
       userId: '',
       savedPhrases: [],
       dbPhrases: []
     }
 
-    this.loggingIn       = this.loggingIn.bind(this)
-    this.creatingUser    = this.creatingUser.bind(this)
-    this.changeLoggedIn  = this.changeLoggedIn.bind(this)
+    //this.loggingIn       = this.loggingIn.bind(this)
+    //this.creatingUser    = this.creatingUser.bind(this)
+    //this.changeLoggedIn  = this.changeLoggedIn.bind(this)
     this.changeJwt       = this.changeJwt.bind(this)
     this.getUserId       = this.getUserId.bind(this)
     this.addToDb         = this.addToDb.bind(this)
@@ -157,29 +157,32 @@ class App extends Component {
 
 
   //everytime a user clicks the login button it changes the state
-  loggingIn() {
-    let change;
-    (this.state.tryingToLogin) ? change = false : change = true
-    this.setState({ tryingToLogin: change })
-  }
+  //loggingIn() {
+    //let change;
+    //(this.props.tryingToLogin) ? change = false : change = true
+    //this.setState({ tryingToLogin: change })
+  //}
 
   //everytime a user clicks the create user button it changes the state
-  creatingUser() {
-    let change;
-    (this.state.tryingToCreateUser) ? change = false : change = true
-    this.setState({ tryingToCreateUser: change })
-  }
+  //creatingUser() {
+    //let change;
+    //(this.state.tryingToCreateUser) ? change = false : change = true
+    //this.setState({ tryingToCreateUser: change })
+  //}
 
   //if a user is logged in or not
-  changeLoggedIn() {
-    let change;
-    (this.state.loggedIn) ? change = false : change = true
-    this.setState({ loggedIn: change })
-  }
+  //changeLoggedIn() {
+    //this.props.changeLoggedIn()
+    //changeLoggedIn: () => dispatch({ type: 'CHANGE_LOGGED_IN' })
+    //let change;
+    //(this.state.loggedIn) ? change = false : change = true
+    //this.setState({ loggedIn: change })
+  //}
 
   //log out the user, also wipes data
   logOut() {
-    this.setState({loggedIn: false})
+    this.props.changeLoggedIn()
+    //this.setState({loggedIn: false})
     this.setState({jwt: ''})
     this.setState({userId: ''})
     this.setState({ savedPhrases: [] })
@@ -266,37 +269,50 @@ class App extends Component {
     let orientation;
     if (this.props.loggedIn) {
       orientation = <div className="row text-center"> <div className="col-7">
-          <MainWindow savePhrase={this.savePhrase} savedPhrases={this.state.savedPhrases}
-            submitPhrase={this.submitPhrase} play={this.play} format={this.format}
-            addToDb={this.addToDb} audio={this.audio} />
+          <MainWindow
+            savePhrase={this.savePhrase}
+            savedPhrases={this.state.savedPhrases}
+            submitPhrase={this.submitPhrase}
+            play={this.play}
+            format={this.format}
+            addToDb={this.addToDb}
+            audio={this.audio} />
           </div> <div className="col-5">
-          <SideWindow removeFromDb={this.removeFromDb} dbPhrases={this.state.dbPhrases}
-            getSavedPhrases={this.getSavedPhrases} format={this.format} /> </div> </div>
+          <SideWindow
+            removeFromDb={this.removeFromDb}
+            dbPhrases={this.state.dbPhrases}
+            getSavedPhrases={this.getSavedPhrases}
+            format={this.format} /> </div> </div>
     } else {
-      orientation = <div className="text-center col-12"><MainWindow format={this.format}
-          audio={this.audio} loggedIn={this.state.loggedIn} savedPhrases={this.state.savedPhrases}
-          submitPhrase={this.submitPhrase} createFile={this.createFile} play={this.play} /> </div>
+      orientation = <div className="text-center col-12">
+        <MainWindow
+          format={this.format}
+          audio={this.audio}
+          savedPhrases={this.state.savedPhrases}
+          submitPhrase={this.submitPhrase}
+          createFile={this.createFile}
+          play={this.play} /> </div>
     }
 
     let logging;
-    if (this.state.tryingToLogin) {
+    if (this.props.tryingToLogin) {
       logging = <div className="row"><br /><br /><Login changeJwt={this.changeJwt}
-          loggingIn={this.loggingIn} changeLoggedIn={this.changeLoggedIn} /></div>
+          /></div>
     }  else {
       logging = ""
     }
 
     let createUser;
-    if (this.state.tryingToCreateUser) {
-      createUser = <div className="row"><br /><br /><NewUser creatingUser={this.creatingUser} /></div>
+    if (this.props.tryingToCreateUser) {
+      createUser = <div className="row"><br /><br /><NewUser /></div>
     } else {
       createUser = ""
     }
 
     return (
       <div className="mainWindowColor container-fluid">
-        <Header logOut={this.logOut} loggedIn={this.state.loggedIn} loggingIn={this.loggingIn}
-          creatingUser={this.creatingUser}/>
+        <Header logOut={this.logOut}
+          />
         {logging}
         {createUser}
         {orientation}
@@ -307,13 +323,17 @@ class App extends Component {
 
 function mapStateToProps(state) {
   return {
-    loggedIn: state.heading.loggedIn
+    loggedIn: state.heading.loggedIn,
+    tryingToLogin: state.heading.tryingToLogin,
+    tryingToCreateUser: state.heading.tryingToCreateUser
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    changeLoggedIn: () => dispatch({ type: 'CHANGE_LOGGED_IN' })
+    changeLoggedIn: () => dispatch({ type: 'CHANGE_LOGGED_IN' }),
+    loggingIn: () => dispatch({ type: 'CHANGE_TRYING_TO_LOGIN' }),
+    creatingUser: () => dispatch({ type: 'CHANGE_TRYING_TO_CREATE_USER' })
   }
 }
 

@@ -3,7 +3,9 @@ import rootReducer from './rootReducer';
 
 const ankiSoundDefaultState = {
   heading: {
-    loggedIn: false
+    loggedIn: false,
+    tryingToLogin: false,
+    tryingToCreateUser: false
   }
 }
 
