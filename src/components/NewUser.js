@@ -75,16 +75,16 @@ class NewUser extends Component {
 }
 function mapStateToProps(state) {
   return {
-    loggedIn: state.heading.loggedIn,
-    tryingToLogin: state.heading.tryingToLogin,
+    //loggedIn: state.heading.loggedIn,
+    //tryingToLogin: state.heading.tryingToLogin,
     tryingToCreateUser: state.heading.tryingToCreateUser
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    changeLoggedIn: () => dispatch({ type: 'CHANGE_LOGGED_IN' }),
-    loggingIn: () => dispatch({ type: 'CHANGE_TRYING_TO_LOGIN' }),
+    //changeLoggedIn: () => dispatch({ type: 'CHANGE_LOGGED_IN' }),
+    //loggingIn: () => dispatch({ type: 'CHANGE_TRYING_TO_LOGIN' }),
     creatingUser: () => dispatch({ type: 'CHANGE_TRYING_TO_CREATE_USER' })
   }
 }

@@ -1,11 +1,12 @@
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
 import rootReducer from '../reducers/rootReducer';
 
 const ankiSoundDefaultState = {
   heading: {
     loggedIn: false,
     tryingToLogin: false,
-    tryingToCreateUser: false,
+    tryingToCreateUser: false
   },
   login: {
     jwt: '',
@@ -60,6 +61,6 @@ const ankiSoundDefaultState = {
   }
 }
 
-const store = createStore(rootReducer, ankiSoundDefaultState);
+const store = createStore(rootReducer, ankiSoundDefaultState, applyMiddleware(thunk));
 
 export default store;

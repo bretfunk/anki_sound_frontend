@@ -49,6 +49,7 @@ class Login extends Component {
     //this.props.changeLoggedIn()
     //this.props.loggingIn()
   //}
+  //
 
   login() {
     const email = this.state.email
@@ -57,12 +58,13 @@ class Login extends Component {
       {"auth": {"email": email, "password": password}}
     )
       .then((data) => {
-        //this.loginFunctionCalls(data)
-        debugger
-        //these work fine with onclick buttons, don't work inside login for some reason
         this.props.changeJwt(data.data.jwt)
         this.props.changeLoggedIn()
-        this.props.loggingIn()
+
+        //this.props.changeJwt(data.data.jwt)
+        //this.props.changeLoggedIn()
+        //for some reason this doesn't work when calling loggingIn
+        //this.props.loggingIn()
       })
       .catch((error) => {
         alert(error)
@@ -102,7 +104,8 @@ function mapStateToProps(state) {
   return {
     loggedIn: state.heading.loggedIn,
     tryingToLogin: state.heading.tryingToLogin,
-    tryingToCreateUser: state.heading.tryingToCreateUser
+    tryingToCreateUser: state.heading.tryingToCreateUser,
+    languageHash: state.random.languageHash
   }
 }
 

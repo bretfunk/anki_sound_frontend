@@ -151,7 +151,6 @@ class App extends Component {
   //creates file in the backend upon submittal, there it remains
   createFile(rawPhrase) {
     let phrase = rawPhrase.phrase
-    debugger
     let language = this.props.languageHash[rawPhrase.language]
     let fileName = this.formatFileName(phrase)
     axios.get(LambdaURL() + `?phrase=${phrase}&language=${language}&file_name=${fileName}`
@@ -343,7 +342,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    changeLoggedIn: () => dispatch({ type: CHANGE_LOGGED_IN }),
+    changeLoggedIn: () => dispatch({ type: CHANGE_LOGGED_IN })
     //loggingIn: () => dispatch({ type: CHANGE_TRYING_TO_LOGIN }),
     //creatingUser: () => dispatch({ type: CHANGE_TRYING_TO_CREATE_USER })
   }

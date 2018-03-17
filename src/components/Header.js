@@ -5,11 +5,11 @@ import {
   CHANGE_TRYING_TO_LOGIN,
   CHANGE_TRYING_TO_CREATE_USER
 } from '../store/constants/action-types';
-import {
-  changeLoggedIn,
-  loggingIn,
-  creatingUser
-} from '../store/actions/index';
+//import {
+  //changeLoggedIn,
+  //loggingIn,
+  //creatingUser
+//} from '../store/actions/index';
 
 class Header extends Component {
   constructor(props) {
@@ -35,9 +35,13 @@ class Header extends Component {
 
   render() {
     let createUser;
-    if (this.props.loggedIn) {
+    if (this.props.tryingToCreateUser) {
       createUser =
         <div className="col-2">
+          <button
+            className="col-sm btn secondaryButtonColor"
+            onClick={this.new}>Create User
+          </button>
         </div>
     } else {
       createUser =
