@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Form from './Form'
 import { connect } from 'react-redux';
+import { SUBMIT_PHRASE } from '../store/constants/action-types';
+import { submitPhrase } from '../store/actions/index'
 
 class Body extends Component {
   constructor(props) {
@@ -22,7 +24,9 @@ class Body extends Component {
       button = ""
     }
 
-    let list = this.props.savedPhrases.map((phrase, index) =>
+    let list;
+    if (this.props.savedPhrases) {
+    list = this.props.savedPhrases.map((phrase, index) =>
       <tr key={index}>
         <td className= "btn-sm languageButtonColor text-dark btn text-left">{phrase.language}:</td>
         <td><h4>{phrase.phrase}</h4></td>
@@ -31,6 +35,9 @@ class Body extends Component {
         <td><audio ref={(audio) => { this.audio = audio; }} src={this.props.format(phrase)} type="audio/mp3"> </audio></td>
         {button}
       </tr>)
+    } else {
+      list = ""
+    }
 
     //this is the play button but it only works when one word is present
     //<td><button onClick={this.play}>Play</button></td>
@@ -53,17 +60,17 @@ class Body extends Component {
 
 function mapStateToProps(state) {
   return {
-    loggedIn: state.heading.loggedIn
+    loggedIn: state.heading.loggedIn,
+    savedPhrases: state.phrase.savedPhrases
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    changeLoggedIn: () => dispatch({ type: 'CHANGE_LOGGED_IN' })
+    changeLoggedIn: () => dispatch({ type: 'CHANGE_LOGGED_IN' }),
+    submitPhrase: (phrase) => dispatch({ type: SUBMIT_PHRASE, phrase })
   }
 }
-
-
 export default connect(mapStateToProps, mapDispatchToProps) (Body);
 
 //export default Body;

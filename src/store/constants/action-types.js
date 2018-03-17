@@ -6,3 +6,5 @@ export const SET_JWT = "SET_JWT";
 export const RESET_JWT = "RESET_JWT";
 export const SET_ID = "SET_ID";
 export const RESET_ID = "RESET_ID";
+export const SUBMIT_PHRASE ="RESET_ID";
+export const RESET_SAVED_PHRASES = "RESET_SAVED_PHRASES";

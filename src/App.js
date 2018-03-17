@@ -13,14 +13,20 @@ import { connect } from 'react-redux';
 import {
   CHANGE_LOGGED_IN,
   SET_JWT,
-  RESET_JWT
+  RESET_JWT,
+  RESET_ID,
+  SUBMIT_PHRASE,
+  RESET_SAVED_PHRASES
   //CHANGE_TRYING_TO_LOGIN,
   //CHANGE_TRYING_TO_CREATE_USER
 } from './store/constants/action-types';
 import {
   changeLoggedIn,
   setJwt,
-  resetJwt
+  resetJwt,
+  setId,
+  resetId,
+  resetSavedPhrases
   //loggingIn,
   //creatingUser
 } from './store/actions/index';
@@ -77,7 +83,7 @@ class App extends Component {
       //loggedIn: false,
       //jwt: '',
       //userId: '',
-      savedPhrases: [],
+      //savedPhrases: [],
       dbPhrases: []
     }
 
@@ -141,9 +147,10 @@ class App extends Component {
 
   //this adds a phrase to the collection after being submitted (not saved)
   submitPhrase = (phrase) => {
-    this.setState({
-      savedPhrases: [...this.state.savedPhrases, {language: phrase.language, phrase: phrase.phrase}]
-    })
+    this.props.submitPhrase(phrase)
+    //this.setState({
+      //savedPhrases: [...this.state.savedPhrases, {language: phrase.language, phrase: phrase.phrase}]
+    //})
     this.createFile(phrase)
   }
 
@@ -200,8 +207,9 @@ class App extends Component {
     this.props.resetJwt()
     //this.setState({jwt: ''})
     this.props.resetId()
+    this.props.resetSavedPhrases()
     //this.setState({userId: ''})
-    this.setState({ savedPhrases: [] })
+    //this.setState({ savedPhrases: [] })
     this.setState({ dbPhrases: [] })
   }
 
@@ -288,7 +296,6 @@ class App extends Component {
       orientation = <div className="row text-center"> <div className="col-7">
           <MainWindow
             savePhrase={this.savePhrase}
-            savedPhrases={this.state.savedPhrases}
             submitPhrase={this.submitPhrase}
             play={this.play}
             format={this.format}
@@ -305,7 +312,6 @@ class App extends Component {
         <MainWindow
           format={this.format}
           audio={this.audio}
-          savedPhrases={this.state.savedPhrases}
           submitPhrase={this.submitPhrase}
           createFile={this.createFile}
           play={this.play} /> </div>
@@ -356,7 +362,9 @@ function mapDispatchToProps(dispatch) {
     //creatingUser: () => dispatch({ type: CHANGE_TRYING_TO_CREATE_USER })
     setJwt: (jwt) => dispatch({ type: SET_JWT, jwt }),
     resetJwt: () => dispatch({ type: RESET_JWT }),
-
+    resetId: () => dispatch({ type: RESET_ID }),
+    submitPhrase: (phrase) => dispatch({ type: SUBMIT_PHRASE, phrase }),
+    resetSavedPhrases: () => dispatch({ type: RESET_SAVED_PHRASES })
   }
 }
 
