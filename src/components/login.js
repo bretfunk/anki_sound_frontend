@@ -5,12 +5,20 @@ import { connect } from 'react-redux';
 import {
   CHANGE_LOGGED_IN,
   CHANGE_TRYING_TO_LOGIN,
-  CHANGE_TRYING_TO_CREATE_USER
+  CHANGE_TRYING_TO_CREATE_USER,
+  SET_JWT,
+  RESET_JWT,
+  SET_ID,
+  RESET_ID
 } from '../store/constants/action-types';
 import {
   changeLoggedIn,
   loggingIn,
-  creatingUser
+  creatingUser,
+  setJwt,
+  resetJwt,
+  setId,
+  resetId
 } from '../store/actions/index';
 
 class Login extends Component {
@@ -20,11 +28,12 @@ class Login extends Component {
       email: '',
       password: ''
     }
-    this.handleEmailChange = this.handleEmailChange.bind(this);
-    this.handlePasswordChange = this.handlePasswordChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.login = this.login.bind(this);
-    //this.loginFunctionCalls = this.loginFunctionCalls.bind(this);
+    this.handleEmailChange = this.handleEmailChange.bind(this)
+    this.handlePasswordChange = this.handlePasswordChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
+    this.login = this.login.bind(this)
+    //this.changeJwt = this.changeJwt.bind(this)
+    this.getUserId = this.getUserId.bind(this)
   }
 
   handleEmailChange(event) {
@@ -58,7 +67,9 @@ class Login extends Component {
       {"auth": {"email": email, "password": password}}
     )
       .then((data) => {
-        this.props.changeJwt(data.data.jwt)
+        this.props.setJwt(data.data.jwt)
+        //this.props.changeJwt(data.data.jwt)
+        this.getUserId(data.data.jwt)
         this.props.changeLoggedIn()
 
         //this.props.changeJwt(data.data.jwt)
@@ -68,6 +79,23 @@ class Login extends Component {
       })
       .catch((error) => {
         alert(error)
+      })
+  }
+
+  getUserId(jwt) {
+    let config = {
+      headers: {
+        'Authorization': 'Bearer ' + jwt
+      }
+    }
+    axios.get(URL() + 'api/user',
+      config
+    )
+      .then((response) => {
+        //alert(response.data.id)
+        this.props.setId({ userId: response.data.id })
+        //alert(this.props.userId)
+        //this.setState({ userId: response.data.id })
       })
   }
 
@@ -105,7 +133,9 @@ function mapStateToProps(state) {
     loggedIn: state.heading.loggedIn,
     tryingToLogin: state.heading.tryingToLogin,
     tryingToCreateUser: state.heading.tryingToCreateUser,
-    languageHash: state.random.languageHash
+    languageHash: state.random.languageHash,
+    jwt: state.login.jwt,
+    userId: state.login.userId
   }
 }
 
@@ -113,7 +143,11 @@ function mapDispatchToProps(dispatch) {
   return {
     changeLoggedIn: () => dispatch({ type: CHANGE_LOGGED_IN }),
     loggingIn: () => dispatch({ type: CHANGE_TRYING_TO_LOGIN }),
-    creatingUser: () => dispatch({ type: CHANGE_TRYING_TO_CREATE_USER })
+    creatingUser: () => dispatch({ type: CHANGE_TRYING_TO_CREATE_USER }),
+    setJwt: (jwt) => dispatch({ type: SET_JWT, jwt: jwt}),
+    resetJwt: () => dispatch({ type: RESET_JWT }),
+    setId: (userId) => dispatch({ type: SET_ID, userId }),
+    resetId: () => dispatch({ type: RESET_ID })
   }
 }
 

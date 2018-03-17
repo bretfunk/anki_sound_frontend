@@ -11,12 +11,16 @@ import StorageURL from './storageUrl';
 import LambdaURL from './lambdaUrl';
 import { connect } from 'react-redux';
 import {
-  CHANGE_LOGGED_IN
+  CHANGE_LOGGED_IN,
+  SET_JWT,
+  RESET_JWT
   //CHANGE_TRYING_TO_LOGIN,
   //CHANGE_TRYING_TO_CREATE_USER
 } from './store/constants/action-types';
 import {
-  changeLoggedIn
+  changeLoggedIn,
+  setJwt,
+  resetJwt
   //loggingIn,
   //creatingUser
 } from './store/actions/index';
@@ -71,8 +75,8 @@ class App extends Component {
       //tryingToLogin: false,
       //tryingToCreateUser: false,
       //loggedIn: false,
-      jwt: '',
-      userId: '',
+      //jwt: '',
+      //userId: '',
       savedPhrases: [],
       dbPhrases: []
     }
@@ -80,8 +84,8 @@ class App extends Component {
     //this.loggingIn       = this.loggingIn.bind(this)
     //this.creatingUser    = this.creatingUser.bind(this)
     //this.changeLoggedIn  = this.changeLoggedIn.bind(this)
-    this.changeJwt       = this.changeJwt.bind(this)
-    this.getUserId       = this.getUserId.bind(this)
+    //this.changeJwt       = this.changeJwt.bind(this)
+    //this.getUserId       = this.getUserId.bind(this)
     this.addToDb         = this.addToDb.bind(this)
     this.createPhrase    = this.createPhrase.bind(this)
     this.format          = this.format.bind(this)
@@ -91,17 +95,18 @@ class App extends Component {
     this.formatFileName  = this.formatFileName.bind(this)
     this.deletePhrase    = this.deletePhrase.bind(this)
     this.savePhrase      = this.savePhrase.bind(this)
-    this.getSavedPhrases = this.getSavedPhrases.bind(this);
-    this.addToState      = this.addToState.bind(this);
-    this.removeFromState = this.removeFromState.bind(this);
-    this.removeFromDb    = this.removeFromDb.bind(this);
+    this.getSavedPhrases = this.getSavedPhrases.bind(this)
+    this.addToState      = this.addToState.bind(this)
+    this.removeFromState = this.removeFromState.bind(this)
+    this.removeFromDb    = this.removeFromDb.bind(this)
   }
 
   //get saved phrases, runs after logging in
   getSavedPhrases() {
+    alert(this.props.jwt)
     let config = {
       headers: {
-        'Authorization': 'Bearer ' + this.state.jwt
+        'Authorization': 'Bearer ' + this.props.jwt
       }
     }
     axios.get(URL() + 'api/phrases',
@@ -193,32 +198,35 @@ class App extends Component {
   logOut() {
     this.props.changeLoggedIn()
     //this.setState({loggedIn: false})
-    this.setState({jwt: ''})
-    this.setState({userId: ''})
+    this.props.resetJwt()
+    //this.setState({jwt: ''})
+    this.props.resetId()
+    //this.setState({userId: ''})
     this.setState({ savedPhrases: [] })
     this.setState({ dbPhrases: [] })
   }
 
   //changes the JSON web token, this is how the frontend and backend talk to each other
-  changeJwt(jwt) {
-    this.setState({jwt: jwt})
-    this.getUserId(jwt)
-  }
+  //changeJwt(jwt) {
+    //this.props.setJwt(jwt)
+    ////this.setState({jwt: jwt})
+    //this.getUserId(jwt)
+  //}
 
   //gets the user id so the backend can save the phrase to the correct user
-  getUserId(jwt) {
-    let config = {
-      headers: {
-        'Authorization': 'Bearer ' + jwt
-      }
-    }
-    axios.get(URL() + 'api/user',
-      config
-    )
-      .then((response) => {
-        this.setState({ userId: response.data.id })
-      })
-  }
+  //getUserId(jwt) {
+    //let config = {
+      //headers: {
+        //'Authorization': 'Bearer ' + jwt
+      //}
+    //}
+    //axios.get(URL() + 'api/user',
+      //config
+    //)
+      //.then((response) => {
+        //this.setState({ userId: response.data.id })
+      //})
+  //}
 
   //this formats the phrase and adds it to the react collection and the backend db
   //this is done differently than the remove from db method, wasnt sure best react practices
@@ -241,7 +249,7 @@ class App extends Component {
 
   //deletes the phrase from the backend db
   deletePhrase(phrase) {
-    axios.delete(URL() + `api/phrases?phrase=${phrase.phrase}&user_id=${this.state.userId}`)
+    axios.delete(URL() + `api/phrases?phrase=${phrase.phrase}&user_id=${this.props.userId}`)
       .then((response) => {
         console.log(response + ' deleted')
       })
@@ -252,7 +260,7 @@ class App extends Component {
 
   //creates the phrase in the db under the correct user
   createPhrase(phrase) {
-    let data = { phrase: phrase.phrase, language: phrase.language, user_id: this.state.userId }
+    let data = { phrase: phrase.phrase, language: phrase.language, user_id: this.props.userId }
     axios.post(URL() + 'api/phrases',
       data
     )
@@ -306,7 +314,7 @@ class App extends Component {
 
     let logging;
     if (this.props.tryingToLogin) {
-      logging = <div className="row"><br /><br /><Login changeJwt={this.changeJwt}
+      logging = <div className="row"><br /><br /><Login
           /></div>
     }  else {
       logging = ""
@@ -336,15 +344,20 @@ function mapStateToProps(state) {
     loggedIn: state.heading.loggedIn,
     tryingToLogin: state.heading.tryingToLogin,
     tryingToCreateUser: state.heading.tryingToCreateUser,
-    languageHash: state.random.languageHash
+    languageHash: state.random.languageHash,
+    jwt: state.login.jwt,
+    userId: state.login.userId
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    changeLoggedIn: () => dispatch({ type: CHANGE_LOGGED_IN })
+    changeLoggedIn: () => dispatch({ type: CHANGE_LOGGED_IN }),
     //loggingIn: () => dispatch({ type: CHANGE_TRYING_TO_LOGIN }),
     //creatingUser: () => dispatch({ type: CHANGE_TRYING_TO_CREATE_USER })
+    setJwt: (jwt) => dispatch({ type: SET_JWT, jwt }),
+    resetJwt: () => dispatch({ type: RESET_JWT }),
+
   }
 }
 
