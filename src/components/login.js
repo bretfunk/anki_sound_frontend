@@ -14,7 +14,7 @@ class Login extends Component {
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.login = this.login.bind(this);
-    this.loginFunctionCalls = this.loginFunctionCalls.bind(this);
+    //this.loginFunctionCalls = this.loginFunctionCalls.bind(this);
   }
 
   handleEmailChange(event) {
@@ -65,10 +65,22 @@ class Login extends Component {
         <form onSubmit={this.handleSubmit}>
           <h5>
             Email:
-            <input type="email" value={this.state.email} onChange={this.handleEmailChange}/>
+            <input
+              type="email"
+              value={this.state.email}
+              onChange={this.handleEmailChange}
+            />
             Password:
-            <input type="password" value={this.state.password} onChange={this.handlePasswordChange}/>
-            <input className="btn btn-sm mainButtonColor" type="submit" value="Login" />
+            <input
+              type="password"
+              value={this.state.password}
+              onChange={this.handlePasswordChange}
+            />
+            <input
+              className="btn btn-sm mainButtonColor"
+              type="submit"
+              value="Login"
+            />
           </h5>
         </form>
       </div>

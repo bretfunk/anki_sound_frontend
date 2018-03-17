@@ -50,10 +50,22 @@ class NewUser extends Component {
       <form onSubmit={this.handleSubmit}>
       <h5>
       Email:
-      <input type="email" value={this.state.email} onChange={this.handleEmailChange}/>
+      <input
+        type="email"
+        value={this.state.email}
+        onChange={this.handleEmailChange}
+      />
       Password:
-      <input type="password" value={this.state.password} onChange={this.handlePasswordChange}/>
-      <input className="btn-sm btn mainButtonColor" type="submit" value="Create Account" />
+      <input
+        type="password"
+        value={this.state.password}
+        onChange={this.handlePasswordChange}
+      />
+      <input
+        className="btn-sm btn mainButtonColor"
+        type="submit"
+        value="Create Account"
+      />
       </h5>
       </form>
       </div>

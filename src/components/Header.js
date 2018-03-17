@@ -31,32 +31,41 @@ class Header extends Component {
         </div>
     } else {
       createUser =
-          <div className="col-2">
-      <button className="col-sm btn secondaryButtonColor" onClick={this.new}>Create User</button>
-          </div>
-      }
+        <div className="col-2">
+          <button
+            className="col-sm btn secondaryButtonColor"
+            onClick={this.new}>Create User
+          </button>
+        </div>
+    }
 
     let loginOrLogout;
     if (this.props.loggedIn) {
       loginOrLogout =
-          <div className="col-2">
-      <button className="col-sm btn secondaryButtonColor"  onClick={this.logOut}>Logout</button>
+        <div className="col-2">
+          <button
+            className="col-sm btn secondaryButtonColor"
+            onClick={this.logOut}>Logout
+          </button>
         </div>
-  } else {
-    loginOrLogout =
-          <div className="col-2">
-      <button className="col-sm btn secondaryButtonColor"  onClick={this.log}>Login</button>
+    } else {
+      loginOrLogout =
+        <div className="col-2">
+          <button
+            className="col-sm btn secondaryButtonColor"
+            onClick={this.log}>Login
+          </button>
         </div>
-  }
+    }
 
     return (
       <div className="container-fluid customNavbar rounded navbarColor">
         <div className="inline row">
           <div className="col-8">
-      <h1 className="col-sm navbar-brand text-white">AnkiSound</h1>
+            <h1 className="col-sm navbar-brand text-white">AnkiSound</h1>
           </div>
-      {createUser}
-      {loginOrLogout}
+          {createUser}
+          {loginOrLogout}
         </div>
       </div>
     )

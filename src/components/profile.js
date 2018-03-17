@@ -27,21 +27,21 @@ class Profile extends Component {
   render() {
     let list = this.props.dbPhrases.map((phrase, index) =>
       <tr key={index}><td className="btn-sm languageButtonColor text-dark btn text-left">
-      {phrase.language}:</td><td><h4>{phrase.phrase}</h4></td>
-      <td><a className="btn text-dark" href={this.props.format(phrase)}
-      className="btn secondaryButtonColor btn-sm text-dark text-right" download>Download</a></td>
-      <td><button className="btn mainButtonColor btn-sm text-dark text-right"
-      onClick={this.handleDelete} >Delete</button></td>
+          {phrase.language}:</td><td><h4>{phrase.phrase}</h4></td>
+        <td><a className="btn text-dark" href={this.props.format(phrase)}
+            className="btn secondaryButtonColor btn-sm text-dark text-right" download>Download</a></td>
+        <td><button className="btn mainButtonColor btn-sm text-dark text-right"
+            onClick={this.handleDelete} >Delete</button></td>
       </tr>)
     return (
       <div>
-      <br />
-      <h1 className="bannerColor text-white rounded heading">Saved Phrases</h1>
-      <table width="100%">
-      <tbody>
-      {list}
-      </tbody>
-      </table>
+        <br />
+        <h1 className="bannerColor text-white rounded heading">Saved Phrases</h1>
+        <table width="100%">
+          <tbody>
+            {list}
+          </tbody>
+        </table>
       </div>
     );
   }
