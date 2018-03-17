@@ -8,3 +8,6 @@ export const SET_ID = "SET_ID";
 export const RESET_ID = "RESET_ID";
 export const SUBMIT_PHRASE ="RESET_ID";
 export const RESET_SAVED_PHRASES = "RESET_SAVED_PHRASES";
+export const REMOVE_FROM_STATE = "REMOVE_FROM_STATE";
+export const ADD_TO_STATE = "ADD_TO_STATE";
+export const RESET_STATE = "RESET_STATE";

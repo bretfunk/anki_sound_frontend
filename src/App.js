@@ -16,7 +16,9 @@ import {
   RESET_JWT,
   RESET_ID,
   SUBMIT_PHRASE,
-  RESET_SAVED_PHRASES
+  RESET_SAVED_PHRASES,
+  ADD_TO_STATE,
+  REMOVE_FROM_STATE
   //CHANGE_TRYING_TO_LOGIN,
   //CHANGE_TRYING_TO_CREATE_USER
 } from './store/constants/action-types';
@@ -26,51 +28,53 @@ import {
   resetJwt,
   setId,
   resetId,
-  resetSavedPhrases
+  resetSavedPhrases,
+  addToState,
+  removeFromState
   //loggingIn,
   //creatingUser
 } from './store/actions/index';
 
 //const languageHash = {
-  //Afrikaans: "af",
-  //Albanian: "sq",
-  //Arabic: "ar",
-  //Armenian: "hy",
-  //Bosnian: "bs",
-  //Catalan: "ca",
-  //Chinese: "zh-CN",
-  //Croatian: "hr",
-  //Czech: "cs",
-  //Danish: "da",
-  //Dutch: "nl",
-  //English: "en",
-  //Esperanto: "eo",
-  //Finnish: "fi",
-  //French: "fr",
-  //German: "de",
-  //Greek: "el",
-  //Hindi: "hi",
-  //Hungarian: "hu",
-  //Icelandic: "is",
-  //Indonesian: "id",
-  //Italian: "it",
-  //Japanese: "ja",
-  //Korean: "ko",
-  //Latin: "la",
-  //Norwegian: "no",
-  //Polish: "pl",
-  //Portugese: "pt",
-  //Romanian: "ro",
-  //Russian: "ru",
-  //Serbian: "sr",
-  //Slovak: "sk",
-  //Spanish: "es",
-  //Swahili: "sw",
-  //Swedish: "sv",
-  //Tamil: "ta",
-  //Thai: "th",
-  //Turkish: "tr",
-  //Vietnamese: "vi",
+//Afrikaans: "af",
+//Albanian: "sq",
+//Arabic: "ar",
+//Armenian: "hy",
+//Bosnian: "bs",
+//Catalan: "ca",
+//Chinese: "zh-CN",
+//Croatian: "hr",
+//Czech: "cs",
+//Danish: "da",
+//Dutch: "nl",
+//English: "en",
+//Esperanto: "eo",
+//Finnish: "fi",
+//French: "fr",
+//German: "de",
+//Greek: "el",
+//Hindi: "hi",
+//Hungarian: "hu",
+//Icelandic: "is",
+//Indonesian: "id",
+//Italian: "it",
+//Japanese: "ja",
+//Korean: "ko",
+//Latin: "la",
+//Norwegian: "no",
+//Polish: "pl",
+//Portugese: "pt",
+//Romanian: "ro",
+//Russian: "ru",
+//Serbian: "sr",
+//Slovak: "sk",
+//Spanish: "es",
+//Swahili: "sw",
+//Swedish: "sv",
+//Tamil: "ta",
+//Thai: "th",
+//Turkish: "tr",
+//Vietnamese: "vi",
 //}
 
 
@@ -95,19 +99,20 @@ class App extends Component {
     this.addToDb         = this.addToDb.bind(this)
     this.createPhrase    = this.createPhrase.bind(this)
     this.format          = this.format.bind(this)
-    this.logOut          = this.logOut.bind(this)
+    //this.logOut          = this.logOut.bind(this)
     this.createFile      = this.createFile.bind(this)
     this.play            = this.play.bind(this)
     this.formatFileName  = this.formatFileName.bind(this)
     this.deletePhrase    = this.deletePhrase.bind(this)
     this.savePhrase      = this.savePhrase.bind(this)
-    this.getSavedPhrases = this.getSavedPhrases.bind(this)
-    this.addToState      = this.addToState.bind(this)
-    this.removeFromState = this.removeFromState.bind(this)
+    //this.getSavedPhrases = this.getSavedPhrases.bind(this)
+    //this.addToState      = this.addToState.bind(this)
+    //this.removeFromState = this.removeFromState.bind(this)
     this.removeFromDb    = this.removeFromDb.bind(this)
   }
 
   //get saved phrases, runs after logging in
+  //DB PHRASES
   getSavedPhrases() {
     let config = {
       headers: {
@@ -126,19 +131,22 @@ class App extends Component {
 
   //adds a new saved phrase going to the db to also go to the collection in state
   addToState(phrase) {
-    this.setState({
-      dbPhrases: [...this.state.dbPhrases, {language: phrase.language, phrase: phrase.phrase}]
-    })
+    this.props.addToState(phrase)
+    //this.setState({
+    //dbPhrases: [...this.state.dbPhrases, {language: phrase.language, phrase: phrase.phrase}]
+    //})
     this.createFile(phrase)
   }
 
   //removes a saved phrase from the collection in state after being removed from db
   //currently cannot compare 'objects' against each other, just using the phrase but not ideal
   removeFromState(deletedPhrase) {
-    this.setState({dbPhrases: this.state.dbPhrases.filter(function(phrase) {
-      return phrase.phrase !== deletedPhrase.phrase
-    })}
-    )}
+    this.props.removeFromState(deletedPhrase)
+    //this.setState({dbPhrases: this.state.dbPhrases.filter(function(phrase) {
+    //return phrase.phrase !== deletedPhrase.phrase
+    //})}
+    //)
+  }
 
   //goes to addToDb for formatting and insertion into the db
   savePhrase = (phrase) => {
@@ -149,7 +157,7 @@ class App extends Component {
   submitPhrase = (phrase) => {
     this.props.submitPhrase(phrase)
     //this.setState({
-      //savedPhrases: [...this.state.savedPhrases, {language: phrase.language, phrase: phrase.phrase}]
+    //savedPhrases: [...this.state.savedPhrases, {language: phrase.language, phrase: phrase.phrase}]
     //})
     this.createFile(phrase)
   }
@@ -179,60 +187,56 @@ class App extends Component {
 
   //everytime a user clicks the login button it changes the state
   //loggingIn() {
-    //let change;
-    //(this.props.tryingToLogin) ? change = false : change = true
-    //this.setState({ tryingToLogin: change })
+  //let change;
+  //(this.props.tryingToLogin) ? change = false : change = true
+  //this.setState({ tryingToLogin: change })
   //}
 
   //everytime a user clicks the create user button it changes the state
   //creatingUser() {
-    //let change;
-    //(this.state.tryingToCreateUser) ? change = false : change = true
-    //this.setState({ tryingToCreateUser: change })
+  //let change;
+  //(this.state.tryingToCreateUser) ? change = false : change = true
+  //this.setState({ tryingToCreateUser: change })
   //}
 
   //if a user is logged in or not
   //changeLoggedIn() {
-    //this.props.changeLoggedIn()
-    //changeLoggedIn: () => dispatch({ type: 'CHANGE_LOGGED_IN' })
-    //let change;
-    //(this.state.loggedIn) ? change = false : change = true
-    //this.setState({ loggedIn: change })
+  //this.props.changeLoggedIn()
+  //changeLoggedIn: () => dispatch({ type: 'CHANGE_LOGGED_IN' })
+  //let change;
+  //(this.state.loggedIn) ? change = false : change = true
+  //this.setState({ loggedIn: change })
   //}
 
   //log out the user, also wipes data
-  logOut() {
-    this.props.changeLoggedIn()
-    //this.setState({loggedIn: false})
-    this.props.resetJwt()
-    //this.setState({jwt: ''})
-    this.props.resetId()
-    this.props.resetSavedPhrases()
-    //this.setState({userId: ''})
-    //this.setState({ savedPhrases: [] })
-    this.setState({ dbPhrases: [] })
-  }
+  //logOut() {
+    //this.props.changeLoggedIn()
+    //this.props.resetJwt()
+    //this.props.resetId()
+    //this.props.resetSavedPhrases()
+    //this.setState({ dbPhrases: [] })
+  //}
 
   //changes the JSON web token, this is how the frontend and backend talk to each other
   //changeJwt(jwt) {
-    //this.props.setJwt(jwt)
-    ////this.setState({jwt: jwt})
-    //this.getUserId(jwt)
+  //this.props.setJwt(jwt)
+  ////this.setState({jwt: jwt})
+  //this.getUserId(jwt)
   //}
 
   //gets the user id so the backend can save the phrase to the correct user
   //getUserId(jwt) {
-    //let config = {
-      //headers: {
-        //'Authorization': 'Bearer ' + jwt
-      //}
-    //}
-    //axios.get(URL() + 'api/user',
-      //config
-    //)
-      //.then((response) => {
-        //this.setState({ userId: response.data.id })
-      //})
+  //let config = {
+  //headers: {
+  //'Authorization': 'Bearer ' + jwt
+  //}
+  //}
+  //axios.get(URL() + 'api/user',
+  //config
+  //)
+  //.then((response) => {
+  //this.setState({ userId: response.data.id })
+  //})
   //}
 
   //this formats the phrase and adds it to the react collection and the backend db
@@ -305,7 +309,6 @@ class App extends Component {
           <SideWindow
             removeFromDb={this.removeFromDb}
             dbPhrases={this.state.dbPhrases}
-            getSavedPhrases={this.getSavedPhrases}
             format={this.format} /> </div> </div>
     } else {
       orientation = <div className="text-center col-12">
@@ -320,7 +323,7 @@ class App extends Component {
     let logging;
     if (this.props.tryingToLogin) {
       logging = <div className="row"><br /><br /><Login
-          /></div>
+        /></div>
     }  else {
       logging = ""
     }
@@ -335,7 +338,7 @@ class App extends Component {
     return (
       <div className="mainWindowColor container-fluid">
         <Header logOut={this.logOut}
-          />
+        />
         {logging}
         {createUser}
         {orientation}
@@ -351,7 +354,8 @@ function mapStateToProps(state) {
     tryingToCreateUser: state.heading.tryingToCreateUser,
     languageHash: state.random.languageHash,
     jwt: state.login.jwt,
-    userId: state.login.userId
+    userId: state.login.userId,
+    dbPhrases: state.phrase.dbPhrases
   }
 }
 
@@ -364,7 +368,9 @@ function mapDispatchToProps(dispatch) {
     resetJwt: () => dispatch({ type: RESET_JWT }),
     resetId: () => dispatch({ type: RESET_ID }),
     submitPhrase: (phrase) => dispatch({ type: SUBMIT_PHRASE, phrase }),
-    resetSavedPhrases: () => dispatch({ type: RESET_SAVED_PHRASES })
+    resetSavedPhrases: () => dispatch({ type: RESET_SAVED_PHRASES }),
+    addToState: (phrase) => dispatch({ type: ADD_TO_STATE, phrase }),
+    removeFromState: (phrase) => dispatch({ type: REMOVE_FROM_STATE, phrase })
   }
 }
 

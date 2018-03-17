@@ -1,4 +1,13 @@
 import React, { Component } from 'react';
+import axios from 'axios';
+import URL from '../url';
+import { connect } from 'react-redux';
+import {
+  ADD_TO_STATE
+} from '../store/constants/action-types'
+import {
+  addToState
+} from '../store/actions/index'
 
 class Profile extends Component {
   constructor(props) {
@@ -8,7 +17,23 @@ class Profile extends Component {
   }
 
   componentDidMount() {
-    this.props.getSavedPhrases()
+    this.getSavedPhrases()
+  }
+
+  getSavedPhrases() {
+    let config = {
+      headers: {
+        'Authorization': 'Bearer ' + this.props.jwt
+      }
+    }
+    axios.get(URL() + 'api/phrases',
+      config
+    )
+      .then((response) => {
+        response.data.map((phrase) =>
+          this.props.addToState(phrase)
+        )
+      })
   }
 
   formatPhrase(event) {
@@ -47,5 +72,20 @@ class Profile extends Component {
   }
 }
 
+function mapStateToProps(state) {
+  return {
+    dbPhrases: state.phrase.dbPhrases,
+    jwt: state.login.jwt
+  }
+}
 
-export default Profile;
+function mapDispatchToProps(dispatch) {
+  return {
+    addToState: (phrase) => dispatch({ type: ADD_TO_STATE, phrase })
+    //changeLoggedIn: () => dispatch({ type: 'CHANGE_LOGGED_IN' }),
+    //submitPhrase: (phrase) => dispatch({ type: SUBMIT_PHRASE, phrase })
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps) (Profile);
+
+//export default Profile;
