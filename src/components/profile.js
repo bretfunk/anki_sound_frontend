@@ -29,7 +29,7 @@ class Profile extends Component {
   }
 
   componentDidMount() {
-    this.props.resetSavedPhrases()
+    //this.props.resetSavedPhrases()
     this.props.resetState()
     this.getSavedPhrases()
   }

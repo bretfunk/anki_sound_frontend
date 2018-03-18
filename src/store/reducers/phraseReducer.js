@@ -6,12 +6,12 @@ import {
   RESET_STATE
 } from '../constants/action-types';
 
-//const defaultState = {
-  //savedPhrases: [],
-  //dbPhrases: []
-//}
+const defaultState = {
+savedPhrases: [],
+dbPhrases: []
+}
 
-export function phraseReducer(state = {}, action) {
+export function phraseReducer(state = defaultState, action) {
   switch(action.type) {
     case SUBMIT_PHRASE:
       return {
@@ -22,12 +22,9 @@ export function phraseReducer(state = {}, action) {
         ...state, savedPhrases: []
       }
     case REMOVE_FROM_STATE:
-      return state;
-      //return {
-        //dbPhrases: state.dbPhrases
-        //dbPhrases: state.dbPhrases.filter(({ phrase }) => phrase !== action.phrase )
-        //dbPhrases: []
-      //}
+      return {
+        ...state, dbPhrases: state.dbPhrases.filter(({ phrase }) => phrase !== action.phrase )
+      }
     case ADD_TO_STATE:
       return {
         ...state, dbPhrases: [...state.dbPhrases, action.phrase]
