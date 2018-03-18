@@ -23,7 +23,7 @@ export function phraseReducer(state = defaultState, action) {
       }
     case REMOVE_FROM_STATE:
       return {
-        ...state, dbPhrases: state.dbPhrases.filter(({ phrase }) => phrase !== action.phrase )
+        ...state, dbPhrases: state.dbPhrases.filter(({ phrase }) => phrase !== action.phrase.phrase )
       }
     case ADD_TO_STATE:
       return {
