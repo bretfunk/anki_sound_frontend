@@ -8,7 +8,6 @@ import { connect } from 'react-redux';
 import {
   SUBMIT_PHRASE,
   ADD_TO_STATE
-
 } from '../store/constants/action-types';
 //import {
   //submitPhrase,
