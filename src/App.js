@@ -27,7 +27,7 @@ import {
   setJwt,
   resetJwt,
   setId,
-  resetId,
+  //resetId,
   resetSavedPhrases,
   addToState,
   removeFromState
@@ -88,7 +88,7 @@ class App extends Component {
       //jwt: '',
       //userId: '',
       //savedPhrases: [],
-      dbPhrases: []
+      //dbPhrases: []
     }
 
     //this.loggingIn       = this.loggingIn.bind(this)
@@ -96,15 +96,15 @@ class App extends Component {
     //this.changeLoggedIn  = this.changeLoggedIn.bind(this)
     //this.changeJwt       = this.changeJwt.bind(this)
     //this.getUserId       = this.getUserId.bind(this)
-    this.addToDb         = this.addToDb.bind(this)
-    this.createPhrase    = this.createPhrase.bind(this)
-    this.format          = this.format.bind(this)
+    //this.addToDb         = this.addToDb.bind(this)
+    //this.createPhrase    = this.createPhrase.bind(this)
+    //this.format          = this.format.bind(this)
     //this.logOut          = this.logOut.bind(this)
-    this.createFile      = this.createFile.bind(this)
+    //this.createFile      = this.createFile.bind(this)
     this.play            = this.play.bind(this)
     this.formatFileName  = this.formatFileName.bind(this)
     this.deletePhrase    = this.deletePhrase.bind(this)
-    this.savePhrase      = this.savePhrase.bind(this)
+    //this.savePhrase      = this.savePhrase.bind(this)
     //this.getSavedPhrases = this.getSavedPhrases.bind(this)
     //this.addToState      = this.addToState.bind(this)
     //this.removeFromState = this.removeFromState.bind(this)
@@ -113,30 +113,30 @@ class App extends Component {
 
   //get saved phrases, runs after logging in
   //DB PHRASES
-  getSavedPhrases() {
-    let config = {
-      headers: {
-        'Authorization': 'Bearer ' + this.props.jwt
-      }
-    }
-    axios.get(URL() + 'api/phrases',
-      config
-    )
-      .then((response) => {
-        response.data.map((phrase) =>
-          this.addToState(phrase)
-        )
-      })
-  }
+  //getSavedPhrases() {
+    //let config = {
+      //headers: {
+        //'Authorization': 'Bearer ' + this.props.jwt
+      //}
+    //}
+    //axios.get(URL() + 'api/phrases',
+      //config
+    //)
+      //.then((response) => {
+        //response.data.map((phrase) =>
+          //this.addToState(phrase)
+        //)
+      //})
+  //}
 
   //adds a new saved phrase going to the db to also go to the collection in state
-  addToState(phrase) {
-    this.props.addToState(phrase)
-    //this.setState({
-    //dbPhrases: [...this.state.dbPhrases, {language: phrase.language, phrase: phrase.phrase}]
-    //})
-    this.createFile(phrase)
-  }
+  //addToState(phrase) {
+    //this.props.addToState(phrase)
+    ////this.setState({
+    ////dbPhrases: [...this.state.dbPhrases, {language: phrase.language, phrase: phrase.phrase}]
+    ////})
+    //this.createFile(phrase)
+  //}
 
   //removes a saved phrase from the collection in state after being removed from db
   //currently cannot compare 'objects' against each other, just using the phrase but not ideal
@@ -168,16 +168,16 @@ class App extends Component {
   }
 
   //creates file in the backend upon submittal, there it remains
-  createFile(rawPhrase) {
-    let phrase = rawPhrase.phrase
-    let language = this.props.languageHash[rawPhrase.language]
-    let fileName = this.formatFileName(phrase)
-    axios.get(LambdaURL() + `?phrase=${phrase}&language=${language}&file_name=${fileName}`
-      //axios.get(URL() + `audio?phrase=${phrase}&language=${language}&file_name=${fileName}`
-    )
-      .then((response) => {
-      })
-  }
+  //createFile(rawPhrase) {
+    //let phrase = rawPhrase.phrase
+    //let language = this.props.languageHash[rawPhrase.language]
+    //let fileName = this.formatFileName(phrase)
+    //axios.get(LambdaURL() + `?phrase=${phrase}&language=${language}&file_name=${fileName}`
+      ////axios.get(URL() + `audio?phrase=${phrase}&language=${language}&file_name=${fileName}`
+    //)
+      //.then((response) => {
+      //})
+  //}
 
   //need to format file names to save and retrieve them, probably need to downcase to save space
   formatFileName(phrase) {
@@ -241,15 +241,17 @@ class App extends Component {
 
   //this formats the phrase and adds it to the react collection and the backend db
   //this is done differently than the remove from db method, wasnt sure best react practices
-  addToDb(data) {
-    let parsed = data.currentTarget.parentElement.parentElement.innerText
-    let newParsed = parsed.replace('Download', '').replace('Save to Profile', '').split(':')
-    let language = newParsed[0]
-    let phrase = newParsed[1].replace(language, '').trim()
-    let fullPhrase = {phrase: phrase, language: language}
-    this.createPhrase(fullPhrase)
-    this.addToState(fullPhrase)
-  }
+  //addToDb(data) {
+    //let parsed = data.currentTarget.parentElement.parentElement.innerText
+    //let newParsed = parsed.replace('Download', '').replace('Save to Profile', '').split(':')
+    //let language = newParsed[0]
+    //let phrase = newParsed[1].replace(language, '').trim()
+    //let fullPhrase = {phrase: phrase, language: language}
+    //this.createPhrase(fullPhrase)
+    ////this.addToState(fullPhrase)
+    //this.props.addToState(phrase)
+    //this.createFile(phrase)
+  //}
 
   //as mentioned above, the formatting is done in the component upon removal, did both ways
   //but not sure which is react best practice
@@ -270,27 +272,27 @@ class App extends Component {
   }
 
   //creates the phrase in the db under the correct user
-  createPhrase(phrase) {
-    let data = { phrase: phrase.phrase, language: phrase.language, user_id: this.props.userId }
-    axios.post(URL() + 'api/phrases',
-      data
-    )
-      .then((response) => {
-        console.log(response + ' created')
-      })
-      .catch((error) => {
-        console.log(error)
-      })
-  }
+  //createPhrase(phrase) {
+    //let data = { phrase: phrase.phrase, language: phrase.language, user_id: this.props.userId }
+    //axios.post(URL() + 'api/phrases',
+      //data
+    //)
+      //.then((response) => {
+        //console.log(response + ' created')
+      //})
+      //.catch((error) => {
+        //console.log(error)
+      //})
+  //}
 
   //formats the phrase to be saved in the backend db
   //changed to AmazonAWS
-  format(phrase) {
-    let language = this.props.languageHash[phrase.language]
-    let fileName = this.formatFileName(phrase.phrase)
-    let link = StorageURL() + `${language}/${fileName}.mp3`
-    return link
-  }
+  //format(phrase) {
+    //let language = this.props.languageHash[phrase.language]
+    //let fileName = this.formatFileName(phrase.phrase)
+    //let link = StorageURL() + `${language}/${fileName}.mp3`
+    //return link
+  //}
 
   //the render section is messy but I couldnt break it up (like the buttons) without getting errors
   //I also think there is a better way to pass down props without it being so messy
@@ -366,7 +368,7 @@ function mapDispatchToProps(dispatch) {
     //creatingUser: () => dispatch({ type: CHANGE_TRYING_TO_CREATE_USER })
     setJwt: (jwt) => dispatch({ type: SET_JWT, jwt }),
     resetJwt: () => dispatch({ type: RESET_JWT }),
-    resetId: () => dispatch({ type: RESET_ID }),
+    //resetId: () => dispatch({ type: RESET_ID }),
     submitPhrase: (phrase) => dispatch({ type: SUBMIT_PHRASE, phrase }),
     resetSavedPhrases: () => dispatch({ type: RESET_SAVED_PHRASES }),
     addToState: (phrase) => dispatch({ type: ADD_TO_STATE, phrase }),

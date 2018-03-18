@@ -7,18 +7,18 @@ import {
   CHANGE_TRYING_TO_LOGIN,
   CHANGE_TRYING_TO_CREATE_USER,
   SET_JWT,
-  RESET_JWT,
+  //RESET_JWT,
   SET_ID,
-  RESET_ID
+  //RESET_ID
 } from '../store/constants/action-types';
 import {
   changeLoggedIn,
   loggingIn,
   creatingUser,
-  setJwt,
+  //setJwt,
   resetJwt,
-  setId,
-  resetId
+  setId
+  //resetId
 } from '../store/actions/index';
 
 class Login extends Component {
@@ -143,9 +143,9 @@ function mapDispatchToProps(dispatch) {
     loggingIn: () => dispatch({ type: CHANGE_TRYING_TO_LOGIN }),
     creatingUser: () => dispatch({ type: CHANGE_TRYING_TO_CREATE_USER }),
     setJwt: (jwt) => dispatch({ type: SET_JWT, jwt}),
-    resetJwt: () => dispatch({ type: RESET_JWT }),
-    setId: (userId) => dispatch({ type: SET_ID, userId }),
-    resetId: () => dispatch({ type: RESET_ID })
+    //resetJwt: () => dispatch({ type: RESET_JWT }),
+    setId: (userId) => dispatch({ type: SET_ID, userId })
+    //resetId: () => dispatch({ type: RESET_ID })
   }
 }
 
