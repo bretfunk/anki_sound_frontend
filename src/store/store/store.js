@@ -1,5 +1,5 @@
-import { createStore, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
+import { createStore } from 'redux';
+//import thunk from 'redux-thunk';
 import rootReducer from '../reducers/rootReducer';
 
 const ankiSoundDefaultState = {
@@ -61,6 +61,6 @@ const ankiSoundDefaultState = {
   }
 }
 
-const store = createStore(rootReducer, ankiSoundDefaultState, applyMiddleware(thunk));
+const store = createStore(rootReducer, ankiSoundDefaultState);
 
 export default store;

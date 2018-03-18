@@ -1,4 +1,3 @@
-//return { ...state, articles: [...state.articles, action.payload]
 import {
   SUBMIT_PHRASE,
   RESET_SAVED_PHRASES,
@@ -6,6 +5,11 @@ import {
   ADD_TO_STATE,
   RESET_STATE
 } from '../constants/action-types';
+
+//const defaultState = {
+  //savedPhrases: [],
+  //dbPhrases: []
+//}
 
 export function phraseReducer(state = {}, action) {
   switch(action.type) {
@@ -15,11 +19,12 @@ export function phraseReducer(state = {}, action) {
       }
     case RESET_SAVED_PHRASES:
       return {
-        savedPhrases: []
+        ...state, savedPhrases: []
       }
     case REMOVE_FROM_STATE:
       return state;
       //return {
+        //dbPhrases: state.dbPhrases
         //dbPhrases: state.dbPhrases.filter(({ phrase }) => phrase !== action.phrase )
         //dbPhrases: []
       //}
@@ -29,7 +34,7 @@ export function phraseReducer(state = {}, action) {
       }
     case RESET_STATE:
       return {
-        dbPhrases: []
+        ...state, dbPhrases: []
       }
     default:
       return state;

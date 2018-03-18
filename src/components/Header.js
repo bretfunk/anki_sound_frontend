@@ -25,11 +25,11 @@ class Header extends Component {
   }
 
   exitProgram() {
-    this.props.changeLoggedIn()
+    this.props.resetState()
+    this.props.resetSavedPhrases()
     this.props.resetJwt()
     this.props.resetId()
-    this.props.resetSavedPhrases()
-    this.props.resetState()
+    this.props.changeLoggedIn()
   }
 
   log=(event)=>{
@@ -104,7 +104,8 @@ function mapStateToProps(state) {
   return {
     loggedIn: state.heading.loggedIn,
     tryingToLogin: state.heading.tryingToLogin,
-    tryingToCreateUser: state.heading.tryingToCreateUser
+    tryingToCreateUser: state.heading.tryingToCreateUser,
+    dbPhrases: state.phrase.dbPhrases
   }
 }
 
@@ -116,7 +117,7 @@ function mapDispatchToProps(dispatch) {
     resetJwt: () => dispatch({ type: RESET_JWT }),
     resetId: () => dispatch({ type: RESET_ID }),
     resetSavedPhrases: () => dispatch({ type: RESET_SAVED_PHRASES }),
-    resetState: () => ({ type: RESET_STATE })
+    resetState: () => dispatch({ type: RESET_STATE })
   }
 }
 

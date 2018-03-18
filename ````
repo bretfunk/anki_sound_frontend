@@ -42,7 +42,7 @@ class Body extends Component {
   //}
 
   onSubmit(phrase){
-    debugger
+    //debugger
     this.createFile(phrase)
     this.props.submitPhrase(phrase)
   }
@@ -133,6 +133,7 @@ class Body extends Component {
         <h1 className="bannerColor text-white rounded heading">Phrase to Convert</h1>
         <h5><Form onSubmit={this.onSubmit}/></h5>
         <br />
+        <h1>Submitted Phrase Count: {this.props.savedPhrases.length}</h1>
         <h1 className="bannerColor text-white rounded heading">Submitted Phrases</h1>
         <table width="100%">
           <tbody>
@@ -144,12 +145,16 @@ class Body extends Component {
   }
 }
 
+//cant read userId and jwt but can read languageHash
+//they are wiped upon login, no idea why
+//maybe learn about debugging redux and react
 function mapStateToProps(state) {
   return {
     loggedIn: state.heading.loggedIn,
     savedPhrases: state.phrase.savedPhrases,
     languageHash: state.random.languageHash,
-    userId: state.login.userId
+    userId: state.login.userId,
+    jwt: state.login.jwt
   }
 }
 

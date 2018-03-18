@@ -15,7 +15,7 @@ import {
   //SET_JWT,
   //RESET_JWT,
   //RESET_ID,
-  SUBMIT_PHRASE,
+  //SUBMIT_PHRASE,
   //RESET_SAVED_PHRASES,
   //ADD_TO_STATE,
   //REMOVE_FROM_STATE
@@ -101,7 +101,7 @@ class App extends Component {
     //this.format          = this.format.bind(this)
     //this.logOut          = this.logOut.bind(this)
     //this.createFile      = this.createFile.bind(this)
-    this.play            = this.play.bind(this)
+    //this.play            = this.play.bind(this)
     //this.formatFileName  = this.formatFileName.bind(this)
     //this.deletePhrase    = this.deletePhrase.bind(this)
     //this.savePhrase      = this.savePhrase.bind(this)
@@ -163,9 +163,9 @@ class App extends Component {
   //}
 
   //this is to play files, not just download them, a work in progress, also in the componet
-  play = () => {
-    this.audio.play();
-  }
+  //play = () => {
+  //this.audio.play();
+  //}
 
   //creates file in the backend upon submittal, there it remains
   //createFile(rawPhrase) {
@@ -294,35 +294,43 @@ class App extends Component {
   //return link
   //}
 
-  //the render section is messy but I couldnt break it up (like the buttons) without getting errors
-  //I also think there is a better way to pass down props without it being so messy
   render() {
     let orientation;
     if (this.props.loggedIn) {
-      orientation = <div className="row text-center"> <div className="col-7">
-          <MainWindow
-            play={this.play}
-            audio={this.audio} />
-          </div> <div className="col-5">
-          <SideWindow /> </div> </div>
+      orientation =
+        <div className="row text-center">
+          <div className="col-7">
+            <MainWindow />
+          </div>
+          <div className="col-5">
+            <SideWindow />
+          </div>
+        </div>
     } else {
-      orientation = <div className="text-center col-12">
-        <MainWindow
-          audio={this.audio}
-          play={this.play}
-        /> </div>
+      orientation =
+        <div className="text-center col-12">
+          <MainWindow />
+        </div>
     }
 
     let logging;
     if (this.props.tryingToLogin) {
-      logging = <div className="row"><br /><br /><Login /></div>
+      logging =
+        <div className="row">
+          <br />
+          <br />
+          <Login /></div>
     }  else {
       logging = ""
     }
 
     let createUser;
     if (this.props.tryingToCreateUser) {
-      createUser = <div className="row"><br /><br /><NewUser /></div>
+      createUser =
+        <div className="row">
+          <br />
+          <br />
+          <NewUser /></div>
     } else {
       createUser = ""
     }
@@ -344,10 +352,10 @@ function mapStateToProps(state) {
     loggedIn: state.heading.loggedIn,
     tryingToLogin: state.heading.tryingToLogin,
     tryingToCreateUser: state.heading.tryingToCreateUser,
-    languageHash: state.random.languageHash,
-    jwt: state.login.jwt,
-    userId: state.login.userId,
-    dbPhrases: state.phrase.dbPhrases
+    //languageHash: state.random.languageHash,
+    //jwt: state.login.jwt,
+    //userId: state.login.userId,
+    //dbPhrases: state.phrase.dbPhrases
   }
 }
 
@@ -359,7 +367,7 @@ function mapDispatchToProps(dispatch) {
     //setJwt: (jwt) => dispatch({ type: SET_JWT, jwt }),
     //resetJwt: () => dispatch({ type: RESET_JWT }),
     //resetId: () => dispatch({ type: RESET_ID }),
-    submitPhrase: (phrase) => dispatch({ type: SUBMIT_PHRASE, phrase }),
+    //submitPhrase: (phrase) => dispatch({ type: SUBMIT_PHRASE, phrase }),
     //resetSavedPhrases: () => dispatch({ type: RESET_SAVED_PHRASES }),
     //addToState: (phrase) => dispatch({ type: ADD_TO_STATE, phrase }),
     //removeFromState: (phrase) => dispatch({ type: REMOVE_FROM_STATE, phrase })

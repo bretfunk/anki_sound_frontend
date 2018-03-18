@@ -7,10 +7,7 @@ class MainWindow extends Component {
     }
     return (
       <div className="mainWindowColor">
-        <Body
-          play={this.props.play}
-          audio={this.props.audio}
-        />
+        <Body />
       </div>
     )
   }

@@ -5,11 +5,14 @@ import StorageURL from '../storageUrl';
 import { connect } from 'react-redux';
 import {
   ADD_TO_STATE,
-  REMOVE_FROM_STATE
+  REMOVE_FROM_STATE,
+  RESET_STATE,
+  RESET_SAVED_PHRASES
 } from '../store/constants/action-types'
 import {
   addToState,
-  removeFromState
+  removeFromState,
+  resetState
 } from '../store/actions/index'
 
 class Profile extends Component {
@@ -20,12 +23,14 @@ class Profile extends Component {
     //this.addToDb         = this.addToDb.bind(this)
     //this.createPhrase    = this.createPhrase.bind(this)
     this.format          = this.format.bind(this)
-    this.formatFileName          = this.formatFileName.bind(this)
+    this.formatFileName  = this.formatFileName.bind(this)
     //this.logOut          = this.logOut.bind(this)
     //this.createFile      = this.createFile.bind(this)
   }
 
   componentDidMount() {
+    this.props.resetSavedPhrases()
+    this.props.resetState()
     this.getSavedPhrases()
   }
 
@@ -66,8 +71,8 @@ class Profile extends Component {
   }
 
   removeFromDb(phrase) {
-    this.deletePhrase(phrase)
     this.props.removeFromState(phrase)
+    this.deletePhrase(phrase)
   }
 
   deletePhrase(phrase) {
@@ -102,7 +107,6 @@ class Profile extends Component {
     return (
       <div>
         <br />
-        <h1>{this.props.dbPhrases.length}</h1>
         <h1 className="bannerColor text-white rounded heading">Saved Phrases</h1>
         <table width="100%">
           <tbody>
@@ -126,7 +130,9 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     addToState: (phrase) => dispatch({ type: ADD_TO_STATE, phrase }),
-    removeFromState: (phrase) => dispatch({ type: REMOVE_FROM_STATE, phrase })
+    removeFromState: (phrase) => dispatch({ type: REMOVE_FROM_STATE, phrase }),
+    resetState: () => dispatch({ type: RESET_STATE }),
+    resetSavedPhrases: () => dispatch({ type: RESET_SAVED_PHRASES })
     //changeLoggedIn: () => dispatch({ type: 'CHANGE_LOGGED_IN' }),
     //submitPhrase: (phrase) => dispatch({ type: SUBMIT_PHRASE, phrase })
   }
