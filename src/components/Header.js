@@ -9,12 +9,15 @@ import {
   RESET_SAVED_PHRASES,
   RESET_STATE
 } from '../store/constants/action-types';
-import {
-  resetJwt,
-  resetId,
-  resetSavedPhrases,
-  resetState
-} from '../store/actions/index';
+//import {
+  //changeLoggedIn,
+  //loggingIn,
+  //creatingUser,
+  //resetJwt,
+  //resetId,
+  //resetSavedPhrases,
+  //resetState
+//} from '../store/actions/index';
 
 class Header extends Component {
   constructor(props) {
@@ -26,7 +29,7 @@ class Header extends Component {
 
   exitProgram() {
     this.props.resetState()
-    this.props.resetSavedPhrases()
+    //this.props.resetSavedPhrases()
     this.props.resetJwt()
     this.props.resetId()
     this.props.changeLoggedIn()
@@ -54,7 +57,9 @@ class Header extends Component {
         <div className="col-2">
           <button
             className="col-sm btn secondaryButtonColor"
-            onClick={this.new}>Create User
+            onClick={this.new}
+          >
+            Sign Up
           </button>
         </div>
     } else {
@@ -62,7 +67,9 @@ class Header extends Component {
         <div className="col-2">
           <button
             className="col-sm btn secondaryButtonColor"
-            onClick={this.new}>Create User
+            onClick={this.new}
+          >
+            Sign Up
           </button>
         </div>
     }
@@ -73,7 +80,9 @@ class Header extends Component {
         <div className="col-2">
           <button
             className="col-sm btn secondaryButtonColor"
-            onClick={this.logOut}>Logout
+            onClick={this.logOut}
+          >
+            Logout
           </button>
         </div>
     } else {
@@ -81,7 +90,9 @@ class Header extends Component {
         <div className="col-2">
           <button
             className="col-sm btn secondaryButtonColor"
-            onClick={this.log}>Login
+            onClick={this.log}
+          >
+            Login
           </button>
         </div>
     }
@@ -103,9 +114,7 @@ class Header extends Component {
 function mapStateToProps(state) {
   return {
     loggedIn: state.heading.loggedIn,
-    tryingToLogin: state.heading.tryingToLogin,
     tryingToCreateUser: state.heading.tryingToCreateUser,
-    dbPhrases: state.phrase.dbPhrases
   }
 }
 
@@ -121,8 +130,6 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-
 export default connect(mapStateToProps, mapDispatchToProps) (Header);
-//export default Header;
 
 

@@ -5,7 +5,10 @@ class SideWindow extends Component {
   render() {
     return (
       <div className="mainWindowColor">
-        <Profile />
+        <Profile
+          format={this.props.format}
+          formatFileName={this.props.formatFileName}
+        />
       </div>
     )
   }

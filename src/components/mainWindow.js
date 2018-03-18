@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Body from './Body'
+import Body from './Body';
 
 class MainWindow extends Component {
   render() {
@@ -7,7 +7,10 @@ class MainWindow extends Component {
     }
     return (
       <div className="mainWindowColor">
-        <Body />
+        <Body
+          format={this.props.format}
+          formatFileName={this.props.formatFileName}
+        />
       </div>
     )
   }

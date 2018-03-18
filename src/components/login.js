@@ -4,22 +4,14 @@ import URL from '../url';
 import { connect } from 'react-redux';
 import {
   CHANGE_LOGGED_IN,
-  CHANGE_TRYING_TO_LOGIN,
-  CHANGE_TRYING_TO_CREATE_USER,
   SET_JWT,
-  //RESET_JWT,
   SET_ID,
-  //RESET_ID
 } from '../store/constants/action-types';
-import {
-  changeLoggedIn,
-  loggingIn,
-  creatingUser,
-  //setJwt,
-  resetJwt,
-  setId
-  //resetId
-} from '../store/actions/index';
+//import {
+  //changeLoggedIn,
+  //resetJwt,
+  //setId
+//} from '../store/actions/index';
 
 class Login extends Component {
   constructor(props) {
@@ -32,7 +24,6 @@ class Login extends Component {
     this.handlePasswordChange = this.handlePasswordChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.login = this.login.bind(this)
-    //this.changeJwt = this.changeJwt.bind(this)
     this.getUserId = this.getUserId.bind(this)
   }
 
@@ -51,15 +42,6 @@ class Login extends Component {
     this.login()
   }
 
-  //this function is because the dispatches can't be called from inside the promise
-  //still not working tho
-  //loginFunctionCalls(data) {
-    //this.props.changeJwt(data.data.jwt)
-    //this.props.changeLoggedIn()
-    //this.props.loggingIn()
-  //}
-  //
-
   login() {
     const email = this.state.email
     const password = this.state.password
@@ -68,14 +50,8 @@ class Login extends Component {
     )
       .then((data) => {
         this.props.setJwt(data.data.jwt)
-        //this.props.changeJwt(data.data.jwt)
         this.getUserId(data.data.jwt)
         this.props.changeLoggedIn()
-
-        //this.props.changeJwt(data.data.jwt)
-        //this.props.changeLoggedIn()
-        //for some reason this doesn't work when calling loggingIn
-        //this.props.loggingIn()
       })
       .catch((error) => {
         alert(error)
@@ -93,7 +69,6 @@ class Login extends Component {
     )
       .then((response) => {
         this.props.setId(response.data.id)
-        //this.setState({ userId: response.data.id })
       })
   }
 
@@ -128,28 +103,16 @@ class Login extends Component {
 
 function mapStateToProps(state) {
   return {
-    loggedIn: state.heading.loggedIn,
-    tryingToLogin: state.heading.tryingToLogin,
-    tryingToCreateUser: state.heading.tryingToCreateUser,
-    languageHash: state.random.languageHash,
-    jwt: state.login.jwt,
-    userId: state.login.userId
+    jwt: state.login.jwt
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     changeLoggedIn: () => dispatch({ type: CHANGE_LOGGED_IN }),
-    loggingIn: () => dispatch({ type: CHANGE_TRYING_TO_LOGIN }),
-    creatingUser: () => dispatch({ type: CHANGE_TRYING_TO_CREATE_USER }),
     setJwt: (jwt) => dispatch({ type: SET_JWT, jwt}),
-    //resetJwt: () => dispatch({ type: RESET_JWT }),
     setId: (userId) => dispatch({ type: SET_ID, userId })
-    //resetId: () => dispatch({ type: RESET_ID })
   }
 }
 
-
 export default connect(mapStateToProps, mapDispatchToProps) (Login);
-
-//export default Login;

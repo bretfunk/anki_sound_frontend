@@ -10,10 +10,10 @@ import {
   ADD_TO_STATE
 
 } from '../store/constants/action-types';
-import {
-  submitPhrase,
-  addToState
-} from '../store/actions/index'
+//import {
+  //submitPhrase,
+  //addToState
+//} from '../store/actions/index'
 
 class Body extends Component {
   constructor(props) {
@@ -22,8 +22,6 @@ class Body extends Component {
     this.createPhrase    = this.createPhrase.bind(this)
     this.addToDb         = this.addToDb.bind(this)
     this.createFile      = this.createFile.bind(this)
-    this.format          = this.format.bind(this)
-    this.formatFileName  = this.formatFileName.bind(this)
     this.onSubmit        = this.onSubmit.bind(this)
     this.play            = this.play.bind(this)
   }
@@ -32,17 +30,7 @@ class Body extends Component {
     this.audio.play();
   }
 
-  //formatPhrase(event) {
-  //let data = event.target.parentElement.parentElement.innerText.replace('Download', '')
-  //let newData = data.replace('Delete', '').split(':')
-  //let language = newData[0]
-  //let phrase = newData[1].replace(language, '').trim()
-  //let fullPhrase = {language: language, phrase: phrase}
-  //return fullPhrase
-  //}
-
   onSubmit(phrase){
-    debugger
     this.createFile(phrase)
     this.props.submitPhrase(phrase)
   }
@@ -54,7 +42,6 @@ class Body extends Component {
     let phrase = newParsed[1].replace(language, '').trim()
     let fullPhrase = {phrase: phrase, language: language}
     this.createPhrase(fullPhrase)
-    //this.addToState(fullPhrase)
     this.props.addToState(fullPhrase)
     this.createFile(fullPhrase)
   }
@@ -76,11 +63,10 @@ class Body extends Component {
       })
   }
 
-  //adds file to backend db
   createFile(rawPhrase) {
     let phrase = rawPhrase.phrase
     let language = this.props.languageHash[rawPhrase.language]
-    let fileName = this.formatFileName(phrase)
+    let fileName = this.props.formatFileName(phrase)
     axios.get(LambdaURL() + `?phrase=${phrase}&language=${language}&file_name=${fileName}`
       //axios.get(URL() + `audio?phrase=${phrase}&language=${language}&file_name=${fileName}`
     )
@@ -94,7 +80,7 @@ class Body extends Component {
 
   format(phrase) {
     let language = this.props.languageHash[phrase.language]
-    let fileName = this.formatFileName(phrase.phrase)
+    let fileName = this.props.formatFileName(phrase.phrase)
     let link = StorageURL() + `${language}/${fileName}.mp3`
     return link
   }
@@ -102,10 +88,15 @@ class Body extends Component {
   render() {
     let button;
     if (this.props.loggedIn) {
-      button = <td><button
-          className="btn secondaryButtonColor btn-sm text-dark"
-          onClick={this.addToDb}
-        >Save to Profile</button></td>
+      button =
+        <td>
+          <button
+            className="btn secondaryButtonColor btn-sm text-dark"
+            onClick={this.addToDb}
+          >
+            Save to Profile
+          </button>
+        </td>
     }  else {
       button = ""
     }
@@ -114,13 +105,36 @@ class Body extends Component {
     if (this.props.savedPhrases) {
       list = this.props.savedPhrases.map((phrase, index) =>
         <tr key={index}>
-          <td className= "btn-sm languageButtonColor text-dark btn text-left">{phrase.language}:</td>
-          <td><h4>{phrase.phrase}</h4></td>
-          <td><a className="btn secondaryButtonColor" href={this.format(phrase)}
-              className="btn mainButtonColor text-dark btn-sm text-right" download>Download </a></td>
-          <td><audio ref={(audio) => { this.audio = audio; }} src={this.format(phrase)} type="audio/mp3"> </audio></td>
+          <td
+            className= "btn-sm languageButtonColor text-dark btn text-left"
+          >
+            {phrase.language}:
+          </td>
+          <td>
+            <h4>
+              {phrase.phrase}
+            </h4>
+          </td>
+          <td>
+            <a
+              href={this.props.format(phrase)}
+              className="btn mainButtonColor text-dark btn-sm text-right"
+              download
+            >
+              Download
+            </a>
+          </td>
+          <td>
+            <audio
+              ref={(audio) => { this.audio = audio; }}
+              src={this.props.format(phrase)}
+              type="audio/mp3"
+            >
+            </audio>
+          </td>
           {button}
-        </tr>)
+        </tr>
+      )
     } else {
       list = ""
     }
@@ -155,13 +169,9 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    //changeLoggedIn: () => dispatch({ type: 'CHANGE_LOGGED_IN' }),
     submitPhrase: (phrase) => dispatch({ type: SUBMIT_PHRASE, phrase }),
     addToState: (phrase) => dispatch({ type: ADD_TO_STATE, phrase })
   }
 }
+
 export default connect(mapStateToProps, mapDispatchToProps) (Body);
-
-//export default Body;
-
-

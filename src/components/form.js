@@ -28,7 +28,7 @@ class Form extends Component {
     })
   }
 
-  //TODO there has got to be a better way to do this with map or something
+  //TODO rewrite this programmatically
   render() {
     let options =
       <select value={this.state.language} onChange={this.handleLanguageChange}>
@@ -78,11 +78,16 @@ class Form extends Component {
           <input
             type='text'
             onChange={this.handlePhraseChange}
-            value={this.state.phrase}/>
+            value={this.state.phrase}
+          />
           <button
-            className="btn secondaryButtonColor btn-sm"type='submit'
+            className="btn secondaryButtonColor btn-sm"
+            type='submit'
             onSubmit={this.handleSubmit}
-            value={this.state}>Submit</button>
+            value={this.state}
+          >
+            Submit
+          </button>
         </form>
       )
   }
