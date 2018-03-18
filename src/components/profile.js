@@ -4,10 +4,12 @@ import URL from '../url';
 import StorageURL from '../storageUrl';
 import { connect } from 'react-redux';
 import {
-  ADD_TO_STATE
+  ADD_TO_STATE,
+  REMOVE_FROM_STATE
 } from '../store/constants/action-types'
 import {
-  addToState
+  addToState,
+  removeFromState
 } from '../store/actions/index'
 
 class Profile extends Component {
@@ -28,7 +30,6 @@ class Profile extends Component {
   }
 
   getSavedPhrases() {
-    debugger
     let config = {
       headers: {
         'Authorization': 'Bearer ' + this.props.jwt
@@ -64,12 +65,30 @@ class Profile extends Component {
     return phrase.toString().trim().split(' ').join('_')
   }
 
+  removeFromDb(phrase) {
+    this.deletePhrase(phrase)
+    this.props.removeFromState(phrase)
+  }
+
+  deletePhrase(phrase) {
+    axios.delete(URL() + `api/phrases?phrase=${phrase.phrase}&user_id=${this.props.userId}`)
+      .then((response) => {
+        console.log(response + ' deleted')
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
+
   handleDelete = (event) => {
-    this.props.removeFromDb(this.formatPhrase(event))
+    event.preventDefault()
+    this.removeFromDb(this.formatPhrase(event))
   }
 
   render() {
-    let list = this.props.dbPhrases.map((phrase, index) =>
+    let list;
+    if (this.props.dbPhrases) {
+      list = this.props.dbPhrases.map((phrase, index) =>
       <tr key={index}><td className="btn-sm languageButtonColor text-dark btn text-left">
           {phrase.language}:</td><td><h4>{phrase.phrase}</h4></td>
         <td><a className="btn text-dark" href={this.format(phrase)}
@@ -77,9 +96,13 @@ class Profile extends Component {
         <td><button className="btn mainButtonColor btn-sm text-dark text-right"
             onClick={this.handleDelete} >Delete</button></td>
       </tr>)
+    } else {
+      list = ""
+    }
     return (
       <div>
         <br />
+        <h1>{this.props.dbPhrases.length}</h1>
         <h1 className="bannerColor text-white rounded heading">Saved Phrases</h1>
         <table width="100%">
           <tbody>
@@ -95,13 +118,15 @@ function mapStateToProps(state) {
   return {
     dbPhrases: state.phrase.dbPhrases,
     jwt: state.login.jwt,
-    languageHash: state.random.languageHash
+    languageHash: state.random.languageHash,
+    userId: state.login.userId
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    addToState: (phrase) => dispatch({ type: ADD_TO_STATE, phrase })
+    addToState: (phrase) => dispatch({ type: ADD_TO_STATE, phrase }),
+    removeFromState: (phrase) => dispatch({ type: REMOVE_FROM_STATE, phrase })
     //changeLoggedIn: () => dispatch({ type: 'CHANGE_LOGGED_IN' }),
     //submitPhrase: (phrase) => dispatch({ type: SUBMIT_PHRASE, phrase })
   }

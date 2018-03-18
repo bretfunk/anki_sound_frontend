@@ -5,8 +5,7 @@ class SideWindow extends Component {
   render() {
     return (
       <div className="mainWindowColor">
-      <Profile dbPhrases={this.props.dbPhrases} getSavedPhrases={this.props.getSavedPhrases}
-      format={this.props.format} removeFromDb={this.props.removeFromDb} />
+        <Profile />
       </div>
     )
   }

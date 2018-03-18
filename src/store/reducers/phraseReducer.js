@@ -18,11 +18,11 @@ export function phraseReducer(state = {}, action) {
         savedPhrases: []
       }
     case REMOVE_FROM_STATE:
-      return {
-        dbPhrases: this.props.dbPhrases.filter(function(phrase) {
-          return phrase.phrase !== action.phrase
-        })
-      }
+      return state;
+      //return {
+        //dbPhrases: state.dbPhrases.filter(({ phrase }) => phrase !== action.phrase )
+        //dbPhrases: []
+      //}
     case ADD_TO_STATE:
       return {
         ...state, dbPhrases: [...state.dbPhrases, action.phrase]

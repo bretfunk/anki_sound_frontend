@@ -24,6 +24,7 @@ class Body extends Component {
     this.createFile = this.createFile.bind(this)
     this.format = this.format.bind(this)
     this.formatFileName = this.formatFileName.bind(this)
+    this.onSubmit = this.onSubmit.bind(this)
   }
 
   play = () => {
@@ -39,6 +40,11 @@ class Body extends Component {
   //return fullPhrase
   //}
 
+  onSubmit(phrase){
+    this.createFile(phrase)
+    this.props.submitPhrase(phrase)
+  }
+
   addToDb(data) {
     let parsed = data.currentTarget.parentElement.parentElement.innerText
     let newParsed = parsed.replace('Download', '').replace('Save to Profile', '').split(':')
@@ -52,7 +58,6 @@ class Body extends Component {
   }
 
   createPhrase(phrase) {
-    debugger
     let data = {
       phrase: phrase.phrase,
       language: phrase.language,
@@ -71,7 +76,6 @@ class Body extends Component {
 
   //adds file to backend db
   createFile(rawPhrase) {
-    debugger
     let phrase = rawPhrase.phrase
     let language = this.props.languageHash[rawPhrase.language]
     let fileName = this.formatFileName(phrase)
@@ -125,9 +129,7 @@ class Body extends Component {
       <div className="mainWindowColor">
         <br />
         <h1 className="bannerColor text-white rounded heading">Phrase to Convert</h1>
-        <h5><Form onSubmit={this.props.submitPhrase}/></h5>
-        <h1>ID: {this.props.userId}</h1>
-        <h5>JWT: {this.props.jwt}</h5>
+        <h5><Form onSubmit={this.onSubmit}/></h5>
         <br />
         <h1 className="bannerColor text-white rounded heading">Submitted Phrases</h1>
         <table width="100%">
