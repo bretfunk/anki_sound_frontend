@@ -13,15 +13,30 @@ import {
   RESET_STATE
 } from '../constants/action-types'
 
-export const changeLoggedIn = () => ({ type: CHANGE_LOGGED_IN })
-export const loggingIn = () => ({ type: CHANGE_TRYING_TO_LOGIN })
-export const creatingUser = () => ({ type: CHANGE_TRYING_TO_CREATE_USER })
-export const setJwt = (jwt) => ({ type: SET_JWT, jwt })
-export const resetJwt = () => ({ type: RESET_JWT })
-export const setId = (userId) => ({ type: SET_ID, userId })
-export const resetId = () => ({ type: RESET_ID })
-export const submitPhrase = (phrase) => ({ type: SUBMIT_PHRASE, phrase })
-export const resetSavedPhrases = () => ({ type: RESET_SAVED_PHRASES })
-export const removeFromState = (phrase) => ({ type: REMOVE_FROM_STATE, phrase })
-export const addToState = (phrase) => ({ type: ADD_TO_STATE, phrase })
-export const resetState = () => ({ type: RESET_STATE })
+const changeLoggedIn = () => ({ type: CHANGE_LOGGED_IN })
+const loggingIn = () => ({ type: CHANGE_TRYING_TO_LOGIN })
+const creatingUser = () => ({ type: CHANGE_TRYING_TO_CREATE_USER })
+const setJwt = (jwt) => ({ type: SET_JWT, jwt })
+const resetJwt = () => ({ type: RESET_JWT })
+const setId = (userId) => ({ type: SET_ID, userId })
+const resetId = () => ({ type: RESET_ID })
+const submitPhrase = (phrase) => ({ type: SUBMIT_PHRASE, phrase })
+const resetSavedPhrases = () => ({ type: RESET_SAVED_PHRASES })
+const removeFromState = (phrase) => ({ type: REMOVE_FROM_STATE, phrase })
+const addToState = (phrase) => ({ type: ADD_TO_STATE, phrase })
+const resetState = () => ({ type: RESET_STATE })
+
+export {
+  changeLoggedIn,
+  loggingIn,
+  creatingUser,
+  setJwt,
+  resetJwt,
+  setId,
+  resetId,
+  submitPhrase,
+  resetSavedPhrases,
+  removeFromState,
+  addToState,
+  resetState
+}

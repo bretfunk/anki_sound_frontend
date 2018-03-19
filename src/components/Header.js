@@ -114,7 +114,7 @@ class Header extends Component {
 function mapStateToProps(state) {
   return {
     loggedIn: state.heading.loggedIn,
-    tryingToCreateUser: state.heading.tryingToCreateUser,
+    tryingToCreateUser: state.heading.tryingToCreateUser
   }
 }
 
@@ -131,5 +131,3 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps) (Header);
-
-
