@@ -30,6 +30,7 @@ class NewUser extends Component {
     this.createUser()
   }
 
+  //TODO login user upon creation
   createUser() {
     const email = this.state.email
     const password = this.state.password

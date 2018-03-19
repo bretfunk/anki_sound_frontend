@@ -43,7 +43,7 @@ class Header extends Component {
 
   render() {
     let createUser;
-    if (this.props.tryingToCreateUser) {
+    if (this.props.tryingToCreateUser && !this.props.loggedIn) {
       createUser =
         <div className="col-2">
           <button
@@ -53,7 +53,16 @@ class Header extends Component {
             Sign Up
           </button>
         </div>
-    } else {
+    } else if (this.props.loggedIn) {
+      createUser =
+        <div className="col-2">
+          <button
+            style={{display: "none"}}
+            className="col-sm btn secondaryButtonColor"
+          >Hidden
+          </button>
+        </div>
+    }else {
       createUser =
         <div className="col-2">
           <button
