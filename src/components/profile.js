@@ -3,15 +3,10 @@ import axios from 'axios';
 import URL from '../url';
 import { connect } from 'react-redux';
 import {
-  ADD_TO_STATE,
-  REMOVE_FROM_STATE,
-  RESET_STATE
-} from '../store/constants/action-types'
-//import {
-  //addToState,
-  //removeFromState,
-  //resetState
-//} from '../store/actions/index'
+  addToState,
+  removeFromState,
+  resetState
+} from '../store/actions/index'
 
 class Profile extends Component {
   constructor(props) {
@@ -123,9 +118,9 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    addToState: (phrase) => dispatch({ type: ADD_TO_STATE, phrase }),
-    removeFromState: (phrase) => dispatch({ type: REMOVE_FROM_STATE, phrase }),
-    resetState: () => dispatch({ type: RESET_STATE })
+    addToState: (phrase) => dispatch(addToState(phrase)),
+    removeFromState: (phrase) => dispatch(removeFromState(phrase)),
+    resetState: () => dispatch(resetState())
   }
 }
 

@@ -3,15 +3,10 @@ import axios from 'axios';
 import URL from '../url';
 import { connect } from 'react-redux';
 import {
-  CHANGE_LOGGED_IN,
-  SET_JWT,
-  SET_ID,
-} from '../store/constants/action-types';
-//import {
-  //changeLoggedIn,
-  //resetJwt,
-  //setId
-//} from '../store/actions/index';
+  changeLoggedIn,
+  setJwt,
+  setId
+} from '../store/actions/index';
 
 class Login extends Component {
   constructor(props) {
@@ -109,9 +104,9 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    changeLoggedIn: () => dispatch({ type: CHANGE_LOGGED_IN }),
-    setJwt: (jwt) => dispatch({ type: SET_JWT, jwt}),
-    setId: (userId) => dispatch({ type: SET_ID, userId })
+    changeLoggedIn: () => dispatch(changeLoggedIn()),
+    setJwt: (jwt) => dispatch(setJwt(jwt)),
+    setId: (userId) => dispatch(setId(userId))
   }
 }
 

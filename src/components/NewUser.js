@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import URL from '../url';
 import { connect } from 'react-redux';
-//import { creatingUser } from '../store/actions/index';
+import { creatingUser } from '../store/actions/index';
 
 class NewUser extends Component {
   constructor(props) {
@@ -82,7 +82,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    creatingUser: () => dispatch({ type: 'CHANGE_TRYING_TO_CREATE_USER' })
+    creatingUser: () => dispatch(creatingUser())
   }
 }
 

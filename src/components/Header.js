@@ -1,23 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
-  CHANGE_LOGGED_IN,
-  CHANGE_TRYING_TO_LOGIN,
-  CHANGE_TRYING_TO_CREATE_USER,
-  RESET_JWT,
-  RESET_ID,
-  RESET_SAVED_PHRASES,
-  RESET_STATE
-} from '../store/constants/action-types';
-//import {
-  //changeLoggedIn,
-  //loggingIn,
-  //creatingUser,
-  //resetJwt,
-  //resetId,
-  //resetSavedPhrases,
-  //resetState
-//} from '../store/actions/index';
+  changeLoggedIn,
+  loggingIn,
+  creatingUser,
+  resetJwt,
+  resetId,
+  resetSavedPhrases,
+  resetState
+} from '../store/actions/index';
 
 class Header extends Component {
   constructor(props) {
@@ -120,13 +111,13 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    changeLoggedIn: () => dispatch({ type: CHANGE_LOGGED_IN }),
-    loggingIn: () => dispatch({ type: CHANGE_TRYING_TO_LOGIN }),
-    creatingUser: () => dispatch({ type: CHANGE_TRYING_TO_CREATE_USER }),
-    resetJwt: () => dispatch({ type: RESET_JWT }),
-    resetId: () => dispatch({ type: RESET_ID }),
-    resetSavedPhrases: () => dispatch({ type: RESET_SAVED_PHRASES }),
-    resetState: () => dispatch({ type: RESET_STATE })
+    changeLoggedIn: () => dispatch(changeLoggedIn()),
+    loggingIn: () => dispatch(loggingIn()),
+    creatingUser: () => dispatch(creatingUser()),
+    resetJwt: () => dispatch(resetJwt()),
+    resetId: () => dispatch(resetId()),
+    resetSavedPhrases: () => dispatch(resetSavedPhrases()),
+    resetState: () => dispatch(resetState())
   }
 }
 

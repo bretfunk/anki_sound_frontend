@@ -6,13 +6,9 @@ import LambdaURL from '../lambdaUrl';
 import URL from '../url';
 import { connect } from 'react-redux';
 import {
-  SUBMIT_PHRASE,
-  ADD_TO_STATE
-} from '../store/constants/action-types';
-//import {
-  //submitPhrase,
-  //addToState
-//} from '../store/actions/index'
+  submitPhrase,
+  addToState
+} from '../store/actions/index'
 
 class Body extends Component {
   constructor(props) {
@@ -168,8 +164,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    submitPhrase: (phrase) => dispatch({ type: SUBMIT_PHRASE, phrase }),
-    addToState: (phrase) => dispatch({ type: ADD_TO_STATE, phrase })
+    submitPhrase: (phrase) => dispatch(submitPhrase(phrase)),
+    addToState: (phrase) => dispatch(addToState(phrase))
   }
 }
 
