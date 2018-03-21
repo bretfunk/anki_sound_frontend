@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import Form from './Form'
 import StorageURL from '../storageUrl';
-import LambdaURL from '../lambdaUrl';
 import URL from '../url';
 import { connect } from 'react-redux';
 import {
@@ -16,7 +15,7 @@ class Body extends Component {
 
     this.createPhrase    = this.createPhrase.bind(this)
     this.addToDb         = this.addToDb.bind(this)
-    this.createFile      = this.createFile.bind(this)
+    //this.createFile      = this.createFile.bind(this)
     this.onSubmit        = this.onSubmit.bind(this)
     this.play            = this.play.bind(this)
   }
@@ -26,7 +25,7 @@ class Body extends Component {
   }
 
   onSubmit(phrase){
-    this.createFile(phrase)
+    this.this.createFile(phrase)
     this.props.submitPhrase(phrase)
   }
 
@@ -38,7 +37,7 @@ class Body extends Component {
     let fullPhrase = {phrase: phrase, language: language}
     this.createPhrase(fullPhrase)
     this.props.addToState(fullPhrase)
-    this.createFile(fullPhrase)
+    //this.props.createFile(fullPhrase)
   }
 
   createPhrase(phrase) {
@@ -55,17 +54,6 @@ class Body extends Component {
       })
       .catch((error) => {
         console.log(error)
-      })
-  }
-
-  createFile(rawPhrase) {
-    let phrase = rawPhrase.phrase
-    let language = this.props.languageHash[rawPhrase.language]
-    let fileName = this.props.formatFileName(phrase)
-    axios.get(LambdaURL() + `?phrase=${phrase}&language=${language}&file_name=${fileName}`
-      //axios.get(URL() + `audio?phrase=${phrase}&language=${language}&file_name=${fileName}`
-    )
-      .then((response) => {
       })
   }
 

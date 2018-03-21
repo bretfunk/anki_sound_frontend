@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
+import axios from 'axios';
 import StorageURL from './storageUrl';
+import LambdaURL from './lambdaUrl';
 import Header from './components/Header';
 import MainWindow from './components/MainWindow';
 import SideWindow from './components/SideWindow';
@@ -13,6 +15,7 @@ class App extends Component {
     super(props)
     this.format          = this.format.bind(this)
     this.formatFileName  = this.formatFileName.bind(this)
+    this.createFile      = this.createFile.bind(this)
   }
 
   format(phrase) {
@@ -26,6 +29,18 @@ class App extends Component {
     return phrase.toString().trim().split(' ').join('_')
   }
 
+  createFile(rawPhrase) {
+    let phrase = rawPhrase.phrase
+    let language = this.props.languageHash[rawPhrase.language]
+    let fileName = this.formatFileName(phrase)
+    axios.get(LambdaURL() + `?phrase=${phrase}&language=${language}&file_name=${fileName}`
+      //axios.get(URL() + `audio?phrase=${phrase}&language=${language}&file_name=${fileName}`
+    )
+      .then((response) => {
+      })
+  }
+
+
   render() {
     let orientation;
     if (this.props.loggedIn) {
@@ -35,12 +50,14 @@ class App extends Component {
             <MainWindow
               format={this.format}
               formatFileName={this.formatFileName}
+              createFile={this.createFile}
             />
           </div>
           <div className="col-5">
             <SideWindow
               format={this.format}
               formatFileName={this.formatFileName}
+              createFile={this.createFile}
             />
           </div>
         </div>
@@ -50,6 +67,7 @@ class App extends Component {
           <MainWindow
               format={this.format}
               formatFileName={this.formatFileName}
+              createFile={this.createFile}
           />
         </div>
     }

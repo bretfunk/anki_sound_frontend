@@ -10,6 +10,7 @@ class MainWindow extends Component {
         <Body
           format={this.props.format}
           formatFileName={this.props.formatFileName}
+          createFile={this.props.createFile}
         />
       </div>
     )

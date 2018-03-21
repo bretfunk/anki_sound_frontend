@@ -8,6 +8,7 @@ class SideWindow extends Component {
         <Profile
           format={this.props.format}
           formatFileName={this.props.formatFileName}
+          createFile={this.props.createFile}
         />
       </div>
     )
@@ -15,4 +16,3 @@ class SideWindow extends Component {
 }
 
 export default SideWindow;
-

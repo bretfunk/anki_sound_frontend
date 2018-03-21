@@ -11,13 +11,19 @@ import {
 class Profile extends Component {
   constructor(props) {
     super(props);
-    this.handleDelete    = this.handleDelete.bind(this);
-    this.formatPhrase    = this.formatPhrase.bind(this);
+    this.handleDelete      = this.handleDelete.bind(this);
+    this.formatPhrase      = this.formatPhrase.bind(this);
+    this.setupSavedPhrases = this.setupSavedPhrases.bind(this);
   }
 
   componentDidMount() {
     this.props.resetState()
     this.getSavedPhrases()
+  }
+
+  setupSavedPhrases(phrase) {
+    this.props.addToState(phrase)
+    this.props.createFile(phrase)
   }
 
   getSavedPhrases() {
@@ -31,7 +37,7 @@ class Profile extends Component {
     )
       .then((response) => {
         response.data.map((phrase) =>
-          this.props.addToState(phrase)
+          this.setupSavedPhrases(phrase)
         )
       })
   }
