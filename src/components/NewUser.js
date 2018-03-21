@@ -1,8 +1,10 @@
-import React, {Component} from 'react'
-import axios from 'axios'
-import URL from '../url'
+import React, {Component} from 'react';
+import axios from 'axios';
+import URL from '../url';
+import { connect } from 'react-redux';
+import { creatingUser } from '../store/actions/index';
 
-class Login extends Component {
+class NewUser extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -28,6 +30,7 @@ class Login extends Component {
     this.createUser()
   }
 
+  //TODO login user upon creation
   createUser() {
     const email = this.state.email
     const password = this.state.password
@@ -41,23 +44,47 @@ class Login extends Component {
       .catch((error) => {
         alert(error)
       })
-    }
+  }
 
   render() {
     return (
       <div className="mx-auto">
-      <form onSubmit={this.handleSubmit}>
-      <h5>
-      Email:
-      <input type="email" value={this.state.email} onChange={this.handleEmailChange}/>
-      Password:
-      <input type="password" value={this.state.password} onChange={this.handlePasswordChange}/>
-      <input className="btn-sm btn mainButtonColor" type="submit" value="Create Account" />
-      </h5>
-      </form>
+        <form onSubmit={this.handleSubmit}>
+          <h5>
+            Email:
+            <input
+              type="email"
+              value={this.state.email}
+              onChange={this.handleEmailChange}
+            />
+            Password:
+            <input
+              type="password"
+              value={this.state.password}
+              onChange={this.handlePasswordChange}
+            />
+            <input
+              className="btn-sm btn mainButtonColor"
+              type="submit"
+              value="Create Account"
+            />
+          </h5>
+        </form>
       </div>
     )
   }
+
+}
+function mapStateToProps(state) {
+  return {
+    tryingToCreateUser: state.heading.tryingToCreateUser
+  }
 }
 
-export default Login;
+function mapDispatchToProps(dispatch) {
+  return {
+    creatingUser: () => dispatch(creatingUser())
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps) (NewUser);
