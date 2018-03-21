@@ -15,7 +15,6 @@ class Body extends Component {
 
     this.createPhrase    = this.createPhrase.bind(this)
     this.addToDb         = this.addToDb.bind(this)
-    //this.createFile      = this.createFile.bind(this)
     this.onSubmit        = this.onSubmit.bind(this)
     this.play            = this.play.bind(this)
   }
@@ -25,7 +24,7 @@ class Body extends Component {
   }
 
   onSubmit(phrase){
-    this.this.createFile(phrase)
+    this.props.createFile(phrase)
     this.props.submitPhrase(phrase)
   }
 
@@ -37,7 +36,6 @@ class Body extends Component {
     let fullPhrase = {phrase: phrase, language: language}
     this.createPhrase(fullPhrase)
     this.props.addToState(fullPhrase)
-    //this.props.createFile(fullPhrase)
   }
 
   createPhrase(phrase) {
