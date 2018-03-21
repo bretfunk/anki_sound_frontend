@@ -4,4 +4,3 @@ function URL() {
 }
 
 export default URL
-
