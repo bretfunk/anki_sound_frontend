@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { Component } from "react";
+import { connect } from "react-redux";
 import {
   changeLoggedIn,
   loggingIn,
@@ -8,62 +8,65 @@ import {
   resetId,
   resetSavedPhrases,
   resetState
-} from '../store/actions/index';
+} from "../store/actions/index";
 
 class Header extends Component {
   constructor(props) {
-    super(props)
-    this.log = this.log.bind(this)
-    this.new = this.new.bind(this)
-    this.exitProgram = this.exitProgram.bind(this)
+    super(props);
+    this.log = this.log.bind(this);
+    this.new = this.new.bind(this);
+    this.exitProgram = this.exitProgram.bind(this);
   }
 
   exitProgram() {
-    this.props.resetState()
+    this.props.resetState();
     //this.props.resetSavedPhrases()
-    this.props.resetJwt()
-    this.props.resetId()
-    this.props.changeLoggedIn()
+    this.props.resetJwt();
+    this.props.resetId();
+    this.props.changeLoggedIn();
   }
 
-  log=(event)=>{
-    event.preventDefault()
-    this.props.loggingIn()
-  }
+  log = event => {
+    event.preventDefault();
+    this.props.loggingIn();
+  };
 
-  logOut=(event)=>{
-    event.preventDefault()
-    this.exitProgram()
-  }
+  logOut = event => {
+    event.preventDefault();
+    this.exitProgram();
+  };
 
-  new=(event)=>{
-    event.preventDefault()
-    this.props.creatingUser()
-  }
+  new = event => {
+    event.preventDefault();
+    this.props.creatingUser();
+  };
 
   render() {
     let createUser;
     if (this.props.tryingToCreateUser && !this.props.loggedIn) {
-      createUser =
+      createUser = (
         <div className="col-2">
           <button
             className="col-sm btn secondaryButtonColor"
             onClick={this.new}
           >
-            Sign Up
+            Sign up
           </button>
         </div>
+      );
     } else if (this.props.loggedIn) {
-      createUser =
+      createUser = (
         <div className="col-2">
           <button
-            style={{display: "none"}}
+            style={{ display: "none" }}
             className="col-sm btn secondaryButtonColor"
-          >Hidden
+          >
+            Hidden
           </button>
         </div>
-    }else {
-      createUser =
+      );
+    } else {
+      createUser = (
         <div className="col-2">
           <button
             className="col-sm btn secondaryButtonColor"
@@ -72,11 +75,12 @@ class Header extends Component {
             Sign Up
           </button>
         </div>
+      );
     }
 
     let loginOrLogout;
     if (this.props.loggedIn) {
-      loginOrLogout =
+      loginOrLogout = (
         <div className="col-2">
           <button
             className="col-sm btn secondaryButtonColor"
@@ -85,8 +89,9 @@ class Header extends Component {
             Logout
           </button>
         </div>
+      );
     } else {
-      loginOrLogout =
+      loginOrLogout = (
         <div className="col-2">
           <button
             className="col-sm btn secondaryButtonColor"
@@ -95,6 +100,7 @@ class Header extends Component {
             Login
           </button>
         </div>
+      );
     }
 
     return (
@@ -107,7 +113,7 @@ class Header extends Component {
           {loginOrLogout}
         </div>
       </div>
-    )
+    );
   }
 }
 
@@ -115,7 +121,7 @@ function mapStateToProps(state) {
   return {
     loggedIn: state.heading.loggedIn,
     tryingToCreateUser: state.heading.tryingToCreateUser
-  }
+  };
 }
 
 function mapDispatchToProps(dispatch) {
@@ -127,7 +133,7 @@ function mapDispatchToProps(dispatch) {
     resetId: () => dispatch(resetId()),
     resetSavedPhrases: () => dispatch(resetSavedPhrases()),
     resetState: () => dispatch(resetState())
-  }
+  };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps) (Header);
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

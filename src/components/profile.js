@@ -1,80 +1,82 @@
-import React, { Component } from 'react';
-import axios from 'axios';
-import URL from '../url';
-import { connect } from 'react-redux';
+import React, { Component } from "react";
+import axios from "axios";
+import URL from "../url";
+import { connect } from "react-redux";
 import {
   addToState,
   removeFromState,
   resetState
-} from '../store/actions/index'
+} from "../store/actions/index";
 
 class Profile extends Component {
   constructor(props) {
     super(props);
-    this.handleDelete      = this.handleDelete.bind(this);
-    this.formatPhrase      = this.formatPhrase.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
+    this.formatPhrase = this.formatPhrase.bind(this);
     this.setupSavedPhrases = this.setupSavedPhrases.bind(this);
   }
 
   componentDidMount() {
-    this.props.resetState()
-    this.getSavedPhrases()
+    this.props.resetState();
+    this.getSavedPhrases();
   }
 
   setupSavedPhrases(phrase) {
-    this.props.addToState(phrase)
-    this.props.createFile(phrase)
+    this.props.addToState(phrase);
+    this.props.createFile(phrase);
   }
 
   getSavedPhrases() {
     let config = {
       headers: {
-        'Authorization': 'Bearer ' + this.props.jwt
+        Authorization: "Bearer " + this.props.jwt
       }
-    }
-    axios.get(URL() + 'api/phrases',
-      config
-    )
-      .then((response) => {
-        response.data.map((phrase) =>
-          this.setupSavedPhrases(phrase)
-        )
-      })
+    };
+    axios.get(URL() + "api/phrases", config).then(response => {
+      response.data.map(phrase => this.setupSavedPhrases(phrase));
+    });
   }
 
   formatPhrase(event) {
-    let data = event.target.parentElement.parentElement.innerText.replace('Download', '')
-    let newData = data.replace('Delete', '').split(':')
-    let language = newData[0]
-    let phrase = newData[1].replace(language, '').trim()
-    let fullPhrase = {language: language, phrase: phrase}
-    return fullPhrase
+    let data = event.target.parentElement.parentElement.innerText.replace(
+      "Download",
+      ""
+    );
+    let newData = data.replace("Delete", "").split(":");
+    let language = newData[0];
+    let phrase = newData[1].replace(language, "").trim();
+    let fullPhrase = { language: language, phrase: phrase };
+    return fullPhrase;
   }
 
   removeFromDb(phrase) {
-    this.props.removeFromState(phrase)
-    this.deletePhrase(phrase)
+    this.props.removeFromState(phrase);
+    this.deletePhrase(phrase);
   }
 
   deletePhrase(phrase) {
-    axios.delete(URL() + `api/phrases?phrase=${phrase.phrase}&user_id=${this.props.userId}`)
-      .then((response) => {
-        console.log(response + ' deleted')
+    axios
+      .delete(
+        URL() +
+          `api/phrases?phrase=${phrase.phrase}&user_id=${this.props.userId}`
+      )
+      .then(response => {
+        console.log(response + " deleted");
       })
-      .catch((error) => {
-        console.log(error)
-      })
+      .catch(error => {
+        console.log(error);
+      });
   }
 
-  handleDelete = (event) => {
-    event.preventDefault()
-    this.removeFromDb(this.formatPhrase(event))
-  }
+  handleDelete = event => {
+    event.preventDefault();
+    this.removeFromDb(this.formatPhrase(event));
+  };
 
   render() {
     let list;
     if (this.props.dbPhrases) {
-      list = this.props.dbPhrases.map((phrase, index) =>
+      list = this.props.dbPhrases.map((phrase, index) => (
         <tr key={index}>
           <td className="btn-sm languageButtonColor text-dark btn text-left">
             {phrase.language}:
@@ -86,7 +88,10 @@ class Profile extends Component {
             <a
               href={this.props.format(phrase)}
               className="btn secondaryButtonColor btn-sm text-dark text-right"
-              download>Download</a>
+              download
+            >
+              Download
+            </a>
           </td>
           <td>
             <button
@@ -96,18 +101,19 @@ class Profile extends Component {
               Delete
             </button>
           </td>
-        </tr>)
+        </tr>
+      ));
     } else {
-      list = ""
+      list = "";
     }
     return (
       <div>
         <br />
-        <h1 className="bannerColor text-white rounded heading">Saved Phrases</h1>
+        <h1 className="bannerColor text-white rounded heading">
+          Saved Phrases
+        </h1>
         <table width="100%">
-          <tbody>
-            {list}
-          </tbody>
+          <tbody>{list}</tbody>
         </table>
       </div>
     );
@@ -119,15 +125,15 @@ function mapStateToProps(state) {
     dbPhrases: state.phrase.dbPhrases,
     jwt: state.login.jwt,
     userId: state.login.userId
-  }
+  };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    addToState: (phrase) => dispatch(addToState(phrase)),
-    removeFromState: (phrase) => dispatch(removeFromState(phrase)),
+    addToState: phrase => dispatch(addToState(phrase)),
+    removeFromState: phrase => dispatch(removeFromState(phrase)),
     resetState: () => dispatch(resetState())
-  }
+  };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps) (Profile);
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);

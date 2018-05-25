@@ -16,10 +16,6 @@ class Body extends Component {
     this.play = this.play.bind(this);
   }
 
-  play = () => {
-    this.audio.play();
-  };
-
   onSubmit(phrase) {
     phrase.loading = true;
     this.props.createFile(phrase);
@@ -30,7 +26,8 @@ class Body extends Component {
     let parsed = data.currentTarget.parentElement.parentElement.innerText;
     let newParsed = parsed
       .replace("Download", "")
-      .replace("Save to Profile", "")
+      .replace("Save", "")
+      .replace("Play", "")
       .split(":");
     let language = newParsed[0];
     let phrase = newParsed[1].replace(language, "").trim();
@@ -70,16 +67,21 @@ class Body extends Component {
     return link;
   }
 
+  play(phrase) {
+    const audio = new Audio(this.props.format(phrase));
+    audio.play();
+  }
+
   render() {
     let button;
     if (this.props.loggedIn) {
       button = (
         <td>
           <button
-            className="btn secondaryButtonColor btn-sm text-dark"
+            className="btn languageButtonColor btn-sm text-dark"
             onClick={this.addToDb}
           >
-            Save to Profile
+            Save
           </button>
         </td>
       );
@@ -97,24 +99,25 @@ class Body extends Component {
           <td>
             <h4>{phrase.phrase}</h4>
           </td>
-          <td />
-          <form method="get" action={this.props.format(phrase)}>
+          <td>
+            <form method="get" action={this.props.format(phrase)}>
+              <button
+                type="submit"
+                className="btn mainButtonColor text-dark btn-sm text-right"
+                disabled={phrase.loading}
+              >
+                Download
+              </button>
+            </form>
+          </td>
+          <td>
             <button
-              type="submit"
-              className="btn mainButtonColor text-dark btn-sm text-right"
+              className="btn secondaryButtonColor text-dark btn-sm text-right"
+              onClick={() => this.play(phrase)}
               disabled={phrase.loading}
             >
-              Download
+              Play
             </button>
-          </form>
-          <td>
-            <audio
-              ref={audio => {
-                this.audio = audio;
-              }}
-              src={this.props.format(phrase)}
-              type="audio/mp3"
-            />
           </td>
           {button}
         </tr>
@@ -123,8 +126,6 @@ class Body extends Component {
       list = "";
     }
 
-    //this is the play button but it only works when one word is present
-    //<td><button onClick={this.play}>Play</button></td>
     return (
       <div className="mainWindowColor">
         <br />
