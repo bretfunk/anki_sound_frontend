@@ -1,36 +1,36 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
 class Form extends Component {
   constructor() {
-    super()
-    this.state={
-      phrase: '',
-      language: 'English'
-    }
+    super();
+    this.state = {
+      phrase: "",
+      language: "English"
+    };
   }
 
-  handlePhraseChange = (event) => {
+  handlePhraseChange = event => {
     this.setState({
       phrase: event.target.value
-    })
-  }
+    });
+  };
 
-  handleLanguageChange = (event) => {
+  handleLanguageChange = event => {
     this.setState({
       language: event.target.value
-    })
-  }
-  handleSubmit=(event)=>{
-    event.preventDefault()
-    this.props.onSubmit(this.state)
+    });
+  };
+  handleSubmit = event => {
+    event.preventDefault();
+    this.props.onSubmit(this.state);
     this.setState({
-      phrase: ''
-    })
-  }
+      phrase: ""
+    });
+  };
 
   //TODO rewrite this programmatically
   render() {
-    let options =
+    let options = (
       <select value={this.state.language} onChange={this.handleLanguageChange}>
         <option value="Afrikaans">Afrikaans</option>
         <option value="Albanian">Albanian</option>
@@ -71,25 +71,28 @@ class Form extends Component {
         <option value="Turkish">Turkish</option>
         <option value="Vietnamese">Vietnamese</option>
       </select>
+    );
 
-      return(
-        <form onSubmit={this.handleSubmit}>
-          {options}
-          <input
-            type='text'
-            onChange={this.handlePhraseChange}
-            value={this.state.phrase}
-          />
-          <button
-            className="btn secondaryButtonColor btn-sm"
-            type='submit'
-            onSubmit={this.handleSubmit}
-            value={this.state}
-          >
-            Submit
-          </button>
-        </form>
-      )
+    return (
+      <form onSubmit={this.handleSubmit}>
+        {options}
+        <input
+          className="w-50 mx-1 mt-4 text-center"
+          placeholder="Hello"
+          type="text"
+          onChange={this.handlePhraseChange}
+          value={this.state.phrase}
+        />
+        <button
+          className="btn secondaryButtonColor btn-sm"
+          type="submit"
+          onSubmit={this.handleSubmit}
+          value={this.state}
+        >
+          Submit
+        </button>
+      </form>
+    );
   }
 }
 

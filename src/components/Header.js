@@ -1,14 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import {
-  changeLoggedIn,
-  loggingIn,
-  creatingUser,
-  resetJwt,
-  resetId,
-  resetSavedPhrases,
-  resetState
-} from "../store/actions/index";
+import { resetSavedPhrases, resetState } from "../ducks/Phrase";
+import { changeLoggedIn, loggingIn, creatingUser } from "../ducks/Heading";
+import { resetJwt, resetId } from "../ducks/Login";
 
 class Header extends Component {
   constructor(props) {
@@ -117,23 +111,18 @@ class Header extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
+export default connect(
+  state => ({
     loggedIn: state.heading.loggedIn,
     tryingToCreateUser: state.heading.tryingToCreateUser
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    changeLoggedIn: () => dispatch(changeLoggedIn()),
-    loggingIn: () => dispatch(loggingIn()),
-    creatingUser: () => dispatch(creatingUser()),
-    resetJwt: () => dispatch(resetJwt()),
-    resetId: () => dispatch(resetId()),
-    resetSavedPhrases: () => dispatch(resetSavedPhrases()),
-    resetState: () => dispatch(resetState())
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+  }),
+  {
+    changeLoggedIn,
+    loggingIn,
+    creatingUser,
+    resetJwt,
+    resetId,
+    resetSavedPhrases,
+    resetState
+  }
+)(Header);

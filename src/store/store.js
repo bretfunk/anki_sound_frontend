@@ -1,5 +1,5 @@
-import { createStore } from 'redux';
-import rootReducer from '../reducers/rootReducer';
+import { createStore } from "redux";
+import rootReducer from "../ducks/Root";
 
 const ankiSoundDefaultState = {
   heading: {
@@ -8,8 +8,8 @@ const ankiSoundDefaultState = {
     tryingToCreateUser: false
   },
   login: {
-    jwt: '',
-    userId: '',
+    jwt: "",
+    userId: ""
   },
   phrase: {
     savedPhrases: [],
@@ -55,10 +55,10 @@ const ankiSoundDefaultState = {
       Tamil: "ta",
       Thai: "th",
       Turkish: "tr",
-      Vietnamese: "vi",
+      Vietnamese: "vi"
     }
   }
-}
+};
 
 const store = createStore(rootReducer, ankiSoundDefaultState);
 
