@@ -14,7 +14,7 @@ B
 1. Clone down the repo using the command below in your terminal:
 - $ git clone https://github.com/bretfunk/anki_sound_frontend
 
-2. Change directory into the anki_sound_backend directory
+2. Change directory into the anki_sound_frontend directory
 - $ cd anki_sound_frontend
 
 3. Run npm install to install dependencies
@@ -43,6 +43,6 @@ If the file you wish to download cases the application to crash, this is a downl
 
 ## Upcoming Features
 -Once a user is created they are automatically logged-in
--User can play files and not just download them
+-Users can play files from profile
 
 To request a feature, email the application creator directly at bret.e.funk@gmail.com

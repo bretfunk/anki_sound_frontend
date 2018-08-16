@@ -1,16 +1,16 @@
-import React, {Component} from 'react';
-import axios from 'axios';
-import URL from '../url';
-import { connect } from 'react-redux';
-import { creatingUser } from '../store/actions/index';
+import React, { Component } from "react";
+import axios from "axios";
+import URL from "../url";
+import { connect } from "react-redux";
+import { creatingUser } from "../ducks/Heading";
 
 class NewUser extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: '',
-      password: '',
-    }
+      email: "",
+      password: ""
+    };
     this.handleEmailChange = this.handleEmailChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -18,32 +18,31 @@ class NewUser extends Component {
   }
 
   handleEmailChange(event) {
-    this.setState({email: event.target.value});
+    this.setState({ email: event.target.value });
   }
 
   handlePasswordChange(event) {
-    this.setState({password: event.target.value});
+    this.setState({ password: event.target.value });
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    this.createUser()
+    this.createUser();
   }
 
   //TODO login user upon creation
   createUser() {
-    const email = this.state.email
-    const password = this.state.password
-    let data = { email: email, password: password }
-    axios.post(URL() + 'api/users',
-      data
-    )
-      .then((response) => {
-        this.props.creatingUser()
+    const email = this.state.email;
+    const password = this.state.password;
+    let data = { email: email, password: password };
+    axios
+      .post(URL() + "api/users", data)
+      .then(response => {
+        this.props.creatingUser();
       })
-      .catch((error) => {
-        alert(error)
-      })
+      .catch(error => {
+        alert(error);
+      });
   }
 
   render() {
@@ -71,20 +70,11 @@ class NewUser extends Component {
           </h5>
         </form>
       </div>
-    )
-  }
-
-}
-function mapStateToProps(state) {
-  return {
-    tryingToCreateUser: state.heading.tryingToCreateUser
+    );
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    creatingUser: () => dispatch(creatingUser())
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps) (NewUser);
+export default connect(
+  state => ({ tryingToCreateUser: state.heading.tryingToCreateUser }),
+  { creatingUser }
+)(NewUser);

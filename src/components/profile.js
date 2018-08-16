@@ -2,11 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import URL from "../url";
 import { connect } from "react-redux";
-import {
-  addToState,
-  removeFromState,
-  resetState
-} from "../store/actions/index";
+import { addToState, removeFromState, resetState } from "../ducks/Phrase";
 
 class Profile extends Component {
   constructor(props) {
@@ -120,20 +116,11 @@ class Profile extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
+export default connect(
+  state => ({
     dbPhrases: state.phrase.dbPhrases,
     jwt: state.login.jwt,
     userId: state.login.userId
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    addToState: phrase => dispatch(addToState(phrase)),
-    removeFromState: phrase => dispatch(removeFromState(phrase)),
-    resetState: () => dispatch(resetState())
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Profile);
+  }),
+  { addToState, removeFromState, resetState }
+)(Profile);

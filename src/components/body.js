@@ -4,7 +4,7 @@ import Form from "./Form";
 import StorageURL from "../storageUrl";
 import URL from "../url";
 import { connect } from "react-redux";
-import { submitPhrase, addToState } from "../store/actions/index";
+import { submitPhrase, addToState } from "../ducks/Phrase";
 
 class Body extends Component {
   constructor(props) {
@@ -147,20 +147,12 @@ class Body extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
+export default connect(
+  state => ({
     loggedIn: state.heading.loggedIn,
     savedPhrases: state.phrase.savedPhrases,
     languageHash: state.random.languageHash,
     userId: state.login.userId
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    submitPhrase: phrase => dispatch(submitPhrase(phrase)),
-    addToState: phrase => dispatch(addToState(phrase))
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Body);
+  }),
+  { submitPhrase, addToState }
+)(Body);

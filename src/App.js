@@ -9,7 +9,7 @@ import SideWindow from "./components/SideWindow";
 import Login from "./components/Login";
 import NewUser from "./components/NewUser";
 import { connect } from "react-redux";
-import { disableLoading } from "./store/actions/index";
+import { disableLoading } from "./ducks/Phrase";
 
 class App extends Component {
   constructor(props) {
@@ -135,20 +135,13 @@ class App extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
+export default connect(
+  state => ({
     loggedIn: state.heading.loggedIn,
     savedPhrases: state.phrase.savedPhrases,
     tryingToLogin: state.heading.tryingToLogin,
     tryingToCreateUser: state.heading.tryingToCreateUser,
     languageHash: state.random.languageHash
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    disableLoading: phrase => dispatch(disableLoading(phrase))
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+  }),
+  { disableLoading }
+)(App);
