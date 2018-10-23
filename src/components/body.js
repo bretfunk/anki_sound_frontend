@@ -104,7 +104,6 @@ class Body extends Component {
               <button
                 type="submit"
                 className="btn mainButtonColor text-dark btn-sm text-right"
-                disabled={phrase.loading}
               >
                 Download
               </button>
@@ -132,6 +131,7 @@ class Body extends Component {
         <h1 className="bannerColor text-white rounded heading">
           Phrase to Convert
         </h1>
+
         <h5>
           <Form onSubmit={this.onSubmit} />
         </h5>
