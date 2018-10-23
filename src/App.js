@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import "./App.css";
 import axios from "axios";
 import StorageURL from "./storageUrl";
-import LambdaURL from "./lambdaUrl";
+// import LambdaURL from "./lambdaUrl";
+import URL from "./url";
 import Header from "./components/Header";
 import MainWindow from "./components/MainWindow";
 import SideWindow from "./components/SideWindow";
@@ -51,14 +52,14 @@ class App extends Component {
     let phrase = rawPhrase.phrase;
     let language = this.props.languageHash[rawPhrase.language];
     let fileName = this.formatFileName(phrase);
+    // axios
+    // .get(
+    // LambdaURL() +
+    // `?phrase=${phrase}&language=${language}&file_name=${fileName}`
     axios
       .get(
-        LambdaURL() +
-          `?phrase=${phrase}&language=${language}&file_name=${fileName}`
-        //axios
-        //.get(
-        //URL() +
-        //`audio?phrase=${phrase}&language=${language}&file_name=${fileName}`
+        URL() +
+          `audio?phrase=${phrase}&language=${language}&file_name=${fileName}`
       )
       .then(response => {
         this.disableLoading(rawPhrase);
